@@ -16,20 +16,15 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 One you have the data....
 
-::: panel-tabset
-## R
+```{r}
+library(haven)
 
-```         
-library(dplyr) library(tidyr) library(sjmisc) library(tidytab)
-setwd("~/LFS workshop") getwd()
-Open data and keep relevant variables.
-lfs_od20 <- haven::read_sav("UKDA-8777-spss/spss/spss25/lfsp_od20_eul_PWT20.sav"). 
 ```
 
-## SPSS
-
-## Stata
-:::
+```         
+#Open data and keep relevant variables.
+lfs_od20 <- haven::read_sav("data/UKDA-8777-spss/spss/spss28
+```
 
 Inspect the data.
 

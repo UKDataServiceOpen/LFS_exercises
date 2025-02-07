@@ -12,39 +12,37 @@
 ### the UK Data Service (<http://doi.org/10.5255/UKDA-SN-8777-3>)
 
 ### Get set up. You will need to access the data (see above)
-library(dplyr)
+library(dplyr) #data manipulation
 library(tidyr)
 library(sjmisc)
 library(tidytab)
 
 ### Set directory. - you need to add the correct file path for your computer, where is the data saved?
-  
-setwd("~/LFS workshop")
-getwd()
-
-C:\Users\msrahjb2\OneDrive - The University of Manchester\LFS_exercises\data
+setwd ("~/LFS_exercises")
+getwd() 
 
 ### Open data and keep relevant variables.
-lfs_od20 <- haven::read_sav("UKDA-8777-spss/spss/spss25/lfsp_od20_eul_PWT20.sav")
+lfs_od20 <- haven::read_sav("data/UKDA-8777-spss/spss/spss28/lfsp_od20_eul_pwt24.sav")
 
 
 ### REVIEW QUESTIONS
 ### How many variables are there?
-ncol(lfs_od20)
+
+dim(lfs_od20)  
 
 ### Save a copy, keeping only the relevant variables.
 
-mydata1 <- lfs_od20 %>%  
-  select(PERSNO, PWT20, JBTP101, FTPT, INECAC05, JOBTYP, SEX)
-head(mydata1)
+data <- lfs_od20 %>%  
+  select(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)
+head(data)
 
 ### Examine variables.
 
-frq(mydata1$JBTP101)
-frq(mydata1$FTPT)
-frq(mydata1$INECAC05)
-frq(mydata1$JOBTYP)
-frq(mydata1$SEX)
+frq(data$JBTP101)
+frq(data$FTPT)
+frq(data$INECAC05)
+frq(data$JOBTYP)
+frq(data$SEX)
 
 
 ### REVIEW QUESTIONS
