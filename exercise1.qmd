@@ -1,111 +1,124 @@
 # Estimates of temporary employment
 
-In this exercise, you can recreate ONS labour market analysis reported in the table [EMP07 Temporary Employees](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07). This table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).
+In this exercise, you can recreate ONS labour market analysis reported in the table [EMP07 Temporary Employees](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07). Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).
 
 Learning outcomes:
 
--   Add learning outcomes here.
+-   To become more familiar with QLFS datasets.
+-   To become more familiar with the weighting variable.
 
 ## Data
 
 The data used relates to an estimate for Oct-December 2020.
 
-To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2020](http://doi.org/10.5255/UKDA-SN-8777-3)
+To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2020](http://doi.org/10.5255/UKDA-SN-8777-3).
 
 ## Get set-up
 
-One you have the data....
+One you have downloaded the data, save it some where accessible.
 
 ```{r}
 library(haven)
-
+library(tidyverse)
+library (sjmisc) #used for some of the tables 
 ```
 
-```         
+```{r}
+#setwd ("~/LFS_exercises")
+
 #Open data and keep relevant variables.
-lfs_od20 <- haven::read_sav("data/UKDA-8777-spss/spss/spss28
+lfs_od20 <- haven::read_sav("data/UKDA-8777-spss/spss/spss28/lfsp_od20_eul_pwt24.sav")
+
 ```
 
-Inspect the data.
+Inspect the dataset including the number of cases and variables.
 
-> **REVIEW QUESTIONS**
->
-> 1.  How many variables are there?
+```{r}
+dim(lfs_od20) 
 
-Let's save a copy, keeping only the relevant variables.
+```
 
 ::: panel-tabset
-## R
+## Questions
 
-```         
-mydata1 \<- lfs_od20 %\>%select(PERSNO, PWT20, JBTP101, FTPT, INECAC05, JOBTYP, SEX) head(mydata1). 
-```
+1.  How many variables are there?
 
-## SPSS
+## Answers
 
-## Stata
+1.  824
 :::
+
+As the dataset is large, let's save a copy with just the variables we will use.
+
+```{r}
+data <- lfs_od20 %>% 
+  select(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)
+
+head(data)
+```
 
 ### Examine variables
 
-Now examine key variables in the dataset.
+Now let's examine key variables in the dataset.
+
+```{r}
+data %>% select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) %>% frq()
+
+```
+
+```         
+```
 
 ::: panel-tabset
-## R
+## Questions
 
-```         
-frq(mydata1$JBTP101) frq(mydata1$FTPT) frq(mydata1$INECAC05) frq(mydata1$JOBTYP) frq(mydata1$SEX}`
-```
+1.  How many cases are there?
 
-## SPSS
+2.  What does the variable inecac05 relate to?
 
-```         
-```
+3.  Why are there many missing cases on the variables: jbtp101, ftpt and jobtyp.
 
-## Stata
-
-```         
-```
+## Answers
 :::
-
-> REVIEW QUESTIONS
->
-> 1.  How many cases are there?
->
-> 2.  What does the variable inecac05 relate to?
->
-> 3.  Why are there many missing cases on the variables: jbtp101, ftpt and jobtyp.
 
 nb: missing values changed from -9 to -8 to NA, so hard to tell from frequencies
 
+```{r}
+misscheck <- haven::read_sav("data/UKDA-8777-spss/spss/spss28/lfsp_od20_eul_pwt24.sav", user_na = TRUE)
+
+table(misscheck$JOBTYP)
+
+```
+
+### Apply the weight (simple)
+
 Apply the weight and examine the variable frequencies again.
 
-frq(mydata1$JBTP101, weights = mydata1$PWT20) frq(mydata1$FTPT, weights = mydata1$PWT20) frq(mydata1$INECAC05, weights = mydata1$PWT20) frq(mydata1$JOBTYP, weights = mydata1$PWT20) frq(mydata1$SEX, weights = mydata1$PWT20)
+```{r}
 
-> REVIEW QUESTIONS
->
-> 1.  Do the frequencies change noticeably when the weight is applied?
->
-> 2.  Run this code to adjust the category order and labels.
+# Define the variables you want to analyze
+variables <- c("JBTP101", "FTPT", "INECAC05", "JOBTYP", "SEX")
 
-::: panel-tabset
-## R
+# Apply frq() to each variable with weights
+lapply(variables, function(var) frq(data[[var]], weights = data$PWT24))
 
-```         
+```
+
+REVIEW QUESTIONS
+
+1.  Do the frequencies change noticeably when the weight is applied?
+
+Run this code to adjust the category order and labels.
+
+\`..\
 mydata1$JobTmp <- rec(mydata1$JBTP101,rec="1=3;2=4;3=1;4=2;5=5;-8,-9=6")
 
 mydata1$JobTmp <-sjlabelled::set_labels(mydata1$JobTmp, labels = c( "Seasonal work", "Done under contract for a fixed period","Agency Temping", "Casual type of work", "Some other reason"))
-```
-
-## SPSS
 
 ```         
+       
 ```
 
-## Stata
-
-```         
-```
 :::
 
 Create a filter to select those with a weight greater than 0.
@@ -122,27 +135,11 @@ mydata1 \<- filter (mydata1, PWT20\>0)
 
 Create a variable to indicate those working part time.
 
-::: panel-tabset \## R
-
 ```{r}
-
-```
-
-## SPSS
-
-```         
-```
-
-## Stata
-
-```         
-```
-
-:::
-
 mydata1$PartTime <- rec(mydata1$FTPT,rec="2,4=1; else=0")
 
 mydata1$PartTime <-sjlabelled::set_labels(mydata1$PartTime, labels = c("Part Time"))
+```
 
 ### REVIEW QUESTIONS
 
@@ -174,24 +171,14 @@ Note: You can check if your results match those in the [ONS EMP07 dataset](https
 
 Finally, get unweighted frequencies.
 
-::: panel-tabset
-## R
-
-```         
+```{r}
 mydata1 %>% filter(JOBTYP==2 & INECAC05==1) %>%tab(JobTmp, PartTime)
 ```
 
-## SPSS
+::: panel-tabset
+## Questions
 
-## Stata
-:::
-
-> REVIEW QUESTIONS
->
-> How many applicable cases to we have for the above analysis?
+How many applicable cases to we have for the above analysis?
 
 ## Answers
-
-How many variables are there?
-
-ncol(lfs_od20) ::: panel-tabset
+:::
