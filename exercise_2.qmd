@@ -1,184 +1,107 @@
-# Estimates of temporary employment
+# The distribution of weekly earnings of full-time employees
 
-In this exercise, you can recreate ONS labour market analysis reported in the table [EMP07 Temporary Employees](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07). Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).
+In this exercise, you can recreate ONS labour market analysis reported in the table EARN04: Gross weekly earnings of full-time employees \### <https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04> \[last accessed 24/04/2021\]. Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey.
 
 Learning outcomes:
 
--   To become more familiar with QLFS datasets.
--   To become more familiar with the weighting variable.
+-   To become more familiar with the QLFS for earnings analysis, including key variables and appropriate use of the income weight.
 
 ## Data
 
-The data used relates to an estimate for Oct-December 2020.
-
-To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2020](http://doi.org/10.5255/UKDA-SN-8777-3).
+The data used relates to an estimate for Oct-December 2020. To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2020](http://doi.org/10.5255/UKDA-SN-8777-3).
 
 ## Get set-up
 
-One you have downloaded the data, save it some where accessible.
+Once you have downloaded the data, save it some where accessible.
 
-```{r}
-library(haven)
+```         
+library(haven) 
 library(tidyverse)
 library (sjmisc) #used for some of the tables 
 ```
 
-```{r}
-#setwd ("~/LFS_exercises")
+```         
 
 #Open data and keep relevant variables.
 lfs_od20 <- haven::read_sav("data/UKDA-8777-spss/spss/spss28/lfsp_od20_eul_pwt24.sav")
-
 ```
-
-Inspect the dataset including the number of cases and variables.
-
-```{r}
-dim(lfs_od20) 
-
-```
-
-::: panel-tabset
-## Questions
-
-1.  How many variables are there?
-
-## Answers
-
-1.  824
-:::
 
 As the dataset is large, let's save a copy with just the variables we will use.
 
-```{r}
-data <- lfs_od20 %>% 
-  select(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)
-
-head(data)
-```
-
-### Examine variables
-
-Now let's examine key variables in the dataset.
-
-```{r}
-data %>% select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) %>% frq()
-
-```
-
 ```         
+dataex2 <- lfs_od20 %>% select(PERSNO, PWT24, PIWT24, GRSSWK, INECAC05, FTPT, HOURPAY, SEX)###
 ```
 
 ::: panel-tabset
-## Questions
+## Question
 
-1.  How many cases are there?
+*\*Move this lower?*
 
-2.  What does the variable inecac05 relate to?
+Why do we use a different weight from exercise 1?
 
-3.  Why are there many missing cases on the variables: jbtp101, ftpt and jobtyp.
+## Answer
+:::
+
+## Select those in fulltime employment
+
+To start, we will select only those in fulltime employment with valid income values. Replace the \* in the code below with the correct values.
+
+```         
+##replace the * to complete the code. 
+
+md <- filter(dataex2, (PIWT24>0) & (HOURPAY>=0 & HOURPAY<=100) & (FTPT==* | FTPT==*) & (INECAC05==*) & is.na(GRSSWK)==FALSE)
+```
+
+Note - you can use the code below to check values and value labels for variables.
+
+```         
+head(dataex2$INECAC05) head(dataex2$FTPT)
+```
+
+::: panel-tabset
+## Question
+
+What is the complete code?
+
+## Answer
+:::
+
+## Create the results
+
+Use the code below to recreate the ONS results showing the distribution of income for fulltime employees, overall and by sex.
+
+```         
+md %\>% uncount(weights = .\$PIWT24) %\>% summarise(Median=median(GRSSWK))md %\>% uncount(weights = .\$PIWT24) %\>% group_by(SEX) %\>% summarise(Mean=mean(GRSSWK))md %\>% uncount(weights = .\$PIWT24) %\>% group_by(SEX) %\>% summarise(Median=median(GRSSWK))LFS_design \<- md %\>% as_survey_design(weights = PIWT24)LFS_design %\>% group_by(SEX) %\>% srvyr::summarise(survey_old_quantile(GRSSWK, c(.1,.25,.5,.75,.9)))
+
+\## NOTE: Note that the behavior of the quantile functions has changed in srvyr version 1.1, but the old functions are still (currently) supported as survey_old_quantile and survey_old_median if you need to replicate the old results (as seen here). For more details about what has changed, see Thomas Lumley's blog post on the changes, available here: \<https://notstatschat.rbind.io/2021/07/20/what-s-new-in-the-survey-package/\>## An example of the quantile function can be found on CRAN: \<https://rdrr.io/cran/srvyr/man/survey_quantile.html\>
+```
+
+::: panel-tabset
+## Question
+
+What are median weekly earnings?
+
+What are earnings at the lowest decile for males and females?
 
 ## Answers
 :::
 
-nb: missing values changed from -9 to -8 to NA, so hard to tell from frequencies
+## How many full-time employees are there?
 
-```{r}
-misscheck <- haven::read_sav("data/UKDA-8777-spss/spss/spss28/lfsp_od20_eul_pwt24.sav", user_na = TRUE)
-
-table(misscheck$JOBTYP)
-
-```
-
-### Apply the weight (simple)
-
-Apply the weight and examine the variable frequencies again.
-
-```{r}
-
-# Define the variables you want to analyze
-variables <- c("JBTP101", "FTPT", "INECAC05", "JOBTYP", "SEX")
-
-# Apply frq() to each variable with weights
-lapply(variables, function(var) frq(data[[var]], weights = data$PWT24))
-
-```
-
-REVIEW QUESTIONS
-
-1.  Do the frequencies change noticeably when the weight is applied?
-
-Run this code to adjust the category order and labels.
-
-\`..\
-mydata1$JobTmp <- rec(mydata1$JBTP101,rec="1=3;2=4;3=1;4=2;5=5;-8,-9=6")
-
-mydata1$JobTmp <-sjlabelled::set_labels(mydata1$JobTmp, labels = c( "Seasonal work", "Done under contract for a fixed period","Agency Temping", "Casual type of work", "Some other reason"))
-
-```         
-       
-```
-
-:::
-
-Create a filter to select those with a weight greater than 0.
+Note to self - Add code to get total if not produced by the code used above. LFS_design %\>% summarise(survey_total())
 
 ::: panel-tabset
-## R
+## Question
 
-mydata1 \<- filter (mydata1, PWT20\>0)
+The ONS table gives the estimated number of full-time employees as 21,215,000. Above, we get 21,138,049. Why is there a difference?
 
-## SPSS
+What steps above need to be different to get the correct estimate of the number of full-time employees?
 
-## Stata
+## Answer
 :::
 
-Create a variable to indicate those working part time.
+## What next
 
-```{r}
-mydata1$PartTime <- rec(mydata1$FTPT,rec="2,4=1; else=0")
+-   See if you can examine earnings for temporary workers or another sub-group of interest. Reopen the full datafile and explore as you choose.
 
-mydata1$PartTime <-sjlabelled::set_labels(mydata1$PartTime, labels = c("Part Time"))
-```
-
-### REVIEW QUESTIONS
-
-When making the table below, which cases are selected in the filter?
-
-head(mydata1$JOBTYP)
-head(mydata1$INECAC05)
-
-Create the table.
-
-#\[the labels are missed doe JobTmp, crossreference with above\] #for all mydata1 %\>% filter(JOBTYP==2 & INECAC05==1) %\>% uncount(weights = .\$PWT20) %\>%\
-tab(JobTmp, PartTime)
-
-#split by sex and part-time
-
-mydata1 %\>% filter(JOBTYP==2 & INECAC05==1 & SEX==1) %\>% uncount(weights = .\$PWT20) %\>%\
-tab(PartTime, JobTmp)
-
-mydata1 %\>% filter(JOBTYP==2 & INECAC05==1 & SEX==2) %\>% uncount(weights = .\$PWT20) %\>%\
-tab(PartTime, JobTmp)
-
-> REVIEW QUESTIONS
->
-> 1.  How many people are temporary employees (all and part-time) in this quarter?
->
-> 2.  How many females are in part-time temporary employment?
-
-Note: You can check if your results match those in the [ONS EMP07 dataset](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07).
-
-Finally, get unweighted frequencies.
-
-```{r}
-mydata1 %>% filter(JOBTYP==2 & INECAC05==1) %>%tab(JobTmp, PartTime)
-```
-
-::: panel-tabset
-## Questions
-
-How many applicable cases to we have for the above analysis?
-
-## Answers
-:::
+-   Move to the next exercise, which uses one of the longitudinal data sets.

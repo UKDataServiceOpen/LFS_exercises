@@ -81,7 +81,7 @@ data %>% select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) %>% frq()
 ## Answers
 :::
 
-nb: missing values changed from -9 to -8 to NA, so hard to tell from frequencies
+Missing values were recorded as -9 "Does not apply" and -8 "No answer" in the original data. When the data was read using the Haven package, the missing values were converted to NA, making it hard to determine the reasons for the missing valies. The code below, reads in a version of the data with the missing values kept as -8 and -9.
 
 ```{r}
 misscheck <- haven::read_sav("data/UKDA-8777-spss/spss/spss28/lfsp_od20_eul_pwt24.sav", user_na = TRUE)
@@ -90,7 +90,7 @@ table(misscheck$JOBTYP)
 
 ```
 
-### Apply the weight (simple)
+### Weighted frequencies
 
 Apply the weight and examine the variable frequencies again.
 
@@ -110,28 +110,17 @@ REVIEW QUESTIONS
 
 Run this code to adjust the category order and labels.
 
-\`..\
+```         
 mydata1$JobTmp <- rec(mydata1$JBTP101,rec="1=3;2=4;3=1;4=2;5=5;-8,-9=6")
 
 mydata1$JobTmp <-sjlabelled::set_labels(mydata1$JobTmp, labels = c( "Seasonal work", "Done under contract for a fixed period","Agency Temping", "Casual type of work", "Some other reason"))
-
-```         
-       
 ```
-
-:::
 
 Create a filter to select those with a weight greater than 0.
 
-::: panel-tabset
-## R
-
-mydata1 \<- filter (mydata1, PWT20\>0)
-
-## SPSS
-
-## Stata
-:::
+```         
+mydata1 <- filter (mydata1, PWT20>0)
+```
 
 Create a variable to indicate those working part time.
 
@@ -150,8 +139,11 @@ head(mydata1$INECAC05)
 
 Create the table.
 
-#\[the labels are missed doe JobTmp, crossreference with above\] #for all mydata1 %\>% filter(JOBTYP==2 & INECAC05==1) %\>% uncount(weights = .\$PWT20) %\>%\
-tab(JobTmp, PartTime)
+```         
+#[the labels are missed doe JobTmp, crossreference with above] 
+#for all 
+mydata1 %>% filter(JOBTYP==2 & INECAC05==1) %>% uncount(weights = .$PWT20) %>%tab(JobTmp, PartTime)
+```
 
 #split by sex and part-time
 
