@@ -23,7 +23,7 @@ library (sjmisc) #used for some of the tables
 ```         
 
 #Open data and keep relevant variables.
-lfs_od20 <- haven::read_sav("data/UKDA-8777-spss/spss/spss28/lfsp_od20_eul_pwt24.sav")
+lfs_od20 <- haven::read_dta("~/Data/lfs/UKDA-8777-stata/stata/stata13/lfsp_od20_eul_pwt24.dta")
 ```
 
 As the dataset is large, let's save a copy with just the variables we will use.
