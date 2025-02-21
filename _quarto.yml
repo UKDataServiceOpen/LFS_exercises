@@ -1,21 +1,92 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - index.qmd
+    - exercise_1.qmd
+    - exercise_2.qmd
+
 
 website:
-  title: "LFS_exercises"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+  title: "LFS Exercises"
+  sidebar:
+    contents:
+      - text: Plan
+        href: index.qmd
+      - text: "First exercise"
+        href: exercise_1.qmd
+      - text: "Second exercise"
+        href: exercise_2.qmd
+
+#      - about.qmd
 
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
-    toc: true
+#   toc: true
+    smooth-scroll: true
+    anchor-sections: true
+#   toc-location: left
+#    css: style.css
 
 execute: 
   warning: false
+
+date-format: "MMMM YYYY"
+mainfont: "Open Sans"
+title-block-banner: "white"
+title-block-banner-color: "#742082"
+
+# project:
+#   type: website
+#   output-dir: docs
+#   render:
+#     - _project_code.qmd
+#     - index.qmd
+#     - 5*_R.qmd
+#     - 51*Stata.qmd
+#     - 52*Stata.qmd
+#     - 53*Stata.qmd
+# 
+# website:
+#   title: "Module 5: Opening datasets, basic recoding and exploration"
+#   sidebar:
+#     contents:
+#       - text: "Introduction" 
+#         href: index.qmd
+#       - section: "R demo"
+#         contents:
+#           - text: "5.1 Exploring  datasets" 
+#             href: 51_Opening_R.qmd
+#           - text: "5.2 Understanding variables" 
+#             href: 52_Variables_R.qmd
+#           - text: "5.3 Recoding variables"
+#             href:  53_Recoding_R.qmd 
+#       - section: "Stata demo" 
+#         contents:
+#           - text: "5.1 Exploring datasets" 
+#             href: 51_Opening_Stata.qmd
+#           - text: "5.2 Understanding variables" 
+#             href: 52_Variables_Stata.qmd
+#           - text: "5.3 Recoding variables"
+#             href:  53_Recoding_Stata.qmd 
+#       - section: "SPSS demo"
+#         href: core_module_5_website_SPSS.qmd 
+# 
+# format:
+#   html:
+# #   toc: true
+#     smooth-scroll: true
+#     anchor-sections: true
+# #   toc-location: left
+# 
+# 
+# #date: last-modified
+# date-format: "MMMM YYYY"
+# mainfont: "Open Sans"
+# title-block-banner: "white"
+# title-block-banner-color: "#742082"
+# 
+# engine: knitr
+# #execute:
+# #    cache: true

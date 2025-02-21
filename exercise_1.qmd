@@ -5,21 +5,26 @@ In this exercise, we will recreate ONS labour market analysis published online i
 Learning outcomes:
 
 -   To become more familiar with QLFS datasets.
--   To become more familiar with the weighting variable.
+-   To become familiar with producing weighted population estimates
+-   To understand how some ONS estimates are produced
 
 ## Data
 
-The data used relates to an estimate for July-September 2024.
+The data used in this exercise relates to an estimate published by the ONS for July-September 2024.
 
 To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, July - September, 2024](http://doi.org/10.5255/UKDA-SN-9323-3).
 
 ## Get set-up
 
-One you have downloaded the data, save it somewhere accessible, for example in a folder named `LFS_exercises`.
+One you have downloaded the data, save it somewhere accessible, for example in a folder named `LFS_exercises`. 
+We can now begin analysing the data using R. First let's load the packages that are are going to need:
 
 ```{r}
 library(haven)
 library(dplyr)
+library(survey)
+library(srvyr)
+
 ```
 
 ```{r open}
@@ -28,7 +33,8 @@ library(dplyr)
 setwd ("~/Data/lfs/UKDA-9323-stata/stata/stata13/")
 #setwd ("~/LFS_exercises")
 
-# Open the data in Stata format 
+
+# Inport  the data from a Stata format dataset 
 lfs_js24 <- read_dta("lfsp_js24_eul_pwt24.dta")
 ```
 
@@ -83,7 +89,7 @@ mydata |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |>
            summary()
 ```
 
-We can  inspect the description of a variable as recorded in its label, for example FTPT:
+We can  also inspect the description of a variable by looking at its label. Let's take for example `FTPT`:
 
 ```{r attr}
 attr(lfs_js24$FTPT,"label")
@@ -131,7 +137,7 @@ t
 
 ## Answers
 
-1. There are `{r} nrow(mydata)` cases
+1. There are `{r} prettyNum(nrow(mydata), big.mark=",")` cases
 
 2.  `INECAC05` records `{r} attr(mydata$INECAC05,"label")`
 
@@ -179,11 +185,9 @@ mydata <- mydata |>
 table(mydata$JobTmp)
 ```
 
-We then load the required packages and create a weights-informed version of the data:
+Using a function from the `survey` package, we create a weights-aware version of the data that we will be using for susbsequent analysis:
 
 ```{r svydes}
-library(survey)
-library(srvyr)
 mydata.s<-mydata|> 
          filter(!is.na(PWT24) ) |> 
          as_survey_design(weights=PWT24)
@@ -218,7 +222,7 @@ round(100*
 
 1. `PWT24` is a grossing weight. Therefore, frequencies now reflect population totals.
 
-2. The syntax below computes 
+2. The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables. 
 
 ```{r pt}
 
@@ -261,7 +265,7 @@ round(100*
 
 ## Splitting by sex and full-time/part-time status
 
-It is straightforward to obtain the percentages of full-time and part-time employees by job tenure:
+It is straightforward to obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
 
 ```{r tmp_ftpt}
 t1<-svytable(~PartTime+JobTmp,mydata.s)
@@ -275,7 +279,7 @@ t1
 ```
 
 
-We can use a third variable to the table to simultaneously examine the number  of temporary and part-time employees by gender.
+We can add a third variable to the table to simultaneously examine the number  of temporary and part-time employees by gender.
 
 ```{r sex}
 t2<-svytable(~PartTime+JobTmp+SEX,mydata.s)
@@ -304,7 +308,7 @@ t2<-svytable(~PartTime+JobTmp+SEX,mydata.s)
 
 2. There are `{r} prettyNum(t2[2,2,2] ,big.mark = ",")` females in part-time temporary employment
 
-3. In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis `{r} prettyNum(sum(xtabs(~JobTmp+PartTime+SEX,mydata)),big.mark = ",")`
+3. In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is `{r} prettyNum(sum(xtabs(~JobTmp+PartTime+SEX,mydata)),big.mark = ",")`
 
 :::
 
