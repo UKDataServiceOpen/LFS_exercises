@@ -1,41 +1,49 @@
 # Estimates of temporary employment
 
-In this exercise, you can recreate ONS labour market analysis reported in the table [EMP07 Temporary Employees](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07). Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).
+In this exercise, we will recreate ONS labour market analysis published online in the table [EMP07 Temporary Employees](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07). Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).
 
 Learning outcomes:
 
 -   To become more familiar with QLFS datasets.
--   To become more familiar with the weighting variable.
+-   To become familiar with producing weighted population estimates
+-   To understand how some ONS estimates are produced
 
 ## Data
 
-The data used relates to an estimate for Oct-December 2020.
+The data used in this exercise relates to an estimate published by the ONS for October-December 2024.
 
-To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2020](http://doi.org/10.5255/UKDA-SN-8777-3).
+To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2024](http://doi.org/10.5255/UKDA-SN-9349-3).
 
 ## Get set-up
 
-One you have downloaded the data, save it some where accessible.
+One you have downloaded the data, save it somewhere accessible, for example in a folder named `LFS_exercises`. We can now begin analysing the data using R. First let's load the packages that are are going to need:
 
 ```{r}
 library(haven)
-library(tidyverse)
-library (sjmisc) #used for some of the tables 
+library(dplyr)
+library(survey)
+library(srvyr)
+
 ```
 
-```{r}
+```{r open}
+#| eval: -2
+#| echo: -1
+setwd ("~/Data/lfs/UKDA-9349-stata/stata/stata13/")
 #setwd ("~/LFS_exercises")
 
-#Open data and keep relevant variables.
-lfs_od20 <- haven::read_sav("data/UKDA-8777-spss/spss/spss28/lfsp_od20_eul_pwt24.sav")
 
+# Inport  the data from a Stata format dataset 
+lfs_od24 <- read_dta("lfsp_od24_eul_pwt24.dta")
 ```
 
-Inspect the dataset including the number of cases and variables.
+Inspect the dataset and find out the number of cases and variables.
 
-```{r}
-dim(lfs_od20) 
+```{r dim}
+ncol(lfs_od24) # Number of columns
+nrow(lfs_od24) # Number of rows (observations)
 
+dim(lfs_od24)  # Both
 ```
 
 ::: panel-tabset
@@ -45,28 +53,64 @@ dim(lfs_od20)
 
 ## Answers
 
-1.  824
+1.  `{r} ncol(lfs_od24)`
 :::
 
-As the dataset is large, let's save a copy with just the variables we will use.
+As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to make the variable categories easier to understand by converting them into factors. For greater clarity, we also remove unused categories of categorical variables using `droplevels()`.
 
-```{r}
-data <- lfs_od20 %>% 
-  select(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)
-
-head(data)
+```{r mydata}
+mydata <- lfs_od24 |> 
+  select(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)|>
+  mutate(across(.cols=JBTP101:SEX, 
+                .fns=as_factor,"both")
+         )|>
+  droplevels()
 ```
 
-### Examine variables
+## Examine the variables
 
-Now let's examine key variables in the dataset.
+We can have a look at the raw data by using `head()` or `View()`
 
-```{r}
-data %>% select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) %>% frq()
+```{r head}
+head(mydata)
 
+View(mydata) # A nicer looking output
 ```
 
-```         
+Now let's examine all variables in more detail.
+
+```{r summ}
+mydata |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |> 
+           summary()
+```
+
+We can also inspect the description of a variable by looking at its label. Let's take for example `FTPT`:
+
+```{r attr}
+attr(lfs_od24$FTPT,"label")
+```
+
+A common way of getting frequency tables in R consists in using `table()`:
+
+```{r tabs1}
+t<-table(mydata$FTPT) ### Simple frequency table
+
+t
+```
+
+We can also examine percentages:
+
+```{r tabs2}
+t<- 100*prop.table(t) ### Getting percentage
+t
+```
+
+Finally we can round the percentages in order to make them easier to read:
+
+```{r tabs3}
+t<-round(t,1) ### Rounding to one digit
+
+t
 ```
 
 ::: panel-tabset
@@ -74,103 +118,173 @@ data %>% select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) %>% frq()
 
 1.  How many cases are there?
 
-2.  What does the variable inecac05 relate to?
+2.  What does the variable `INECAC05` relate to?
 
-3.  Why are there many missing cases on the variables: jbtp101, ftpt and jobtyp.
+3.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`.
 
 ## Answers
+
+1.  There are `{r} prettyNum(nrow(mydata), big.mark=",")` cases
+
+2.  `INECAC05` records `{r} attr(mydata$INECAC05,"label")`
+
+3.  Respondents not in employment are coded as missing values for these variables.
 :::
 
-Missing values were recorded as -9 "Does not apply" and -8 "No answer" in the original data. When the data was read using the Haven package, the missing values were converted to NA, making it hard to determine the reasons for the missing valies. The code below, reads in a version of the data with the missing values kept as -8 and -9.
+Missing values were recorded as -9 "Does not apply" and -8 "No answer" in the original data.
 
-```{r}
-misscheck <- haven::read_sav("data/UKDA-8777-spss/spss/spss28/lfsp_od20_eul_pwt24.sav", user_na = TRUE)
+## Weighted and unweighted frequencies
 
-table(misscheck$JOBTYP)
+In order to provide reliable estimates of population values, survey data needs to be *weighted* when analysed. Weights are variables whose values increase or decrease the relative importance of observations, depending on how likely respondents were to take part to the survey. Some weights are only designed to correct the relative importance of observations, whereas others in addition also enable calculating population totals - the latter are called grossing weights.
 
+Below, we compare weighted and unweighted frequencies and percentages again.
+
+We will be using `as_survey_design()`, a R function from the `survey` and `srvyr` packages that in effect creates a weighted version of our data.
+
+Let us first examine the variable measuring - JOBTYP - whether respondents work in a temporary job or not:
+
+```{r freqs}
+table(mydata$JOBTYP)
+
+round(100*prop.table(table(mydata$JOBTYP)),1)
 ```
 
-### Weighted frequencies
+... and create a version without missing values.
 
-Apply the weight and examine the variable frequencies again.
+```{r jobtmp}
+ 
+mydata <- mydata |> 
+                  mutate (
+                     JobTmp = ifelse(JOBTYP == "[2] Not permanent in some way",
+                                      "Temporary",
+                                      "Not temporary"),
+                     JobTmp = ifelse(JOBTYP == "[-9] Does not apply" | JOBTYP == "[-8] No answer",
+                                      NA,
+                                      JobTmp),
+                    JobTmp = as.factor(JobTmp)
+                  )
 
-```{r}
-
-# Define the variables you want to analyze
-variables <- c("JBTP101", "FTPT", "INECAC05", "JOBTYP", "SEX")
-
-# Apply frq() to each variable with weights
-lapply(variables, function(var) frq(data[[var]], weights = data$PWT24))
-
+table(mydata$JobTmp)
 ```
 
-REVIEW QUESTIONS
+Using a function from the `survey` package, we create a weights-aware version of the data that we will be using for susbsequent analysis:
 
-1.  Do the frequencies change noticeably when the weight is applied?
-
-Run this code to adjust the category order and labels.
-
-```         
-mydata1$JobTmp <- rec(mydata1$JBTP101,rec="1=3;2=4;3=1;4=2;5=5;-8,-9=6")
-
-mydata1$JobTmp <-sjlabelled::set_labels(mydata1$JobTmp, labels = c( "Seasonal work", "Done under contract for a fixed period","Agency Temping", "Casual type of work", "Some other reason"))
+```{r svydes}
+mydata.s<-mydata|> 
+         filter(!is.na(PWT24) ) |> 
+         as_survey_design(weights=PWT24)
 ```
 
-Create a filter to select those with a weight greater than 0.
+Please note that we needed to remove observations with missing weights values, in effect observations that should not be taken into account to calculate population values. If we don't we will get an error message.
 
-```         
-mydata1 <- filter (mydata1, PWT20>0)
+We can now compute weighted frequencies and percentages using a survey specific command: `svytable()`:
+
+```{r svyfreqs}
+svytable(~JobTmp, mydata.s)
+
+round(100*
+       prop.table(
+         svytable(~JobTmp, mydata.s)
+         ),1
+      )
 ```
 
-Create a variable to indicate those working part time.
-
-```{r}
-mydata1$PartTime <- rec(mydata1$FTPT,rec="2,4=1; else=0")
-
-mydata1$PartTime <-sjlabelled::set_labels(mydata1$PartTime, labels = c("Part Time"))
-```
-
-### REVIEW QUESTIONS
-
-When making the table below, which cases are selected in the filter?
-
-head(mydata1$JOBTYP)
-head(mydata1$INECAC05)
-
-Create the table.
-
-```         
-#[the labels are missed doe JobTmp, crossreference with above] 
-#for all 
-mydata1 %>% filter(JOBTYP==2 & INECAC05==1) %>% uncount(weights = .$PWT20) %>%tab(JobTmp, PartTime)
-```
-
-#split by sex and part-time
-
-mydata1 %\>% filter(JOBTYP==2 & INECAC05==1 & SEX==1) %\>% uncount(weights = .\$PWT20) %\>%\
-tab(PartTime, JobTmp)
-
-mydata1 %\>% filter(JOBTYP==2 & INECAC05==1 & SEX==2) %\>% uncount(weights = .\$PWT20) %\>%\
-tab(PartTime, JobTmp)
-
-> REVIEW QUESTIONS
->
-> 1.  How many people are temporary employees (all and part-time) in this quarter?
->
-> 2.  How many females are in part-time temporary employment?
-
-Note: You can check if your results match those in the [ONS EMP07 dataset](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07).
-
-Finally, get unweighted frequencies.
-
-```{r}
-mydata1 %>% filter(JOBTYP==2 & INECAC05==1) %>%tab(JobTmp, PartTime)
-```
+### Review questions
 
 ::: panel-tabset
 ## Questions
 
-How many applicable cases to we have for the above analysis?
+1.  Do the frequencies change noticeably when the weight is applied?
+
+2.  Create a variable to indicate those working part time and examine weighted and unweighted frequencies.
 
 ## Answers
+
+1.  `PWT24` is a grossing weight. Therefore, frequencies now reflect population totals.
+
+2.  The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables.
+
+```{r pt}
+
+ mydata <- mydata |> 
+                  mutate (
+                    PartTime = ifelse(FTPT == "[4] New Deal-PT" | FTPT  == "[2] Part time",
+                                      "Part-time",
+                                      "Not part-time"),
+                   PartTime = ifelse(FTPT == "[-9] Does not apply" | FTPT == "[-8] No answer",
+                                      NA,
+                                      PartTime),
+
+                    PartTime = as.factor(PartTime)
+                  )
+
+
+mydata.s<-mydata|> 
+         filter(!is.na(PWT24) ) |> 
+         as_survey_design(weights=PWT24)
+
+round(100*
+       prop.table(
+         table(mydata$PartTime)
+         ),1
+      )
+
+
+
+round(100*
+       prop.table(
+         svytable(~PartTime, mydata.s)
+         ),1
+      )
+
+```
 :::
+
+## Splitting by sex and full-time/part-time status
+
+It is straightforward to obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
+
+```{r tmp_ftpt}
+t1<-svytable(~PartTime+JobTmp,mydata.s)
+
+t1
+            round(
+                  100*prop.table(
+                   t1
+                   ,1) # Requests denominators to be each working time status
+                  ,1)
+```
+
+We can add a third variable to the table to simultaneously examine the number of temporary and part-time employees by gender.
+
+```{r sex}
+t2<-svytable(~PartTime+JobTmp+SEX,mydata.s)
+
+            round(
+                  100*prop.table(
+                   t2
+                   ,3) # Requests denominators to be each gender/working time combination.
+                  ,1)
+```
+
+### Review questions
+
+::: panel-tabset
+## Questions
+
+1.  How many people are temporary employees (all and part-time) in this quarter?
+
+2.  How many females are in part-time temporary employment?
+
+3.  How many applicable cases to we have for the above analysis?
+
+## Answers
+
+1.  There are `{r} prettyNum(svytable(~JobTmp,mydata.s)[2],big.mark = ",")` temporary employees.
+
+2.  There are `{r} prettyNum(t2[2,2,2] ,big.mark = ",")` females in part-time temporary employment
+
+3.  In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is `{r} prettyNum(sum(xtabs(~JobTmp+PartTime+SEX,mydata)),big.mark = ",")`
+:::
+
+Note: You can check if your results match those in the [ONS EMP07 dataset](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07).

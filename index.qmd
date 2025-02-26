@@ -1,11 +1,19 @@
----
-title: "LFS_exercises"
----
+# Working with the Labour Force Survey
 
-This is a Quarto website.
+## Four exercises to learn to work with  the LFS
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+### 1. Estimates of temporary employment
 
-```{r}
-1 + 1
-```
+A first exercise designed to help people get familar with the QLFS - size, key variables, the main weight, the effect of the grossing weight on counts.
+
+### 2. The distribution of weekly earnings of full-time employees
+
+A follow up exercise using the QLFS but focusing on earnings - key earnings variables, the earnings weight and when not to use the earnings weight.
+
+### 3. Examining Labour Market Flows 
+
+Using the Labour Force Survey Two-Quarter Longitudinal Dataset - introduces the longitudinal datasets - the structure of the dataset, key variables for examining flows, longitudinal weights
+
+### 4 Accounting for survey design
+
+Producing an estimate with CI using different weighting approaches, adjusting the CI using published design factors.
