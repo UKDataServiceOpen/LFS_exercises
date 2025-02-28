@@ -173,7 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#review-questions" id="toc-review-questions" class="nav-link" data-scroll-target="#review-questions">Review questions</a></li>
   </ul></li>
-  <li><a href="#splitting-by-sex-and-full-timepart-time-status" id="toc-splitting-by-sex-and-full-timepart-time-status" class="nav-link" data-scroll-target="#splitting-by-sex-and-full-timepart-time-status">Splitting by sex and full-time/part-time status</a>
+  <li><a href="#splitting-by-sex-and-working-time-status" id="toc-splitting-by-sex-and-working-time-status" class="nav-link" data-scroll-target="#splitting-by-sex-and-working-time-status">Splitting by sex and working time status</a>
   <ul class="collapse">
   <li><a href="#review-questions-1" id="toc-review-questions-1" class="nav-link" data-scroll-target="#review-questions-1">Review questions</a></li>
   </ul></li>
@@ -193,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="estimates-of-temporary-employment" class="level1">
 <h1>Estimates of temporary employment</h1>
-<p>In this exercise, we will recreate ONS labour market analysis published online in the table <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07">EMP07 Temporary Employees</a>. Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).</p>
+<p>In this exercise, we will recreate an ONS labour market estimate published online in the table <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07">EMP07 Temporary Employees</a>. Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).</p>
 <p>Learning outcomes:</p>
 <ul>
 <li>To become more familiar with QLFS datasets.</li>
@@ -403,17 +403,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>… and create a version without missing values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>mydata <span class="ot">&lt;-</span> mydata <span class="sc">|&gt;</span> </span>
-<span id="cb27-2"><a href="#cb27-2"></a>                  <span class="fu">mutate</span> (</span>
-<span id="cb27-3"><a href="#cb27-3"></a>                     <span class="at">JobTmp =</span> <span class="fu">ifelse</span>(JOBTYP <span class="sc">==</span> <span class="st">"[2] Not permanent in some way"</span>,</span>
-<span id="cb27-4"><a href="#cb27-4"></a>                                      <span class="st">"Temporary"</span>,</span>
-<span id="cb27-5"><a href="#cb27-5"></a>                                      <span class="st">"Not temporary"</span>),</span>
-<span id="cb27-6"><a href="#cb27-6"></a>                     <span class="at">JobTmp =</span> <span class="fu">ifelse</span>(JOBTYP <span class="sc">==</span> <span class="st">"[-9] Does not apply"</span> <span class="sc">|</span> JOBTYP <span class="sc">==</span> <span class="st">"[-8] No answer"</span>,</span>
-<span id="cb27-7"><a href="#cb27-7"></a>                                      <span class="cn">NA</span>,</span>
-<span id="cb27-8"><a href="#cb27-8"></a>                                      JobTmp),</span>
-<span id="cb27-9"><a href="#cb27-9"></a>                    <span class="at">JobTmp =</span> <span class="fu">as.factor</span>(JobTmp)</span>
-<span id="cb27-10"><a href="#cb27-10"></a>                  )</span>
-<span id="cb27-11"><a href="#cb27-11"></a></span>
-<span id="cb27-12"><a href="#cb27-12"></a><span class="fu">table</span>(mydata<span class="sc">$</span>JobTmp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-2"><a href="#cb27-2"></a>          <span class="fu">mutate</span> (</span>
+<span id="cb27-3"><a href="#cb27-3"></a>                 <span class="at">JobTmp =</span> <span class="fu">ifelse</span>(JOBTYP <span class="sc">==</span> <span class="st">"[2] Not permanent in some way"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4"></a>                                 <span class="st">"Temporary"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5"></a>                                  <span class="st">"Not temporary"</span>),</span>
+<span id="cb27-6"><a href="#cb27-6"></a>                 <span class="at">JobTmp =</span> <span class="fu">ifelse</span>(JOBTYP <span class="sc">==</span> <span class="st">"[-9] Does not apply"</span> <span class="sc">|</span> </span>
+<span id="cb27-7"><a href="#cb27-7"></a>                                  JOBTYP <span class="sc">==</span> <span class="st">"[-8] No answer"</span>,</span>
+<span id="cb27-8"><a href="#cb27-8"></a>                                  <span class="cn">NA</span>,</span>
+<span id="cb27-9"><a href="#cb27-9"></a>                                  JobTmp),</span>
+<span id="cb27-10"><a href="#cb27-10"></a>                 <span class="at">JobTmp =</span> <span class="fu">as.factor</span>(JobTmp)</span>
+<span id="cb27-11"><a href="#cb27-11"></a>                  )</span>
+<span id="cb27-12"><a href="#cb27-12"></a></span>
+<span id="cb27-13"><a href="#cb27-13"></a><span class="fu">table</span>(mydata<span class="sc">$</span>JobTmp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Not temporary     Temporary 
@@ -506,8 +507,8 @@ Not part-time     Part-time
 </div>
 </section>
 </section>
-<section id="splitting-by-sex-and-full-timepart-time-status" class="level2">
-<h2 class="anchored" data-anchor-id="splitting-by-sex-and-full-timepart-time-status">Splitting by sex and full-time/part-time status</h2>
+<section id="splitting-by-sex-and-working-time-status" class="level2">
+<h2 class="anchored" data-anchor-id="splitting-by-sex-and-working-time-status">Splitting by sex and working time status</h2>
 <p>It is straightforward to obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>t1<span class="ot">&lt;-</span><span class="fu">svytable</span>(<span class="sc">~</span>PartTime<span class="sc">+</span>JobTmp,mydata.s)</span>

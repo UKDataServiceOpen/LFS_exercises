@@ -1,6 +1,6 @@
 # Estimates of temporary employment
 
-In this exercise, we will recreate ONS labour market analysis published online in the table [EMP07 Temporary Employees](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07). Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).
+In this exercise, we will recreate an ONS labour market estimate published online in the table [EMP07 Temporary Employees](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07). Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).
 
 Learning outcomes:
 
@@ -154,14 +154,15 @@ round(100*prop.table(table(mydata$JOBTYP)),1)
 ```{r jobtmp}
  
 mydata <- mydata |> 
-                  mutate (
-                     JobTmp = ifelse(JOBTYP == "[2] Not permanent in some way",
-                                      "Temporary",
-                                      "Not temporary"),
-                     JobTmp = ifelse(JOBTYP == "[-9] Does not apply" | JOBTYP == "[-8] No answer",
-                                      NA,
-                                      JobTmp),
-                    JobTmp = as.factor(JobTmp)
+          mutate (
+                 JobTmp = ifelse(JOBTYP == "[2] Not permanent in some way",
+                                 "Temporary",
+                                  "Not temporary"),
+                 JobTmp = ifelse(JOBTYP == "[-9] Does not apply" | 
+                                  JOBTYP == "[-8] No answer",
+                                  NA,
+                                  JobTmp),
+                 JobTmp = as.factor(JobTmp)
                   )
 
 table(mydata$JobTmp)
@@ -240,7 +241,7 @@ round(100*
 ```
 :::
 
-## Splitting by sex and full-time/part-time status
+## Splitting by sex and working time status
 
 It is straightforward to obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
 
