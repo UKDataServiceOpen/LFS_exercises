@@ -17,6 +17,9 @@ website:
         text: Exercise 1
       - href: exercise_2.qmd
         text: Exercise 2
+      - href: exercise_3.qmd
+        text: Exercise 3
+  
 
 format:
   html:

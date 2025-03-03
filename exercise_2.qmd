@@ -1,6 +1,6 @@
 # Weekly earnings of employees
 
-In this exercise, you will recreate ONS labour market analysis reported in the table [EARN04: Gross weekly earnings of full-time employees \[last accessed 21/02/2025\]](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04). Currently, this table is updated four times a year in February, May, August and November using data from the Quarterly Labour Force Survey.
+In this exercise, you will recreate a labour market analysis by the ONS, reported in the table [EARN04: Gross weekly earnings of full-time employees \[last accessed 21/02/2025\]](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04). Currently, this table is updated four times a year in February, May, August and November using data from the Quarterly Labour Force Survey.
 
 Learning outcomes:
 
@@ -16,7 +16,7 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set up
 
-We will assume that the working directory for this exercise where syntax files and other materials  will be located will be a folder named `LFS_exercises`.   Once you have downloaded the data, save it somewhere accessible inside `LFS_exercises`, for example in  another folder named `Data`. 
+We will assume that the working directory for this exercise - where syntax files and other materials  will be located - will be a folder named `LFS_exercises`.   Once you have downloaded the data, save it somewhere accessible inside `LFS_exercises`, for example in  another folder named `Data`. 
 
 We can now begin analysing the data using R. First let's load the packages that are are going to need:
 
@@ -36,11 +36,11 @@ setwd ("~/LFS_exercises")
 
 ### Importing a Stata format dataset 
 lfs_od24 <- read_dta(
-            "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
+        "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
                     ) 
 ```
 
-As there are many variables in the dataset, let's create a data frame with just the variables we need for the exercise. We can also use this opportunity to  convert categorical variables  into factors in order to make them easier to understand and manipulate. For greater output clarity, we also remove unused categories of categorical variables using `droplevels()`.
+As there are many variables in the LFS, let's create a data frame with just the variables we need for the exercise. We can also use this opportunity to  convert categorical variables  into factors in order to make them easier to understand and manipulate. For greater output clarity, we also remove unused categories of categorical variables using `droplevels()`.
 
 ```{r mydata}
 dataex2 <- lfs_od24 |> 
@@ -83,15 +83,15 @@ We could also have a look at weekly earnings using a histogram. Given that incom
 quantile(dataex2$GRSSWK[dataex2$GRSSWK>0],.99)
 ```
 
-We now know that 99% of earners earn `{r} paste0("£", prettyNum(round(quantile(dataex2$GRSSWK[dataex2$GRSSWK>0],.99)), big.mark=","))` per week. 
+We now know that 99% of earners earn less than `{r} paste0("£", prettyNum(round(quantile(dataex2$GRSSWK[dataex2$GRSSWK>0],.99)), big.mark=","))` per week . 
 
 
 
 ```{r plot}
 hist(dataex2$GRSSWK[dataex2$GRSSWK>0 & dataex2$GRSSWK<2499],
-     xlab="Earnings (£) -- 1st-99th percentiles",                                           ### x axis label
-     main="Gross weekly earnings in the UK, October-December 2024", ### Plot title
-     freq=F)                                                        ### Displays probabilities rather than frequencies
+     xlab="Earnings (£) -- 1st-99th percentiles",          # x axis label
+     main="Gross weekly earnings in the UK, Oct-Dec 2024", # Plot title
+     freq=F)                                               # Print probabilities 
 ```
 
 ::: panel-tabset
@@ -249,8 +249,8 @@ The median weekly earnings for men and women in the lowest decile in the UK are 
 
 :::
 
-## How many people working full-time are there?
-This question relies on  a slightly different definition of full-time employment since this time we will be including the self-employed. This means we need to recreate a new variable to flag this group, or pass directly the definition to the estimation function. The figures published by the ONS can be found [here](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa).
+## How many people work as full-time employee?
+This question relies on  a slightly different definition that we have used so far since this time we won't excludce those earning more than £100 per hour. This means we need to recreate a new variable to flag this group, or pass directly the definition to the estimation function. The figures published by the ONS can be found [in Table EMP01 here](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa).
 
 Let's follow the same steps as before: 
 
@@ -260,9 +260,8 @@ Let's follow the same steps as before:
 dataex2<-dataex2 |> 
              mutate(
                   ftEmp2=ifelse(
-                         (FTPT=="[3] New Deal-FT" | FTPT=="[1] Full time") & 
-                         ILODEFR=="[1] In employment",
-                         "People working full-time", 
+                         (FTPT=="[3] New Deal-FT" | FTPT=="[1] Full time") &                        INECAC05=="[1] Employee",
+                         "Full-time employee", 
                          "Anything else"
                                ),
                   ftEmp=as.factor(ftEmp2)
@@ -296,9 +295,12 @@ corr<-de.sa |> group_by(ftEmp2) |> summarise(survey_total(vartype="ci"))
 
 1. The ONS table gives the estimated number of full-time employees as `{r} prettyNum(corr[[2]][2],big.mark = ",")`. Above, we get `{r} prettyNum(fte[[2]][2],big.mark = ",")`. Why is there a difference?
 
-2. What steps above need to be different to get the correct estimate of the number of full-time employees?
+2. What steps need to be different to get the correct estimate of the number of full-time employees?
 
-3. What is the correct estimated number of: full-time employees, female and male full-time employees in the UK?
+3. What is the correct estimated number of: 
+
+    - full-time employees; 
+    - female and male full-time employees in the UK?
 
 ## Answer
 1. Because we have used the wrong weights ie PIWT24, the weights that can only be used for earnings estimation
@@ -316,24 +318,19 @@ de.sa |> group_by(ftEmp2) |>
 3. 
 
 ```{r corr2}
-### Full-time employees
-fte2<- de.sa |> group_by(ftEmp2) |> 
-                summarise(
-                  survey_total(vartype="ci")
-                         )
-
 ### Full-time employees by gender
 fte.g<-de.sa |> group_by(SEX,ftEmp2) |> 
                 summarise(
                   survey_total(vartype="ci")
                         )
+fte.g
 ```
-In October - December 2024, there were respectively  `{r} prettyNum(fte.g[[3]][4],big.mark = ",")`  and `{r} prettyNum(fte.g[[3]][2],big.mark = ",")` male and female full-time employees.
+In October - December 2024, there were respectively  `{r} prettyNum(fte.g[[3]][4],big.mark = ",")`  and `{r} prettyNum(fte.g[[3]][2],big.mark = ",")` female and male full-time employees.
 :::
 
 
-## What next
+## What next?
 
 -   See if you can examine earnings for temporary workers or another group of interest. Examine the full dataset and explore as you choose.
 
--   Move to the next exercise, which uses one of the LFS longitudinal dataasets.
+-   Move to the next exercise, which uses one of the LFS longitudinal datasets.
