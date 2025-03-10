@@ -31,7 +31,8 @@ Let's open the dataset.
 
 ```{r open, eval=c(-2,-5)}
 #| echo: -1
-lfs_od24 <- read_dta("~/Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta") 
+#| eval: -2
+setwd ("~/") # setwd ("~/Dropbox/tmps") 
 setwd ("~/LFS_exercises")
 
 ### Importing a Stata format dataset 

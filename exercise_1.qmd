@@ -16,25 +16,26 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set-up
 
-One you have downloaded the data, save it somewhere accessible, for example in a folder named `LFS_exercises`. We can now begin analysing the data using R. First let's load the packages that are are going to need:
+One you have downloaded the data, save it somewhere accessible, for example in a folder named `LFS_exercises`. We can now begin analysing the data using R. First let's load the packages that are are going to need...
 
 ```{r}
-library(haven)
-library(dplyr)
-library(survey)
-library(srvyr)
+library(haven)  ### Functions to open Stata or SPSS datasets
+library(dplyr)  ### Easier data manipulation 
+library(survey) ### Survey data analysis functions
+library(srvyr)  ### Easier  manipulation of survey data
 
 ```
+...  And open the QLFS dataset:
 
 ```{r open}
 #| eval: -2
 #| echo: -1
-setwd ("~/Data/lfs/UKDA-9349-stata/stata/stata13/")
-#setwd ("~/LFS_exercises")
+setwd ("~/") # setwd ("~/Dropbox/tmps") 
+setwd ("~/LFS_exercises")
 
 
-# Inport  the data from a Stata format dataset 
-lfs_od24 <- read_dta("lfsp_od24_eul_pwt24.dta")
+# Import  the data from a Stata format dataset 
+lfs_od24 <- read_dta("Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta")
 ```
 
 Inspect the dataset and find out the number of cases and variables.
@@ -42,18 +43,16 @@ Inspect the dataset and find out the number of cases and variables.
 ```{r dim}
 ncol(lfs_od24) # Number of columns
 nrow(lfs_od24) # Number of rows (observations)
-
-dim(lfs_od24)  # Both
 ```
 
 ::: panel-tabset
-## Questions
+## Revision question
 
-1.  How many variables are there?
+How many variables are there?
 
 ## Answers
 
-1.  `{r} ncol(lfs_od24)`
+There are `{r} ncol(lfs_od24)` variables in the dataset.
 :::
 
 As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to make the variable categories easier to understand by converting them into factors. For greater clarity, we also remove unused categories of categorical variables using `droplevels()`.
@@ -77,7 +76,7 @@ head(mydata)
 View(mydata) # A nicer looking output
 ```
 
-Now let's examine all variables in more detail.
+Now let's examine in more detail the variables we are going to work with.
 
 ```{r summ}
 mydata |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |> 
@@ -120,7 +119,7 @@ t
 
 2.  What does the variable `INECAC05` relate to?
 
-3.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`.
+3.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`. 
 
 ## Answers
 
@@ -128,16 +127,16 @@ t
 
 2.  `INECAC05` records `{r} attr(mydata$INECAC05,"label")`
 
-3.  Respondents not in employment are coded as missing values for these variables.
+3.  Respondents not in employment are coded as missing values for these variables. Missing values were recorded as -9 "Does not apply" and -8 "No answer" in the original data.
 :::
 
-Missing values were recorded as -9 "Does not apply" and -8 "No answer" in the original data.
+
 
 ## Weighted and unweighted frequencies
 
 In order to provide reliable estimates of population values, survey data needs to be *weighted* when analysed. Weights are variables whose values increase or decrease the relative importance of observations, depending on how likely respondents were to take part to the survey. Some weights are only designed to correct the relative importance of observations, whereas others in addition also enable calculating population totals - the latter are called grossing weights.
 
-Below, we compare weighted and unweighted frequencies and percentages again.
+Below, we compare weighted and unweighted frequencies and percentages.
 
 We will be using `as_survey_design()`, a R function from the `survey` and `srvyr` packages that in effect creates a weighted version of our data.
 
@@ -243,7 +242,7 @@ round(100*
 
 ## Splitting by sex and working time status
 
-It is straightforward to obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
+We then obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
 
 ```{r tmp_ftpt}
 t1<-svytable(~PartTime+JobTmp,mydata.s)
