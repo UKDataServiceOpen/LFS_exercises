@@ -11,15 +11,29 @@ website:
 
       style: "floating"
       contents:
-      - text: "Introduction" 
+      
+      - section: "Introduction" 
         href: index.qmd
-      - href: exercise_1.qmd
-        text: Exercise 1
-      - href: exercise_2.qmd
-        text: Exercise 2
-      - href: exercise_3.qmd
-        text: Exercise 3
-  
+      - section: "**R Exercises**"
+        contents:
+        - href: exercise_1.qmd
+          text: Exercise 1
+        - href: exercise_2.qmd
+          text: Exercise 2
+        - href: exercise_3.qmd
+          text: Exercise 3
+        - href: exercise_4.qmd
+          text: Exercise 4
+      - section: "Stata exercises" 
+        contents:
+#      - href: exercise_1S.qmd
+        -  text: Exercise 1
+#      - href: exercise_2S.qmd
+        -  text: Exercise 2
+#      - href: exercise_3S.qmd
+        -  text: Exercise 3
+#      - href: exercise_4S.qmd
+        -  text: Exercise 4
 
 format:
   html:
