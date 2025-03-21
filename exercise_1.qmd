@@ -267,6 +267,7 @@ t2<-svytable(~PartTime+JobTmp+SEX,mydata.s)
                   ,1)
 ```
 
+
 ### Review questions
 
 ::: panel-tabset
@@ -280,11 +281,11 @@ t2<-svytable(~PartTime+JobTmp+SEX,mydata.s)
 
 ## Answers
 
-1.  There are `{r} prettyNum(svytable(~JobTmp,mydata.s)[2],big.mark = ",")` temporary employees.
+1.  There are `{r} prettyNum(svytable(~JobTmp,mydata.s)[2],big.mark = ",")` temporary employees, of which `{r } prettyNum(svytable(~JobTmp+PartTime,mydata.s)[4],big.mark = ",")` part-time.
 
 2.  There are `{r} prettyNum(t2[2,2,2] ,big.mark = ",")` females in part-time temporary employment
 
-3.  In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is `{r} prettyNum(sum(xtabs(~JobTmp+PartTime+SEX,mydata)),big.mark = ",")`
+3.  In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is only `{r} prettyNum(xtabs(~JobTmp+PartTime+SEX,mydata)[8],big.mark = ",")`
 :::
 
 Note: You can check if your results match those in the [ONS EMP07 dataset](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07).

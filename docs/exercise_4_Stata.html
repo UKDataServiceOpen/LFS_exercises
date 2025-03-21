@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>exercise_4_stata</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-b663525e4b92bb903b2199e2d401bf36.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-52680ef4d631618bfb0a75db17afe0d8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="ukds.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="http:// ukdataservice.ac.uk" class="sidebar-logo-link">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Introduction</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>R Exercises</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 4</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Stata exercises</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Exercise 2</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Exercise 3</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">Exercise 4</span>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#exercise-4-estimate-precision-and-uncertainty" id="toc-exercise-4-estimate-precision-and-uncertainty" class="nav-link active" data-scroll-target="#exercise-4-estimate-precision-and-uncertainty">Exercise 4: <br> Estimate precision and uncertainty</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#get-set-up" id="toc-get-set-up" class="nav-link" data-scroll-target="#get-set-up">Get set up</a>
+  <ul class="collapse">
+  <li><a href="#importing-a-stata-format-dataset" id="toc-importing-a-stata-format-dataset" class="nav-link" data-scroll-target="#importing-a-stata-format-dataset">Importing a Stata format dataset</a></li>
+  </ul></li>
+  <li><a href="#weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" id="toc-weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" class="nav-link" data-scroll-target="#weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings">1. Weighted and unweighted confidence intervals of mean weekly earnings</a></li>
+  <li><a href="#part-time-female-employees-across-regions" id="toc-part-time-female-employees-across-regions" class="nav-link" data-scroll-target="#part-time-female-employees-across-regions">2. Part-time female employees across regions</a></li>
+  <li><a href="#adjusting-cis-with-published-design-effects" id="toc-adjusting-cis-with-published-design-effects" class="nav-link" data-scroll-target="#adjusting-cis-with-published-design-effects">3. Adjusting CIs with published design effects</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<section id="exercise-4-estimate-precision-and-uncertainty" class="level1">
+<h1>Exercise 4: <br> Estimate precision and uncertainty</h1>
+<p>This series of exercises focuses on the precision of estimates calculated from Labour Force Survey data, in other words the degree to which we can trust them to reflect the likely values in the population. In order to do this, we will compute similar measures as before - means and proportions but this time we will be focusing on their confidence intervals.</p>
+<p>Learning objectives:</p>
+<ul>
+<li>To be able to compute and interpret confidence intervals of earnings in the LFS;</li>
+<li>To be able to assess the impact of weighting on weighting ;</li>
+<li>To be able to interpret CIs for regional differences;</li>
+<li>To be able to use published LFS design effects and apply them to your own estimates;</li>
+</ul>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>In this exercise we will be using Quarterly LFS data for October-December 2024.</p>
+<p>To follow the exercise, you need to access the relevant dataset from the UK Data Service: <a href="http://doi.org/10.5255/UKDA-SN-9349-3">Quarterly Labour Force Survey, October - December, 2024</a>.</p>
+</section>
+<section id="get-set-up" class="level2">
+<h2 class="anchored" data-anchor-id="get-set-up">Get set up</h2>
+<p>We will assume that the working directory for this exercise - where syntax files and other materials will be located - will be a folder named <code>LFS_exercises</code>. Once you have downloaded the data, save it somewhere accessible inside <code>LFS_exercises</code> for example in a folder called `Data.</p>
+<p>We can now begin analysing the data using R. First let’s load the packages that we are going to need:</p>
+<p>Let’s open the dataset.</p>
+<p>```{ open, eval=c(-2,-5)} #| echo: -1 #| eval: -2 setwd (“~/”) # setwd (“~/Dropbox/tmps”) setwd (“~/LFS_exercises”)</p>
+<section id="importing-a-stata-format-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="importing-a-stata-format-dataset">Importing a Stata format dataset</h3>
+<p>lfs_od24 &lt;- read_dta( “Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta” )</p>
+<pre><code>
+To make data manipulation easier, let's create a data frame with just the variables we need for the exercise. We can also use this opportunity to  convert categorical variables  into factors in order to make them easier to understand.
+
+```{ mydata}
+dataex4 &lt;- lfs_od24 |&gt;
+  select(PERSNO, PIWT24, PWT24,GRSSWK, INECAC05, ILODEFR,
+         FTPT, HOURPAY, SEX,INDE07M,GOVTOF2 ) |&gt;
+  mutate(
+         across(
+         c(INECAC05:GOVTOF2),\(x) as_factor(x, "both")
+               )
+         ) |&gt;
+  droplevels()</code></pre>
+</section>
+</section>
+<section id="weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" class="level2">
+<h2 class="anchored" data-anchor-id="weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings">1. Weighted and unweighted confidence intervals of mean weekly earnings</h2>
+<p>In this exercise, we will be comparing the mean gross weekly earnings (<code>GRSSWK</code>) and their confidence intervals using weighted and unweighted estimates. As previously, we will be using the weighting variable specifically designed for earnings: <code>PIWT24</code>.</p>
+<p>First, let’s examine gross weekly earnings and compute its unweighted mean:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource { ex1} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>### Raw data</span>
+<span id="cb2-2"><a href="#cb2-2"></a>summary(lfs_od24$GRSSWK)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a>### Removing non-response</span>
+<span id="cb2-5"><a href="#cb2-5"></a>summary(lfs_od24$GRSSWK[lfs_od24$GRSSWK&gt;=0])</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>hist(lfs_od24$GRSSWK[lfs_od24$GRSSWK&gt;=0],</span>
+<span id="cb2-8"><a href="#cb2-8"></a>     main= "Distribution  of weekly earnings, October-December 2024",</span>
+<span id="cb2-9"><a href="#cb2-9"></a>     xlab = "Gross weekly earnings (GBP)")</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a>### Computing the mean</span>
+<span id="cb2-12"><a href="#cb2-12"></a>mw&lt;-mean(lfs_od24$GRSSWK[lfs_od24$GRSSWK&gt;=0],na.rm=T)</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a>mw</span>
+<span id="cb2-15"><a href="#cb2-15"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s now compute the confidence interval. We need to do it by hand, using the standard deviation <code>sd()</code> function.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource { sd} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>s.mw&lt;-sd(lfs_od24$GRSSWK[lfs_od24$GRSSWK&gt;=0],na.rm=T)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>s.mw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>As a reminder, the 95% confidence interval of a mean is the value of the mean plus or minus 1.96 times its standard error. The standard error itself is the standard deviation divided by the square root of the sample size:</p>
+<p>```{ ci.u} lb&lt;-mw-1.96<em>(s.mw/sqrt(nrow(lfs_od24))) ub&lt;-mw+1.96</em>(s.mw/sqrt(nrow(lfs_od24)))</p>
+<p>round(c(mw,lb,ub))</p>
+<pre><code>We can now say that on the basis of unweighted sample values, we could be 95% confident that the mean Gross Weekly earnings of the UK population overall range between £`{}  round(lb)` and £`{}  round(ub)` per week, that is an interval of  £`{}  round(ub)-round(lb)`.
+
+Let's now look at the weighted estimates. We will be using the same survey data specific functions as in previous exercises.
+
+
+
+```{ ci.w}
+### Let's declare our data to be survey data with PIWT as weight. 
+dataex4.s&lt;-as_survey_design(weights=PIWT24,dataex4)
+ 
+### ... Then get the weights 
+mw.s&lt;-dataex4.s|&gt;
+      summarise(survey_mean(GRSSWK,vartype = "ci"))
+
+mw.s
+</code></pre>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Answers</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ol type="1">
+<li>What are the bounds between which we can be sure 95% of the values can be found, once we weight the data?</li>
+<li>How wide is the weighted confidence interval?</li>
+<li>What is the effect of weighting the data on the precision of estimates</li>
+</ol>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ol type="1">
+<li>It is between £<code>{}  round(mw.s[2])</code> and £<code>{}  round(mw.s[3])</code> per week</li>
+<li>£<code>{}  round(mw.s[3] - mw.s[2])</code></li>
+<li>The confidence intervals of weighted value tends to be wider than that of unweighted estimates, which makes them at the same time more representative but less precise than unweighted ones.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="part-time-female-employees-across-regions" class="level2">
+<h2 class="anchored" data-anchor-id="part-time-female-employees-across-regions">2. Part-time female employees across regions</h2>
+<p>In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of female employees in London and the North West of England. First, let’s examine the variable for regions:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource { govtof} number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>table(dataex4$GOVTOF2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s recode the missing values in FTPT into system missing.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource { regt} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>dataex4$FTPT2&lt;-ifelse(dataex4$FTPT=="[1] Full time" | dataex4$FTPT=="[2] Part time",as.character(dataex4$FTPT),NA)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>dataex4$FTPT2&lt;-as.factor(dataex4$FTPT2)</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>### We recreate a weights informed survey design object</span>
+<span id="cb6-5"><a href="#cb6-5"></a>dataex4.s&lt;-as_survey_design(weights=PWT24,dataex4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource { ldnnw} number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2"></a>ldn&lt;-dataex4.s |&gt;  </span>
+<span id="cb7-3"><a href="#cb7-3"></a>   filter(SEX=="[2] Female" &amp; ILODEFR=="[1] In employment" &amp; GOVTOF2=="[8] London") |&gt; </span>
+<span id="cb7-4"><a href="#cb7-4"></a>   group_by(FTPT2) |&gt; </span>
+<span id="cb7-5"><a href="#cb7-5"></a>   cascade(prop=survey_mean(vartype = "ci"))</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>nw&lt;-dataex4.s |&gt;  </span>
+<span id="cb7-8"><a href="#cb7-8"></a>   filter(SEX=="[2] Female" &amp; </span>
+<span id="cb7-9"><a href="#cb7-9"></a>          ILODEFR=="[1] In employment" &amp; </span>
+<span id="cb7-10"><a href="#cb7-10"></a>          GOVTOF2=="[2] North West") |&gt; </span>
+<span id="cb7-11"><a href="#cb7-11"></a>   group_by(FTPT2) |&gt; </span>
+<span id="cb7-12"><a href="#cb7-12"></a>   cascade(prop=survey_mean(vartype = "ci"))</span>
+<span id="cb7-13"><a href="#cb7-13"></a></span>
+<span id="cb7-14"><a href="#cb7-14"></a>### Raw results for London </span>
+<span id="cb7-15"><a href="#cb7-15"></a>ldn</span>
+<span id="cb7-16"><a href="#cb7-16"></a></span>
+<span id="cb7-17"><a href="#cb7-17"></a></span>
+<span id="cb7-18"><a href="#cb7-18"></a>### Formatted results for the North West</span>
+<span id="cb7-19"><a href="#cb7-19"></a>round(100*</span>
+<span id="cb7-20"><a href="#cb7-20"></a>        nw |&gt; </span>
+<span id="cb7-21"><a href="#cb7-21"></a>        filter(FTPT2=="[2] Part time") |&gt; </span>
+<span id="cb7-22"><a href="#cb7-22"></a>        select(prop,prop_low,prop_upp),</span>
+<span id="cb7-23"><a href="#cb7-23"></a>      2) </span>
+<span id="cb7-24"><a href="#cb7-24"></a></span>
+<span id="cb7-25"><a href="#cb7-25"></a></span>
+<span id="cb7-26"><a href="#cb7-26"></a>### Alternative method</span>
+<span id="cb7-27"><a href="#cb7-27"></a>100*svyby(</span>
+<span id="cb7-28"><a href="#cb7-28"></a>  ~I(FTPT2=="[2] Part time"),~(SEX=="[2] Female" &amp;</span>
+<span id="cb7-29"><a href="#cb7-29"></a>                               ILODEFR=="[1] In employment" &amp;</span>
+<span id="cb7-30"><a href="#cb7-30"></a>                               GOVTOF2=="[2] North West" ),</span>
+<span id="cb7-31"><a href="#cb7-31"></a>                              dataex4.s,</span>
+<span id="cb7-32"><a href="#cb7-32"></a>                              svyciprop,</span>
+<span id="cb7-33"><a href="#cb7-33"></a>                              vartype = "ci"</span>
+<span id="cb7-34"><a href="#cb7-34"></a>              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Answers</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<ol type="1">
+<li>Are the width of the confidence intervals for London and The North West comparable?</li>
+<li>Do the CI overlap? How do you interpret this?</li>
+<li>Is it the same with the differences between the North East and the North West of England?</li>
+</ol>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<ol type="1">
+<li>Yes, they are very close at about 5 percentage points.</li>
+<li>They don’t overlap, meaning that the difference are likely to be significant (at the 95% threshold) in the population</li>
+<li>The confidence intervals clearly overlap. It is unlikely that significant difference in the proportion of female part-timers significantly differ between the two regions.</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource { ne} number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a>ne&lt;-dataex4.s |&gt;  </span>
+<span id="cb8-2"><a href="#cb8-2"></a>   filter(SEX=="[2] Female" &amp; </span>
+<span id="cb8-3"><a href="#cb8-3"></a>          ILODEFR=="[1] In employment" &amp; </span>
+<span id="cb8-4"><a href="#cb8-4"></a>          GOVTOF2=="[1] North East") |&gt; </span>
+<span id="cb8-5"><a href="#cb8-5"></a>   group_by(FTPT2) |&gt; </span>
+<span id="cb8-6"><a href="#cb8-6"></a>   cascade(prop=survey_mean(vartype = "ci"))</span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a>round(100*</span>
+<span id="cb8-9"><a href="#cb8-9"></a>        ne |&gt; </span>
+<span id="cb8-10"><a href="#cb8-10"></a>        filter(FTPT2=="[2] Part time") |&gt; </span>
+<span id="cb8-11"><a href="#cb8-11"></a>        select(prop,prop_low,prop_upp),</span>
+<span id="cb8-12"><a href="#cb8-12"></a>      2) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="adjusting-cis-with-published-design-effects" class="level2">
+<h2 class="anchored" data-anchor-id="adjusting-cis-with-published-design-effects">3. Adjusting CIs with published design effects</h2>
+<p>Design effects account for the impact of survey design (e.g., clustering and stratification) on the precision of estimates. Here, we will be adjusting the CI of the proportion of women and men employed (<code>ILODEFR</code>) in manufacturing (<code>INDE07M</code>) in their main job using design effects published in Volume 1 of the LFS documentation.</p>
+<p>Let’s begin by examining the sector variable:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource { intab} number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href="#cb9-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2"></a>cbind(Freq.=table(dataex4$INDE07M[dataex4$ILODEFR=="[1] In employment"]),</span>
+<span id="cb9-3"><a href="#cb9-3"></a>      Pct.=round(100*</span>
+<span id="cb9-4"><a href="#cb9-4"></a>            prop.table(</span>
+<span id="cb9-5"><a href="#cb9-5"></a>            table(dataex4$INDE07M[dataex4$ILODEFR=="[1] In employment"])),</span>
+<span id="cb9-6"><a href="#cb9-6"></a>            1)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s then compute the proportion of people employed in manufacturing:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource { citab} number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="#cb10-1"></a>fem&lt;-dataex4.s |&gt;  </span>
+<span id="cb10-2"><a href="#cb10-2"></a>   filter(SEX=="[2] Female" &amp; </span>
+<span id="cb10-3"><a href="#cb10-3"></a>          ILODEFR=="[1] In employment") |&gt; </span>
+<span id="cb10-4"><a href="#cb10-4"></a>   group_by(INDE07M=="[3] C -Manufacturing") |&gt; </span>
+<span id="cb10-5"><a href="#cb10-5"></a>   cascade(prop=survey_mean(vartype = "ci"))</span>
+<span id="cb10-6"><a href="#cb10-6"></a></span>
+<span id="cb10-7"><a href="#cb10-7"></a>mam&lt;-dataex4.s |&gt;  </span>
+<span id="cb10-8"><a href="#cb10-8"></a>   filter(SEX=="[1] Male" &amp; </span>
+<span id="cb10-9"><a href="#cb10-9"></a>          ILODEFR=="[1] In employment") |&gt; </span>
+<span id="cb10-10"><a href="#cb10-10"></a>   group_by(INDE07M=="[3] C -Manufacturing") |&gt; </span>
+<span id="cb10-11"><a href="#cb10-11"></a>   cascade(prop=survey_mean(vartype = "ci"))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>… and examine the results for females:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource { fem} number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a href="#cb11-1"></a>round(100*fem,2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>… And males:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource { mam} number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href="#cb12-1"></a>round(100*mam,2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The above results are ‘naive’ confidence intervals ie confidence intervals that do not take into account survey design and depending on the case, maybe too narrow ie overstate the precision of the estimates - or too wide.</p>
+<p>In order to compute more robust standard errors, we need to have access to survey design variables such as strata and primary sampling units identifiers, These are unfortunately withheld by the producers of the LFS&lt; due to concerns about potential disclosure of personal information.</p>
+<p>Another approach that can be implemented for some headline estimates consists in adapting confidence intervals based on the design factors (DEFF) published by the ONS. These can be in the the Volume 1 of the documentation. For the October-December edition of the LFS, this file is called: <code>lfs_user_guide_vol1_background_2024.pdf</code>.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-nrow="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><img src="pics/contents.jpg" class="img-fluid" alt="Table of centent of Vol 1 of the LFS Documentation"></p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><img src="pics/annex2.jpg" class="img-fluid" alt="Overview of Annex 2 of the LFS Documentation, Volume 1."></p>
+</div>
+</div>
+</div>
+<p>The design effects for the proportion of female and males employed in manufacturing are respectively 1.2216 and 1.3048:</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-nrow="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><img src="pics/females.jpg" class="img-fluid" alt="Highlighted design factor for females"></p>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<p><img src="pics/males.jpg" class="img-fluid" alt="Highlighted design effects for men"></p>
+</div>
+</div>
+</div>
+<p>We now need to adapt these to the confidence intervals we computed earlier. In order to do this, we need our original standard errors - as the DEFF are meant to adjust these. We can then obtain the adjusted CIs for females:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource { adjfem} number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a href="#cb13-1"></a>sef&lt;-dataex4.s |&gt;  </span>
+<span id="cb13-2"><a href="#cb13-2"></a>   filter(SEX=="[2] Female" &amp; </span>
+<span id="cb13-3"><a href="#cb13-3"></a>          ILODEFR=="[1] In employment") |&gt; </span>
+<span id="cb13-4"><a href="#cb13-4"></a>   group_by(INDE07M=="[3] C -Manufacturing") |&gt; </span>
+<span id="cb13-5"><a href="#cb13-5"></a>   cascade(prop=survey_mean(vartype = "se"))</span>
+<span id="cb13-6"><a href="#cb13-6"></a></span>
+<span id="cb13-7"><a href="#cb13-7"></a>round(</span>
+<span id="cb13-8"><a href="#cb13-8"></a>c(100*sef$prop[2],</span>
+<span id="cb13-9"><a href="#cb13-9"></a>100*sef$prop[2]-1.96*sqrt(sef$prop_se[2]*1.2216),</span>
+<span id="cb13-10"><a href="#cb13-10"></a>100*sef$prop[2]+1.96*sqrt(sef$prop_se[2]*1.2216)</span>
+<span id="cb13-11"><a href="#cb13-11"></a>),2</span>
+<span id="cb13-12"><a href="#cb13-12"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>… Then for males:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource { adjmal} number-lines code-with-copy"><code class="sourceCode"><span id="cb14-1"><a href="#cb14-1"></a>sem&lt;-dataex4.s |&gt;  </span>
+<span id="cb14-2"><a href="#cb14-2"></a>   filter(SEX=="[1] Male" &amp; </span>
+<span id="cb14-3"><a href="#cb14-3"></a>          ILODEFR=="[1] In employment") |&gt; </span>
+<span id="cb14-4"><a href="#cb14-4"></a>   group_by(INDE07M=="[3] C -Manufacturing") |&gt; </span>
+<span id="cb14-5"><a href="#cb14-5"></a>   cascade(prop=survey_mean(vartype = "se"))</span>
+<span id="cb14-6"><a href="#cb14-6"></a></span>
+<span id="cb14-7"><a href="#cb14-7"></a>round(</span>
+<span id="cb14-8"><a href="#cb14-8"></a>c(100*sem$prop[2],</span>
+<span id="cb14-9"><a href="#cb14-9"></a>100*sem$prop[2]-1.96*sqrt(sem$prop_se[2]*1.3048),</span>
+<span id="cb14-10"><a href="#cb14-10"></a>100*sem$prop[2]+1.96*sqrt(sem$prop_se[2]*1.3048)</span>
+<span id="cb14-11"><a href="#cb14-11"></a>),2</span>
+<span id="cb14-12"><a href="#cb14-12"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Answers</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<ol type="1">
+<li>What has happened to the confidence intervals after we adjusted them?</li>
+<li>What if we wanted to adjust our earlier estimates of gross weekly earnings for the design effects?</li>
+</ol>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>1.They have narrowed, which means that in this case, taking the survey design into account improves the precision of estimates.<br>
+2. We would not be able to do this with the safeguarded version of the data. We would need to use the secured version, and compute the adjusted estimates ourselves.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

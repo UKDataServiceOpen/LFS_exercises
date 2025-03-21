@@ -1,0 +1,240 @@
+# Exercise 3: Labour Market Flows
+
+
+The exercise presents three different methods for examining labour market flows - ie the transitions between one kind of involvement in paid work (for example, full-time employed) to another one (for example, economically inactive) using longitudinal data from the Labour Force Survey. 
+
+The estimates in this exercise  relate to figures published by ONS on the 'Labour market flows NSA' sheet in [Table X02.](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/labourforcesurveyflowsestimatesx02) NSA stands for 'non seasonally adjusted', as we will be  examining flows that took place between two quarters (as opposed to seasonally adjusted yearly averages).  
+
+Learning outcomes:
+
+- Becoming familiar with Two Quarter Longitudinal Labour Force Survey data
+- Being able to estimate labour market flows using different methods
+- Being able to use longitudinal weights
+
+
+## Data
+
+This exercise  relies on  the Two-Quarter LFS Longitudinal Dataset  for July - December 2024, which is available from the UK Data Service [(Study number 9348).](http://doi.org/10.5255/UKDA-SN-9348-1) 
+
+## Set up
+```{libraries}
+library(haven)  ### Functions to open Stata or SPSS datasets
+library(dplyr)  ### Easier data manipulation 
+library(survey) ### Survey data analysis functions
+library(srvyr)  ### Easier  manipulation of survey data
+```
+
+Let's open the dataset. As in the previous exercises, we downloaded it into a *Data* folder inside  the working directory: *LFS_exercises*. 
+
+```{open, eval=c(-2,-5)} 
+#| echo: -1
+#| eval: -2
+setwd ("~/") # setwd ("~/Dropbox/tmps") 
+setwd ("~/LFS_exercises") # Set the working directory
+
+### Importing the Stata format dataset 
+lfs2q_js24 <- read_dta(
+        "Data/UKDA-9348-stata/stata/stata13/lgwt24_2q_js24_od24_eul.dta"
+                    ) 
+# ... And create a smaller, easier to handle,  data frame
+# Categorical variables are converted into factors for easier handling
+
+dataex3 <- lfs2q_js24|> select(AGES2, AGE2, LGWT24, EMPLEN1, 
+                               EMPLEN2, FLOW, SEX, ILODEFR1, ILODEFR2, 
+                               INCAC051, INCAC052, SC20MMJ1, SC20MMJ2, 
+                              In792sm2, In792sm1) |> 
+                        mutate(
+                        across(
+                             c(AGES2, EMPLEN1:In792sm1),\(x) as_factor(x, "both")
+               
+                               )
+         ) |>
+  droplevels()
+  
+```
+
+## Let's examine the working dataset
+
+
+```{exvar}
+colnames(dataex3)
+dataex3|> select(-LGWT24) |> summary()
+
+```
+
+
+::: panel-tabset
+### *Review questions 1*
+
+1. What is the FLOW variable?
+
+2. Why do some variables have a suffix of 1 or 2?
+
+### Answers
+
+1. `{r} attr(lfs2q_js24$FLOW, "label") `
+
+2. The suffix in most  variables indicates the wave ie the quarter at which it was recorded.
+
+:::
+
+
+## Method 1: Using the FLOW variable 
+
+In order to match the definition used by the ONS for their published  estimates, we will examine the  FLOW variable but only consider respondents aged 16-64. We will then weight the variable with the longitudinal weight `LGWT24`. In addition to  adjusting for non-response and sampling error, longitudinal weights also correct for respondents who drop out from the survey between waves.
+
+
+As before, we fist  create a variable flagging those aged 16-64.
+
+```{wrkage}
+dataex3<- dataex3 |> mutate(
+                     wrkage=ifelse(AGE2>=16 & AGE2<=64,"16-64","Other"),
+                     wrkage=as.factor(wrkage)
+                      )
+```
+
+We then  a copy of the working dataset that takes weights into account. 
+
+
+```{sdesign}
+
+dataex3.s<- dataex3|> 
+            as_survey_design(weights=LGWT24)
+```
+
+And finally, we compute the estimates.
+
+```{total}
+t<-
+dataex3.s |> 
+            group_by(FLOW,wrkage) |>
+            summarize(Counts = survey_total()
+            )
+
+t
+
+### Lets make the results easier to read
+t |> filter(wrkage=="16-64") |> select(-wrkage)
+```
+
+::: panel-tabset
+### *Review question 2*
+
+How many people were in employment in both the first quarter and  final quarter?
+
+### Answers
+
+The second line of the table above  tells us that there `{r} prettyNum((t |> filter(wrkage=="16-64") |> select(-wrkage))[[2,2]],big.mark=",")` people in employment both in June-August and September-December 2024 
+
+::: 
+
+## Method 2: Employment situation at W1 and W2
+
+Here, we create a  variable to flag a group of respondents based on their situation iat the first and second quarters.
+```{select}
+dataex3 <-
+dataex3 |> mutate(NewJob=
+                  ifelse(ILODEFR1=="[1] In employment" & 
+                         EMPLEN2=="[1] Less than 3 months" 
+                         & AGE2>15 & AGE2<65,
+                         "New job at Q2", 
+                         "Anything else"),
+                  NewJob=as.factor(NewJob)
+                  )
+
+dataex3.s<- dataex3|> as_survey_design(weights=LGWT24)
+
+                                    
+dataex3.s |> 
+  group_by(NewJob) |>
+   summarize(Counts = survey_total()
+            )
+```
+
+
+::: panel-tabset
+### *Review question 3*
+
+What has been estimated with the flag and table above?
+
+*Hint: examine the two variables used in the filter to understand the selection*
+
+### Answer
+
+```{answ2}
+dataex3 |> 
+  select(ILODEFR1,EMPLEN2) |> 
+  summary() 
+
+```
+The table measures the number of people who changed jobs between the first and second quarter. 
+
+:::
+
+
+## Method 3: Cross-tabulation  
+
+This time we will be looking at transitions between employment broadly defined  and self-employment from wave 1 to wave 2.  
+In order to do this, we will create a simplified economic activity variable recording employees (including those on training schemes as well as unpaid family workers) the unemployed, and the economically  inactive at waves  1 and 2.
+
+```{econac}
+dataex3 <- dataex3 |> 
+            mutate(
+            eco1=case_when(
+                     INCAC051=="[1] Employee" | INCAC051=="[3] Government emp & training programmes" | 
+                     INCAC051=="[4] Unpaid family worker" ~ "Employee+",
+                     INCAC051=="[2] Self-employed" ~ "Self-employed",
+                     INCAC051=="[5] ILO unemployed" ~ "Unemployed",
+                     .default="Inactive"
+                     ),
+              eco1=as.factor(eco1),
+              eco2=case_when(
+                     INCAC052=="[1] Employee" | INCAC052=="[3] Government emp & training programmes" | 
+                     INCAC052=="[4] Unpaid family worker" ~ "Employee+",
+                     INCAC052=="[2] Self-employed" ~ "Self-employed",
+                     INCAC052=="[5] ILO unemployed" ~ "Unemployed",
+                     .default="Inactive"),
+               eco2=as.factor(eco2)
+                     ) 
+
+```
+
+Let's now get the results by using a cross-tabulation of economic activity at time 1 and time 2. We will rely again on `wrkage` to limit the analysis on the 16-64 as well as the longitudinal weights. The easiest way of doing this is to create a three-way table, which will in effect create a flow table for the 16-64 and another one for the other  respondents.  
+
+We will first  need to recreate the weights-informed dataset as we  created new variables since the last time.
+
+
+
+```{result3}
+dataex3.s<- dataex3|> 
+            as_survey_design(weights=LGWT24)
+
+r<- svytable(~eco1+eco2+wrkage,
+          design=dataex3.s
+            )
+```
+
+::: panel-tabset
+
+### *Review questions 4*
+What were the flows (ie number of people transitioning) between:
+
+1. Employment and self-employment  
+2. Self-employment to employment?
+
+### Answers
+
+1. There were approximatively `{r} prettyNum(r[9],big.mark=",")` people moving from  employment to self-employment between  July-August  and  September-December 2024.
+
+2.  About `{r} prettyNum(r[3],big.mark=",")` people who were  self-employed in July-August 2024 had become  employee by September-December 2024. 
+  
+:::  
+
+## What next? 
+
+This was the final structured exercise. Some ideas for what to do next are:
+
+- Use the methods above to examine flows between industry or occupation (SC10MMJ1 SC10MMJ2 in792sm2 in792sm1).
+- Open the full dataset to examine what variables in the Two-Quarter Longitudinal Dataset.
+
+
