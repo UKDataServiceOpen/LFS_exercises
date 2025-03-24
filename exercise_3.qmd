@@ -26,11 +26,8 @@ library(srvyr)  ### Easier  manipulation of survey data
 
 Let's open the dataset. As in the previous exercises, we downloaded it into a *Data* folder inside  the working directory: *LFS_exercises*. 
 
-```{r open, eval=c(-2,-5)} 
-#| echo: -1
-#| eval: -2
-setwd ("~/") # setwd ("~/Dropbox/tmps") 
-setwd ("~/LFS_exercises") # Set the working directory
+```{r open} 
+setwd ("LFS_exercises") # Set the working directory
 
 ### Importing the Stata format dataset 
 lfs2q_js24 <- read_dta(

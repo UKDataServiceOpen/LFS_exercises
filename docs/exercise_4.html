@@ -195,14 +195,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">Exercise 2</span>
-  </li>
-          <li class="sidebar-item">
- <span class="menu-text">Exercise 3</span>
-  </li>
-          <li class="sidebar-item">
- <span class="menu-text">Exercise 4</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 2</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -259,9 +256,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s open the dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="do">## setwd ("~/LFS_exercises")</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span> (<span class="st">"LFS_exercises"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="do">### Importing a Stata format dataset</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="do">### Importing a Stata format dataset </span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>lfs_od24 <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(</span>
 <span id="cb2-5"><a href="#cb2-5"></a>        <span class="st">"Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a>                    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

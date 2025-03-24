@@ -16,22 +16,20 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set-up
 
-One you have downloaded the data, save it somewhere accessible, for example in a folder named `LFS_exercises`. We can now begin analysing the data using R. First let's load the packages that are are going to need...
+One you have downloaded the data, save it somewhere accessible, for example in a `Data` folder inside  `LFS_exercises`. We can now begin analysing the data using R. First let's load the packages that are are going to need...
 
 ...  And open the QLFS dataset:
 
 ```{stata open}
-cd "~"  
-*cd  "~/LFS_exercises"o
-
+clear
+cd  "LFS_exercises/"
 
 * Import  the data from a Stata format dataset 
-clear
 use  "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
 
 ```
 
-Inspect the dataset and find out the number of cases and variables.
+Inspect  the dataset and find out the number of cases and variables.
 
 ```{stata dim}
 describe,short

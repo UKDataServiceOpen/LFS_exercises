@@ -30,10 +30,7 @@ library(srvyr)  ### Easier  manipulation of survey data
 Let's open the dataset.
 
 ```{r open, eval=c(-2,-5)}
-#| echo: -1
-#| eval: -2
-setwd ("~/") # setwd ("~/Dropbox/tmps") 
-setwd ("~/LFS_exercises")
+setwd ("LFS_exercises")
 
 ### Importing a Stata format dataset 
 lfs_od24 <- read_dta(
@@ -164,7 +161,7 @@ ft.emp.2
 ```
 
 
-There are `{r} prettyNum(ft.emp.2[[3]], big.mark=",")` respondents in employment in the sample.
+There are `{r} prettyNum(ft.emp.2[[3]], big.mark=",")` respondents in full-time self-employment in the sample.
 :::
 
 
@@ -173,7 +170,7 @@ There are `{r} prettyNum(ft.emp.2[[3]], big.mark=",")` respondents in employment
 The code below recreates the ONS results showing the distribution of income for full-time employees overall and by gender. 
 It does it in three stages:
 
-- First, we create a variable to flag the group of people we are interested in. 
+- First, we create a variable to flag to match the ONS' definition of full-time employees  (ie those who work full-time and earn up to £100 hourly). 
 
    It may be a good idea to double check the definition used by the ONS [in its publication.](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04) Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for  respondents' main job, and also that *those earnings more than £100 per hour* are excluded. 
 
@@ -183,7 +180,7 @@ It does it in three stages:
 dataex2<-dataex2 |> 
              mutate(
                   ftEmp=ifelse(
-                         FTPT=="[3] New Deal-FT" | FTPT=="[1] Full time" & 
+                         (FTPT=="[3] New Deal-FT" | FTPT=="[1] Full time") & 
                          HOURPAY<=100 &
                          INECAC05=="[1] Employee",
                          "Full-time employee", 
@@ -211,7 +208,7 @@ medinc<- de.s |> group_by(ftEmp)  |>
 medinc
 ```
 
-The median weekly earnings of  full-time employees in the UK in October-December 2024 was £`{r} round(medinc[[2]][2])`. We need to keep in mind that by using the income weights, those with missing values on GRSSWK are automatically left out. This means that if we are not using these, we will have to exclude them explicitly (`GRSSWK>0`)
+The median weekly earnings of  full-time employees in the UK in October-December 2024 was £`{r} round(medinc[[2]][2])`. We need to keep in mind that by using the income weights, those with missing values on GRSSWK are automatically left out. If for some reason  we are not using these, we will have to exclude missing values  explicitly  (`GRSSWK>0`)
 
 ::: panel-tabset
 ## Questions
@@ -255,7 +252,7 @@ This question relies on  a slightly different definition that we have used so fa
 
 Let's follow the same steps as before: 
 
-1. Let's flag full-time employees:
+1. Let's flag full-time employees (no limit on hourly pay this time):
 
 ```{r ftEmp2}
 dataex2<-dataex2 |> 

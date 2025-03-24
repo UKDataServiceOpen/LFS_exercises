@@ -31,11 +31,8 @@ library(srvyr)  ### Easier  manipulation of survey data
 
 Let's open the dataset.
 
-```{r open, eval=c(-2,-5)}
-#| echo: -1
-#| eval: -2
-setwd ("~/") # setwd ("~/Dropbox/tmps")
-setwd ("~/LFS_exercises")
+```{r open}
+setwd ("LFS_exercises")
 
 ### Importing a Stata format dataset 
 lfs_od24 <- read_dta(

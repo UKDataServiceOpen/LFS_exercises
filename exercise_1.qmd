@@ -28,10 +28,7 @@ library(srvyr)  ### Easier  manipulation of survey data
 ...  And open the QLFS dataset:
 
 ```{r open}
-#| eval: -2
-#| echo: -1
-setwd ("~/") # setwd ("~/Dropbox/tmps") 
-setwd ("~/LFS_exercises")
+setwd ("LFS_exercises")
 
 
 # Import  the data from a Stata format dataset 

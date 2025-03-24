@@ -182,24 +182,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Stata exercises</span></a>
+ <span class="menu-text"><strong>Stata exercises</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">Exercise 1</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 1</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
- <span class="menu-text">Exercise 2</span>
-  </li>
-          <li class="sidebar-item">
- <span class="menu-text">Exercise 3</span>
-  </li>
-          <li class="sidebar-item">
- <span class="menu-text">Exercise 4</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 2</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -258,8 +258,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s open the dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="do">## setwd ("~/LFS_exercises")</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span> (<span class="st">"LFS_exercises"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="do">## </span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="do">### Importing a Stata format dataset</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>lfs_od24 <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(</span>
 <span id="cb2-5"><a href="#cb2-5"></a>        <span class="st">"Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span></span>
@@ -450,7 +450,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                   0                   1 </code></pre>
 </div>
 </div>
-<p>There are 2,823 respondents in employment in the sample.</p>
+<p>There are 2,823 respondents in full-time self-employment in the sample.</p>
 </div>
 </div>
 </div>
@@ -459,14 +459,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="ons-estimates-for-employees-gross-weekly-earnings">ONS estimates for employees’ gross weekly earnings</h2>
 <p>The code below recreates the ONS results showing the distribution of income for full-time employees overall and by gender. It does it in three stages:</p>
 <ul>
-<li><p>First, we create a variable to flag the group of people we are interested in.</p>
+<li><p>First, we create a variable to flag to match the ONS’ definition of full-time employees (ie those who work full-time and earn up to £100 hourly).</p>
 <p>It may be a good idea to double check the definition used by the ONS <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04">in its publication.</a> Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for respondents’ main job, and also that <em>those earnings more than £100 per hour</em> are excluded.</p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>dataex2<span class="ot">&lt;-</span>dataex2 <span class="sc">|&gt;</span> </span>
 <span id="cb25-2"><a href="#cb25-2"></a>             <span class="fu">mutate</span>(</span>
 <span id="cb25-3"><a href="#cb25-3"></a>                  <span class="at">ftEmp=</span><span class="fu">ifelse</span>(</span>
-<span id="cb25-4"><a href="#cb25-4"></a>                         FTPT<span class="sc">==</span><span class="st">"[3] New Deal-FT"</span> <span class="sc">|</span> FTPT<span class="sc">==</span><span class="st">"[1] Full time"</span> <span class="sc">&amp;</span> </span>
+<span id="cb25-4"><a href="#cb25-4"></a>                         (FTPT<span class="sc">==</span><span class="st">"[3] New Deal-FT"</span> <span class="sc">|</span> FTPT<span class="sc">==</span><span class="st">"[1] Full time"</span>) <span class="sc">&amp;</span> </span>
 <span id="cb25-5"><a href="#cb25-5"></a>                         HOURPAY<span class="sc">&lt;=</span><span class="dv">100</span> <span class="sc">&amp;</span></span>
 <span id="cb25-6"><a href="#cb25-6"></a>                         INECAC05<span class="sc">==</span><span class="st">"[1] Employee"</span>,</span>
 <span id="cb25-7"><a href="#cb25-7"></a>                         <span class="st">"Full-time employee"</span>, </span>
@@ -479,7 +479,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Anything else Full-time employee 
-             43405              19664 </code></pre>
+             43407              19662 </code></pre>
 </div>
 </div>
 <ul>
@@ -503,7 +503,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2 Full-time employee    692        692       712 </code></pre>
 </div>
 </div>
-<p>The median weekly earnings of full-time employees in the UK in October-December 2024 was £692. We need to keep in mind that by using the income weights, those with missing values on GRSSWK are automatically left out. This means that if we are not using these, we will have to exclude them explicitly (<code>GRSSWK&gt;0</code>)</p>
+<p>The median weekly earnings of full-time employees in the UK in October-December 2024 was £692. We need to keep in mind that by using the income weights, those with missing values on GRSSWK are automatically left out. If for some reason we are not using these, we will have to exclude missing values explicitly (<code>GRSSWK&gt;0</code>)</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Answers</a></li></ul>
 <div class="tab-content">
@@ -565,7 +565,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This question relies on a slightly different definition that we have used so far since this time we won’t excludce those earning more than £100 per hour. This means we need to recreate a new variable to flag this group, or pass directly the definition to the estimation function. The figures published by the ONS can be found <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa">in Table EMP01 here</a>.</p>
 <p>Let’s follow the same steps as before:</p>
 <ol type="1">
-<li>Let’s flag full-time employees:</li>
+<li>Let’s flag full-time employees (no limit on hourly pay this time):</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>dataex2<span class="ot">&lt;-</span>dataex2 <span class="sc">|&gt;</span> </span>

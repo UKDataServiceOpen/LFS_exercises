@@ -182,24 +182,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Stata exercises</span></a>
+ <span class="menu-text"><strong>Stata exercises</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
- <span class="menu-text">Exercise 1</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 1</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
- <span class="menu-text">Exercise 2</span>
-  </li>
-          <li class="sidebar-item">
- <span class="menu-text">Exercise 3</span>
-  </li>
-          <li class="sidebar-item">
- <span class="menu-text">Exercise 4</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 2</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -255,12 +255,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s open the dataset. As in the previous exercises, we downloaded it into a <em>Data</em> folder inside the working directory: <em>LFS_exercises</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="do">## setwd ("~/LFS_exercises") # Set the working directory</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span> (<span class="st">"LFS_exercises"</span>) <span class="co"># Set the working directory</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="do">### Importing the Stata format dataset</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="do">### Importing the Stata format dataset </span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>lfs2q_js24 <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(</span>
 <span id="cb2-5"><a href="#cb2-5"></a>        <span class="st">"Data/UKDA-9348-stata/stata/stata13/lgwt24_2q_js24_od24_eul.dta"</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>                    )</span>
+<span id="cb2-6"><a href="#cb2-6"></a>                    ) </span>
 <span id="cb2-7"><a href="#cb2-7"></a><span class="co"># ... And create a smaller, easier to handle,  data frame</span></span>
 <span id="cb2-8"><a href="#cb2-8"></a><span class="co"># Categorical variables are converted into factors for easier handling</span></span>
 <span id="cb2-9"><a href="#cb2-9"></a></span>
