@@ -117,7 +117,7 @@
     "href": "exercise_2_Stata.html#get-set-up",
     "title": "Weekly earnings of employees",
     "section": "Get set up",
-    "text": "Get set up\nWe will assume that the working directory for this exercise - where syntax files and other materials will be located - will be a folder named LFS_exercises. Once you have downloaded the data, save it somewhere accessible inside LFS_exercises, for example in another folder named Data.",
+    "text": "Get set up\nWe will assume that the working directory for this exercise - where syntax files and other materials will be located - will be a folder named LFS_exercises. Once you have downloaded the data, save it somewhere accessible inside LFS_exercises, for example in another folder named Data… Then open the QLFS dataset:\n\ncd  \"LFS_exercises/\"\n\n* Import  the data from a Stata format dataset \nuse  \"Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta\"\n\n\n/home/mscsepw2/LFS_exercices\n\n\n\nAs previously, let’s just keep the variables we need for the exercise.\n\nkeep PERSNO PIWT24 PWT24 GRSSWK  INECAC05  ILODEFR FTPT  HOURPAY SEX",
     "crumbs": [
       "**Stata exercises**",
       "Exercise 2"

@@ -16,19 +16,7 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set up
 
-We will assume that the working directory for this exercise - where syntax files and other materials  will be located - will be a folder named `LFS_exercises`.   Once you have downloaded the data, save it somewhere accessible inside `LFS_exercises`, for example in  another folder named `Data`. 
-
-## Data
-
-The data used in this exercise relates to an estimate published by the ONS for October-December 2024.
-
-To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2024](http://doi.org/10.5255/UKDA-SN-9349-3).
-
-## Get set-up
-
-One you have downloaded the data, save it somewhere accessible, for example in a `Data` folder inside  `LFS_exercises`. We can now begin analysing the data using R. First let's load the packages that are are going to need...
-
-...  And open the QLFS dataset:
+We will assume that the working directory for this exercise - where syntax files and other materials  will be located - will be a folder named `LFS_exercises`.   Once you have downloaded the data, save it somewhere accessible inside `LFS_exercises`, for example in  another folder named `Data`...  Then open the QLFS dataset:
 
 ```{stata open}
 cd  "LFS_exercises/"
