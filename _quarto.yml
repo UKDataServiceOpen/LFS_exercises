@@ -5,7 +5,7 @@ project:
    - index.qmd
    - exercise_*
 
-jupyter: stata
+jupyter: nbstata
 
 website:
 #  title: "Working with the Labour Force Survey"
@@ -17,9 +17,10 @@ website:
       style: "floating"
       contents:
       
-      - section: "Introduction" 
-        href: index.qmd
-      - section: "**R Exercises**"
+      - href: index.qmd
+        text: "**Introduction**"
+
+      - section: "**R exercises**"
         contents:
         - href: exercise_1.qmd
           text: Exercise 1
@@ -36,10 +37,10 @@ website:
           text: Exercise 1
         - href: exercise_2_Stata.qmd
           text: Exercise 2
-#      - href: exercise_3_Stata.qmd
-#        -  text: Exercise 3
-#      - href: exercise_4_Stata.qmd
-#        -  text: Exercise 4
+        - href: exercise_3_Stata.qmd
+          text: Exercise 3
+#        - href: exercise_4_Stata.qmd
+#          text: Exercise 4
 
 format:
   html:

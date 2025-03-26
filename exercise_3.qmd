@@ -69,7 +69,8 @@ dataex3|> select(-LGWT24) |> summary()
 
 ### Answers
 
-1. `{r} attr(lfs2q_js24$FLOW, "label") `
+1. 1. FLOW measures labour market flows, that is the transitions between economic activity statuses
+ `{r} attr(lfs2q_js24$FLOW, "label") `
 
 2. The suffix in most  variables indicates the wave ie the quarter at which it was recorded.
 
@@ -81,7 +82,7 @@ dataex3|> select(-LGWT24) |> summary()
 In order to match the definition used by the ONS for their published  estimates, we will examine the  FLOW variable but only consider respondents aged 16-64. We will then weight the variable with the longitudinal weight `LGWT24`. In addition to  adjusting for non-response and sampling error, longitudinal weights also correct for respondents who drop out from the survey between waves.
 
 
-As before, we fist  create a variable flagging those aged 16-64.
+As before, we first  create a variable flagging the subpopulation of interest, here those aged 16-64.
 
 ```{r wrkage}
 dataex3<- dataex3 |> mutate(
@@ -121,17 +122,17 @@ How many people were in employment in both the first quarter and  final quarter?
 
 ### Answers
 
-The second line of the table above  tells us that there `{r} prettyNum((t |> filter(wrkage=="16-64") |> select(-wrkage))[[2,2]],big.mark=",")` people in employment both in June-August and September-December 2024 
+The second line of the table above  tells us that there were `{r} prettyNum((t |> filter(wrkage=="16-64") |> select(-wrkage))[[2,2]],big.mark=",")` people in employment both in June-August and September-December 2024 
 
 ::: 
 
 ## Method 2: Employment situation at W1 and W2
 
-Here, we create a  variable to flag a group of respondents based on their situation iat the first and second quarters.
+Here, we create a  variable to flag a group of respondents based on their situation at the first and second quarters.
 ```{r select}
 dataex3 <-
 dataex3 |> mutate(NewJob=
-                  ifelse(ILODEFR1=="[1] In employment" & 
+                  ifelse(ILODEFR2=="[1] In employment" & 
                          EMPLEN2=="[1] Less than 3 months" 
                          & AGE2>15 & AGE2<65,
                          "New job at Q2", 
@@ -164,7 +165,7 @@ dataex3 |>
   summary() 
 
 ```
-The table measures the number of people who changed jobs between the first and second quarter. 
+The table measures the number of people who either changed jobs or moved into employment between the first and second quarter. 
 
 :::
 

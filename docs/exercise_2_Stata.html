@@ -140,19 +140,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Introduction</span></span>
-  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Introduction</strong></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>R Exercises</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>R exercises</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exercise_1.html" class="sidebar-item-text sidebar-link">
@@ -181,13 +183,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text"><strong>Stata exercises</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link">
@@ -198,6 +200,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Exercise 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 3</span></a>
   </div>
 </li>
       </ul>
@@ -260,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-set-up" class="level2">
 <h2 class="anchored" data-anchor-id="get-set-up">Get set up</h2>
 <p>We will assume that the working directory for this exercise - where syntax files and other materials will be located - will be a folder named <code>LFS_exercises</code>. Once you have downloaded the data, save it somewhere accessible inside <code>LFS_exercises</code>, for example in another folder named <code>Data</code>… Then open the QLFS dataset:</p>
-<div id="2eb720dc" class="cell" data-execution_count="1">
+<div id="f5bd9857" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1"></a>cd  <span class="st">"LFS_exercises/"</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a>* Import  the <span class="kw">data</span> from a Stata <span class="kw">format</span> dataset </span>
@@ -272,14 +280,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>As previously, let’s just keep the variables we need for the exercise.</p>
-<div id="d7770ce9" class="cell" data-execution_count="2">
+<div id="043b4329" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">keep</span> PERSNO PIWT24 PWT24 GRSSWK  INECAC05  ILODEFR FTPT  HOURPAY SEX</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="lets-examine-the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="lets-examine-the-dataset">Let’s examine the dataset</h2>
 <p>We can use again <code>describe</code> in order to inspect the data and the new variables:</p>
-<div id="e59e3ae1" class="cell" data-execution_count="3">
+<div id="06df063b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">describe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -311,7 +319,7 @@ Sorted by:
 <section id="examine-weekly-earnings" class="level2">
 <h2 class="anchored" data-anchor-id="examine-weekly-earnings">Examine weekly earnings</h2>
 <p>We can also examine descriptive statistics for weekly earnings</p>
-<div id="8a866aa0" class="cell" data-execution_count="4">
+<div id="96281f90" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1"></a>summ GRSSWK,<span class="kw">detail</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -333,7 +341,7 @@ Sorted by:
 </div>
 </div>
 <p>Non responses are coded using negative values, which may potentially impact on the outcome of statistical analysis. Let’s retain respondents who provided a valid answer only:</p>
-<div id="accc1848" class="cell" data-execution_count="5">
+<div id="efd33b20" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1"></a>summ GRSSWK <span class="kw">if</span> GRSSWK&gt;0,<span class="kw">detail</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -356,7 +364,7 @@ Sorted by:
 </div>
 <p>We could also have a look at weekly earnings using a histogram. Given that income data tends to be skewed to the right (a relatively small number of respondents have very large earnings), which may affect the legibility of histograms, we will restrict the plot to the earnings of 99% of respondents, leaving out the 1% highest earners.</p>
 <p>The above results tell us that 99% of earners earn less than £2,500 per week .</p>
-<div id="984730ed" class="cell" data-execution_count="6">
+<div id="749459dd" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">quietly</span> <span class="kw">histogram</span>   GRSSWK <span class="kw">if</span> GRSSWK&gt;0 &amp; GRSSWK&lt;=2500,  <span class="bn">xtitle</span>(<span class="st">"Earnings (£) -- 1st-99th percentiles"</span>) <span class="bn">title</span>(<span class="st">"Gross weekly earnings in the UK, Oct-Dec 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="pics/grsw.png" class="img-fluid"></p>
@@ -367,7 +375,7 @@ Sorted by:
 <p>Plot the distribution of hourly earnings up to the 99th percentile.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="340e455f" class="cell" data-execution_count="8">
+<div id="05de3b23" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1"></a>summ HOURPAY <span class="kw">if</span> HOURPAY&gt;0,<span class="kw">detail</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a></span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="kw">quietly</span> <span class="kw">histogram</span>  HOURPAY <span class="kw">if</span> HOURPAY&gt;0 &amp; HOURPAY&lt;=69.23, <span class="bn">xtitle</span>(<span class="st">"Earnings (£) -- 1st-99th percentiles"</span>) <span class="bn">title</span>(<span class="st">"Hourly earnings in the UK, Oct-Dec 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -406,7 +414,7 @@ Sorted by:
 </ul>
 <p>LFS data provides the INECAC05 variable, which records all nuances of economic activity (there are 35 of them!), including employment and self-employment. There is also ILODEFR which records the broad economic activity status (ie Whether employed, unemployed, etc.) and group together self-employed and employees.</p>
 <p>We will now examine these variables.</p>
-<div id="ade4e38c" class="cell" data-execution_count="10">
+<div id="ba7e7fbb" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1"></a>summ INECAC05</span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="kw">tab</span> INECAC05</span>
 <span id="cb13-3"><a href="#cb13-3"></a></span>
@@ -481,7 +489,7 @@ Does not apply |     32,189       51.04       51.04
 </div>
 </div>
 <p>If we further want to know about about the number of employees by working-time status, we will need to explictly restrict the analysis to those:</p>
-<div id="117ac7f3" class="cell" data-execution_count="11">
+<div id="191ae685" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">tab</span> FTPT <span class="kw">if</span> INECAC05==1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -510,7 +518,7 @@ Does not apply |     32,189       51.04       51.04
 <ol type="1">
 <li></li>
 </ol>
-<div id="0f490c68" class="cell" data-execution_count="12">
+<div id="786fe5a1" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1"></a>summ ILODEFR</span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="kw">tab</span> ILODEFR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -537,7 +545,7 @@ ILO unemployed |      1,081        1.71       50.71
 <ol start="2" type="1">
 <li></li>
 </ol>
-<div id="523e58b1" class="cell" data-execution_count="13">
+<div id="d33c6a0a" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">tab</span> FTPT <span class="kw">if</span> INECAC05==2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -565,7 +573,7 @@ ILO unemployed |      1,081        1.71       50.71
 <li><p>First, we create a variable to flag to match the ONS’ definition of full-time employees (ie those who work full-time and earn up to £100 hourly).</p>
 <p>It may be a good idea to double check the definition used by the ONS <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04">in its publication.</a> Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for respondents’ main job, and also that <em>those earnings more than £100 per hour</em> are excluded.</p></li>
 </ul>
-<div id="72db0c4b" class="cell" data-execution_count="14">
+<div id="26533e97" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">gen</span> ftEmp=0</span>
 <span id="cb21-2"><a href="#cb21-2"></a><span class="kw">replace</span> ftEmp=1 <span class="kw">if</span> FTPT==1 &amp; HOURPAY&lt;=100 &amp; INECAC05==1 </span>
 <span id="cb21-3"><a href="#cb21-3"></a></span>
@@ -594,7 +602,7 @@ Full-time employee |     19,662       31.18      100.00
 </div>
 </div>
 <p>Stata does not directly allow computing median with survey data due to issue with variance estimation. We follow the solution suggested here: []</p>
-<div id="fae6684b" class="cell" data-execution_count="15">
+<div id="56bfe748" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb23-1"><a href="#cb23-1"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 [pw=PIWT24]</span>
 <span id="cb23-2"><a href="#cb23-2"></a></span>
 <span id="cb23-3"><a href="#cb23-3"></a><span class="fu">return</span> <span class="ot">list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -621,7 +629,7 @@ scalars:
 <ol type="1">
 <li></li>
 </ol>
-<div id="3cdd29b8" class="cell" data-execution_count="16">
+<div id="cfdf0f75" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb25-1"><a href="#cb25-1"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==2 [pw=PIWT24]</span>
 <span id="cb25-2"><a href="#cb25-2"></a><span class="fu">return</span> <span class="ot">list</span></span>
 <span id="cb25-3"><a href="#cb25-3"></a></span>
@@ -644,7 +652,7 @@ scalars:
 <ol start="2" type="1">
 <li></li>
 </ol>
-<div id="32766f9a" class="cell" data-execution_count="17">
+<div id="dd12df33" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb27-1"><a href="#cb27-1"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==2 [pw=PIWT24],<span class="kw">p</span>(10)</span>
 <span id="cb27-2"><a href="#cb27-2"></a><span class="fu">return</span> <span class="ot">list</span></span>
 <span id="cb27-3"><a href="#cb27-3"></a></span>
@@ -678,7 +686,7 @@ scalars:
 <ol type="1">
 <li>Let’s flag full-time employees (no limit on hourly pay this time):</li>
 </ol>
-<div id="36b39856" class="cell" data-execution_count="18">
+<div id="4a4eaa02" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">gen</span> ftEmp2=0</span>
 <span id="cb29-2"><a href="#cb29-2"></a><span class="kw">replace</span> ftEmp2=1 <span class="kw">if</span> FTPT==1 &amp;  INECAC05==1 </span>
 <span id="cb29-3"><a href="#cb29-3"></a></span>
@@ -707,7 +715,7 @@ unrestricte |
 </div>
 </div>
 <p>Let’s tell Stata that we are working with survey data.</p>
-<div id="d4a56676" class="cell" data-execution_count="19">
+<div id="35be2b62" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">svyset</span> [pw=PIWT24]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -720,7 +728,7 @@ Sampling weights: PIWT24
 </div>
 </div>
 <p>And finally, let’s produce our estimates:</p>
-<div id="3bb2ba58" class="cell" data-execution_count="20">
+<div id="a99ae19e" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">svy</span>,subpop(ftEmp2):<span class="kw">total</span> FTPT, cformat(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(running total on estimation sample)
@@ -760,7 +768,7 @@ Number of PSUs   = 63,069         Population size = 29,332,807
 <li><p>Because we have used the wrong weights ie PIWT24, the weights that can only be used for earnings estimation</p></li>
 <li><p>We need to rerun the <code>svy</code> commands using the correct weighting variable: PWT24</p></li>
 </ol>
-<div id="da8309f6" class="cell" data-execution_count="21">
+<div id="a0ceae8c" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">svyset</span> [pw=PWT24]</span>
 <span id="cb35-2"><a href="#cb35-2"></a><span class="kw">svy</span>,subpop(ftEmp2):<span class="kw">total</span> FTPT, cformat(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -794,7 +802,7 @@ Number of PSUs   = 63,069         Population size = 68,185,623
 <ol start="3" type="1">
 <li></li>
 </ol>
-<div id="d06038a2" class="cell" data-execution_count="22">
+<div id="3ba65c8d" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb37-1"><a href="#cb37-1"></a>* Grouping employee flag and gender</span>
 <span id="cb37-2"><a href="#cb37-2"></a><span class="kw">egen</span> ftEmpS=<span class="fu">group</span>(SEX ftEmp2),<span class="kw">label</span> </span>
 <span id="cb37-3"><a href="#cb37-3"></a><span class="kw">tab</span> ftEmpS,<span class="kw">gen</span>(FtES)  </span>
