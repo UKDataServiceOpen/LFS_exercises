@@ -60,18 +60,18 @@ In this exercise, we will be  comparing the mean gross weekly earnings (`GRSSWK`
 First, let's examine gross weekly earnings and compute  its  unweighted mean:  
 
 ```{r ex1}
-### Raw data
-summary(lfs_od24$GRSSWK)
+### Raw variable
+summary(dataex4$GRSSWK)
 
-### Removing non-response
-summary(lfs_od24$GRSSWK[lfs_od24$GRSSWK>=0])
+### Removing non-responses
+summary(dataex4$GRSSWK[dataex4$GRSSWK>=0])
 
-hist(lfs_od24$GRSSWK[lfs_od24$GRSSWK>=0],
+hist(dataex4$GRSSWK[dataex4$GRSSWK>=0],
      main= "Distribution  of weekly earnings, October-December 2024",
      xlab = "Gross weekly earnings (GBP)")
 
 ### Computing the mean
-mw<-mean(lfs_od24$GRSSWK[lfs_od24$GRSSWK>=0],na.rm=T)
+mw<-mean(dataex4$GRSSWK[dataex4$GRSSWK>=0],na.rm=T)
 
 mw
 
@@ -81,7 +81,7 @@ mw
 Let's now compute the confidence interval. We need to do it by hand, using the standard deviation `sd()` function. 
 
 ``` {r sd}
-s.mw<-sd(lfs_od24$GRSSWK[lfs_od24$GRSSWK>=0],na.rm=T)
+s.mw<-sd(dataex4$GRSSWK[dataex4$GRSSWK>=0],na.rm=T)
 
 s.mw
 ```
@@ -89,13 +89,13 @@ s.mw
 As a reminder, the 95% confidence interval of a mean is the value of the mean plus or minus 1.96 times its standard error. The standard error itself is the standard deviation divided by the square root of the sample size:
 
 ```{r ci.u}
-lb<-mw-1.96*(s.mw/sqrt(nrow(lfs_od24)))
-ub<-mw+1.96*(s.mw/sqrt(nrow(lfs_od24)))
+lb<-mw-(1.96*(s.mw/sqrt(nrow(dataex4[dataex4$GRSSWK>=0,]))))
+ub<-mw+(1.96*(s.mw/sqrt(nrow(dataex4[dataex4$GRSSWK>=0,]))))
 
 round(c(mw,lb,ub))
 
 ```
-We can now say that on the basis of unweighted sample values, we could be 95% confident that the mean Gross Weekly earnings of the UK population overall range between £`{r}  round(lb)` and £`{r}  round(ub)` per week, that is an interval of  £`{r}  round(ub)-round(lb)`.
+We could now say - incorrectly - that on the basis of unweighted sample values, we are  95% confident that the overall mean of gross weekly earnings in the UK population  ranges between £`{r}  round(lb)` and £`{r}  round(ub)` per week, that is an interval of  £`{r}  round(ub)-round(lb)`.
 
 Let's now look at the weighted estimates. We will be using the same survey data specific functions as in previous exercises.
 
@@ -105,7 +105,7 @@ Let's now look at the weighted estimates. We will be using the same survey data 
 ### Let's declare our data to be survey data with PIWT as weight. 
 dataex4.s<-as_survey_design(weights=PIWT24,dataex4)
  
-### ... Then get the weights 
+### ... Then get the weighted mean
 mw.s<-dataex4.s|>
       summarise(survey_mean(GRSSWK,vartype = "ci"))
 
@@ -117,7 +117,7 @@ mw.s
 ### Questions
 1. What are the bounds between which  we can be sure 95% of the values can be found, once we  weight the data?
 2. How wide is the weighted confidence interval?
-3. What is the effect of weighting the data on the precision of estimates
+3. What is the effect of weighting the data on the precision of estimates?
 
 ### Answers
 1. It is between £`{r}  round(mw.s[2])` and £`{r}  round(mw.s[3])`  per week
@@ -128,20 +128,29 @@ mw.s
 
 
 ## 2. Part-time  female employees across regions
-In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of female employees  in London and the North West of England.
+In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of part-time employed female employees  in London and the North West of England.
 First, let's examine the variable for regions:
 
 ```{r govtof}
 table(dataex4$GOVTOF2)
 ```
 
-Let's recode the missing values in FTPT into system missing.  
+Let's recode the missing values in FTPT into system missing and flag the part-time employed.  
+
 
 ```{r regt}
-dataex4$FTPT2<-ifelse(dataex4$FTPT=="[1] Full time" | dataex4$FTPT=="[2] Part time",as.character(dataex4$FTPT),NA)
+dataex4$FTPT2<-ifelse(dataex4$FTPT=="[1] Full time" | dataex4$FTPT=="[3] New Deal-FT","Full-time",NA)
+dataex4$FTPT2<-ifelse(dataex4$FTPT=="[2] Part time" | dataex4$FTPT=="[4] New Deal-PT","Part-time",dataex4$FTPT2)
+
 dataex4$FTPT2<-as.factor(dataex4$FTPT2)
 
-### We recreate a weights informed survey design object
+xtabs(~FTPT+FTPT2,dataex4,drop.unused.levels = T)
+
+### Examining system missing observations
+xtabs(~FTPT+is.na(FTPT2),dataex4,drop.unused.levels = T)
+
+
+### We then recreate a weights informed survey design object
 dataex4.s<-as_survey_design(weights=PWT24,dataex4)
 ```
 
@@ -149,14 +158,18 @@ dataex4.s<-as_survey_design(weights=PWT24,dataex4)
 ```{r ldnnw}
 
 ldn<-dataex4.s |>  
-   filter(SEX=="[2] Female" & ILODEFR=="[1] In employment" & GOVTOF2=="[8] London") |> 
+   filter(SEX=="[2] Female" & 
+          GOVTOF2=="[8] London" & 
+          !is.na(FTPT2)
+          )  |> 
    group_by(FTPT2) |> 
    cascade(prop=survey_mean(vartype = "ci"))
 
 nw<-dataex4.s |>  
    filter(SEX=="[2] Female" & 
-          ILODEFR=="[1] In employment" & 
-          GOVTOF2=="[2] North West") |> 
+          GOVTOF2=="[2] North West" &
+          !is.na(FTPT2)
+          ) |> 
    group_by(FTPT2) |> 
    cascade(prop=survey_mean(vartype = "ci"))
 
@@ -167,7 +180,7 @@ ldn
 ### Formatted results for the North West
 round(100*
         nw |> 
-        filter(FTPT2=="[2] Part time") |> 
+        filter(FTPT2=="Part-time") |> 
         select(prop,prop_low,prop_upp),
       2) 
 
@@ -218,7 +231,8 @@ round(100*
 
 Design effects account for the impact of survey design (e.g., clustering and stratification) on the precision of estimates. Here, we will be adjusting the CI of the proportion of women and men employed (`ILODEFR`) in  manufacturing (`INDE07M`)  in their main job using design effects published in Volume 1 of the LFS documentation.
 
-Let's begin by examining the sector variable:
+Let's begin by examining the sector variable: 
+
 
 ```{r intab}
 
@@ -230,41 +244,43 @@ cbind(Freq.=table(dataex4$INDE07M[dataex4$ILODEFR=="[1] In employment"]),
       )
 
 ```
-Let's then compute the proportion of people employed in manufacturing: 
+Let's then compute the proportion of men and women employed in manufacturing. We  leave out "Does not apply" as system missing but keep the non responses later. 
 
 ```{r citab}
 fem<-dataex4.s |>  
    filter(SEX=="[2] Female" & 
-          ILODEFR=="[1] In employment") |> 
+          ILODEFR=="[1] In employment" &
+          INDE07M!="[-9] Does not apply") |> 
    group_by(INDE07M=="[3] C -Manufacturing") |> 
    cascade(prop=survey_mean(vartype = "ci"))
 
 mam<-dataex4.s |>  
    filter(SEX=="[1] Male" & 
-          ILODEFR=="[1] In employment") |> 
+          ILODEFR=="[1] In employment"&
+          INDE07M!="[-9] Does not apply") |> 
    group_by(INDE07M=="[3] C -Manufacturing") |> 
    cascade(prop=survey_mean(vartype = "ci"))
-
 ```
-... and examine the results for females:
+... and examine the results for each gender:
+
+- Females
 
 ```{r fem}
 round(100*fem,2)
 ```
 
-... And males:
+- ... And males:
 
 ```{r mam}
 round(100*mam,2)
 ```
 
 
-The above results are 'naive' confidence intervals ie confidence intervals that do not take into account survey design and depending on the case, maybe too narrow ie overstate the precision of the estimates - or too wide. 
+The above confidence intervals  do not take into account the survey design and depending on the variable, maybe too narrow ie overstate the precision of the estimates - or too wide. 
 
-In order to compute more robust standard errors, we need to have access to survey design variables such as strata  and primary sampling units identifiers, These are unfortunately withheld by the producers of the LFS< due to concerns about potential disclosure of  personal information.
+In order to compute more robust CIs or standard errors, we need to have access to survey design variables such as strata  and primary sampling units identifiers. These are unfortunately withheld by the producers of the LFS due to concerns about potential risk of disclosure of  personal information.
 
-Another approach that can be implemented for some headline estimates consists in adapting  confidence intervals based on the design factors (DEFF) published by the ONS. These can be in the  the Volume 1 of the documentation. For the October-December edition of the LFS, this file is called: `lfs_user_guide_vol1_background_2024.pdf`.
-
+Another approach that can be implemented for some headline estimates consists in adapting  confidence intervals based on the design factors (DEFF) published by the ONS. These can be found in   the Volume 1 of the LFS documentation. For the October-December 2024 edition, this file is called: `lfs_user_guide_vol1_background_2024.pdf`.
 
 ::: {layout-nrow=2}
 ![](pics/contents.jpg){fig-alt="Table of centent of Vol 1 of the LFS Documentation"}
@@ -272,7 +288,7 @@ Another approach that can be implemented for some headline estimates consists in
 ![](pics/annex2.jpg){fig-alt="Overview of Annex 2 of the LFS Documentation, Volume 1."}
 :::
 
-The design effects for the proportion of female and males employed in manufacturing  are respectively 1.2216 and 1.3048:
+The design effects for the proportion of females and males employed in manufacturing  are respectively 1.2216 and 1.3048:
  
 
 ::: {layout-nrow=2}
@@ -282,19 +298,25 @@ The design effects for the proportion of female and males employed in manufactur
 
 :::
 
-We now need to adapt these to the confidence intervals we computed earlier. In order to do this, we need our original standard errors - as the DEFF are meant to adjust these. We can then obtain the adjusted CIs for females:
+We now need to adapt these to the confidence intervals we computed earlier. In order to do this, we need the  original standard errors - as the DEFF are meant to adjust these. We can then obtain the adjusted CIs for females:
 
 ```{r adjfem}
 sef<-dataex4.s |>  
    filter(SEX=="[2] Female" & 
-          ILODEFR=="[1] In employment") |> 
+          ILODEFR=="[1] In employment" &
+          INDE07M!="[-9] Does not apply") |> 
    group_by(INDE07M=="[3] C -Manufacturing") |> 
    cascade(prop=survey_mean(vartype = "se"))
 
+### Converting into percentages
+sef<-100*sef
+
+sef
+
 round(
-c(100*sef$prop[2],
-100*sef$prop[2]-1.96*sqrt(sef$prop_se[2]*1.2216),
-100*sef$prop[2]+1.96*sqrt(sef$prop_se[2]*1.2216)
+c(sef$prop[2],
+(sef$prop[2]-1.96*sqrt(sef$prop_se[2]*1.2216)),
+(sef$prop[2]+1.96*sqrt(sef$prop_se[2]*1.2216))
 ),2
 )
 ```
@@ -304,14 +326,20 @@ c(100*sef$prop[2],
 ```{r adjmal}
 sem<-dataex4.s |>  
    filter(SEX=="[1] Male" & 
-          ILODEFR=="[1] In employment") |> 
+          ILODEFR=="[1] In employment" &
+          INDE07M!="[-9] Does not apply")  |> 
    group_by(INDE07M=="[3] C -Manufacturing") |> 
    cascade(prop=survey_mean(vartype = "se"))
 
+### Converting into percentages
+sem<-100*sem
+
+sem
+
 round(
-c(100*sem$prop[2],
-100*sem$prop[2]-1.96*sqrt(sem$prop_se[2]*1.3048),
-100*sem$prop[2]+1.96*sqrt(sem$prop_se[2]*1.3048)
+c(sem$prop[2],
+(sem$prop[2]-1.96*sqrt(sem$prop_se[2]*1.2216)),
+(sem$prop[2]+1.96*sqrt(sem$prop_se[2]*1.2216))
 ),2
 )
 ```
@@ -323,7 +351,8 @@ c(100*sem$prop[2],
 2. What if we wanted  to adjust our earlier estimates of gross weekly earnings for the design effects? 
 
 ### Answers
-1.They have narrowed, which means that in this case, taking the survey design into account improves the precision of estimates.  
-2. We would not be able to do this with the safeguarded version of the data. We would need to use the secured version, and compute the adjusted estimates ourselves.
+1.They have widened, which means that in this case, not taking the survey design led us to overestimate the precision of estimates.  
+2. We would not be able to do this with the safeguarded version of the data as there are no  design factors for earnings published by the ONS. We would need to use the secured version of the data, and compute the adjusted estimates ourselves using the appropriate survey functions.
+
 :::
 

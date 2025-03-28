@@ -208,6 +208,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Exercise 3</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise 4</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -267,20 +273,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-set-up" class="level2">
 <h2 class="anchored" data-anchor-id="get-set-up">Get set up</h2>
 <p>We will assume that the working directory for this exercise - where syntax files and other materials will be located - will be a folder named <code>LFS_exercises</code>. Once you have downloaded the data, save it somewhere accessible inside <code>LFS_exercises</code>, for example in another folder named <code>Data</code>… Then open the QLFS dataset:</p>
-<div id="9b709bc5" class="cell" data-execution_count="1">
+<div id="545d5584" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">quietly</span> cd  <span class="st">"LFS_exercises/"</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a>* Import  the <span class="kw">data</span> from a Stata <span class="kw">format</span> dataset </span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="kw">use</span>  <span class="st">"Data/UKDA-9348-stata/stata/stata13/lgwt24_2q_js24_od24_eul.dta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As previously, let’s just keep the variables we need for the exercise.</p>
-<div id="5762820e" class="cell" data-execution_count="2">
+<div id="59b46950" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">keep</span> AGES2 AGE2 LGWT24 EMPLEN1 EMPLEN2 FLOW SEX ILODEFR1 ILODEFR2 INCAC051 INCAC052 SC20MMJ1 SC20MMJ2  In792sm2 In792sm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="lets-examine-the-working-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="lets-examine-the-working-dataset">Let’s examine the working dataset</h2>
-<div id="42702b31" class="cell" data-execution_count="3">
+<div id="1d660a19" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">desc</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>summ *</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -359,7 +365,7 @@ Sorted by:
 <ol type="1">
 <li>FLOW measures labour market flows, that is the transitions between economic activity statuses</li>
 </ol>
-<div id="24cd2482" class="cell" data-execution_count="4">
+<div id="7d54660f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1"></a>ta FLOW</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -393,7 +399,7 @@ Reached retirement age by final quarter |        114        0.65      100.00
 <h2 class="anchored" data-anchor-id="method-1-using-the-flow-variable">Method 1: Using the FLOW variable</h2>
 <p>In order to match the definition used by the ONS for their published estimates, we will examine the FLOW variable but only consider respondents aged 16-64. We will then weight the variable with the longitudinal weight <code>LGWT24</code>. In addition to adjusting for non-response and sampling error, longitudinal weights also correct for respondents who drop out from the survey between waves.</p>
 <p>As before, we first create a variable flagging the subpopulation of interest, here those aged 16-64.</p>
-<div id="4e5074f0" class="cell" data-execution_count="5">
+<div id="285f6202" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">gen</span> wrkage=0</span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="kw">replace</span> wrkage=1 <span class="kw">if</span>  AGE2&gt;=16 &amp; AGE2&lt;=64</span>
 <span id="cb7-3"><a href="#cb7-3"></a></span>
@@ -476,7 +482,7 @@ Reached retirement age by final quarter |        114        0.65      100.00
 </div>
 </div>
 <p>We then declare the dataset to be survey data:</p>
-<div id="6dc934da" class="cell" data-execution_count="6">
+<div id="246362d3" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">svyset</span> [pw=LGWT24]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -489,7 +495,7 @@ Sampling weights: LGWT24
 </div>
 </div>
 <p>And finally, we compute the estimates using the survey data version of the <code>tab</code> command. We also use the option <code>stubwidth</code> for proper display of the labels.</p>
-<div id="d41994d0" class="cell" data-execution_count="7">
+<div id="a19610a4" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">svy</span>, subpop(wrkage):<span class="kw">tab</span> FLOW, <span class="fu">count</span> <span class="kw">format</span>(%9.0f)  stubwidth(32) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(running tabulate on estimation sample)
@@ -540,7 +546,7 @@ Key:    count = Weighted count
 <section id="method-2-employment-situation-at-w1-and-w2" class="level2">
 <h2 class="anchored" data-anchor-id="method-2-employment-situation-at-w1-and-w2">Method 2: Employment situation at W1 and W2</h2>
 <p>Here, we create a variable to flag a group of respondents based on their situation at the first and second quarters.</p>
-<div id="7ef3f1b9" class="cell" data-execution_count="8">
+<div id="2912edca" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">gen</span> NewJob=0</span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="kw">replace</span> NewJob=1 <span class="kw">if</span> ILODEFR2==1 &amp;  EMPLEN2 &amp; wrkage==1,</span>
 <span id="cb13-3"><a href="#cb13-3"></a></span>
@@ -620,7 +626,7 @@ Key:    count = Weighted count
 <h2 class="anchored" data-anchor-id="method-3-cross-tabulation">Method 3: Cross-tabulation</h2>
 <p>This time we will be looking at transitions between employment broadly defined and self-employment from wave 1 to wave 2.<br>
 In order to do this, we will create a simplified economic activity variable recording employees (including those on training schemes as well as unpaid family workers) the unemployed, and the economically inactive at waves 1 and 2.</p>
-<div id="8b425714" class="cell" data-execution_count="9">
+<div id="377a4614" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1"></a>forval x = 1/2 { </span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="kw">recode</span>  INCAC05<span class="ot">`x'</span> 1 3 4 =1 2=2 5=3 6/34=.,<span class="kw">gen</span>(eco<span class="ot">`x'</span>)</span>
 <span id="cb15-3"><a href="#cb15-3"></a>lab <span class="kw">var</span> eco<span class="ot">`x'</span> <span class="st">"Simplified economic activity - Wave `x'"</span></span>
@@ -661,7 +667,7 @@ Self-employed |      1,595       13.19       97.08
 </div>
 <p>Let’s now get the results by using a cross-tabulation of economic activity at time 1 and time 2. We will rely again on <code>wrkage</code> to limit the analysis on the 16-64 as well as the longitudinal weights. The easiest way of doing this is to create a three-way table, which will in effect create a flow table for the 16-64 and another one for the other respondents.</p>
 <p>We will first need to recreate the weights-informed dataset as we created new variables since the last time.</p>
-<div id="4f6d4450" class="cell" data-execution_count="10">
+<div id="d5689aeb" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">svy</span>, subpop(wrkage): <span class="kw">tab</span> eco1 eco2, <span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(running tabulate on estimation sample)

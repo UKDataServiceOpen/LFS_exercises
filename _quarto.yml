@@ -39,22 +39,16 @@ website:
           text: Exercise 2
         - href: exercise_3_Stata.qmd
           text: Exercise 3
-#        - href: exercise_4_Stata.qmd
-#          text: Exercise 4
+        - href: exercise_4_Stata.qmd
+          text: Exercise 4
 
 format:
   html:
     code-overflow: scroll
     code-line-numbers: true
     toc: true
-#    toc-title: Contents
     toc-location: left
-#    html-math-method: katex
-    #theme:
-    #   - superhero
-    #   - superhero.scss
     highlight-style: arrow-light
-#    anchor-sections: true
     smooth-scroll: true
     link-external-newwindow: true
     citations-hover: true

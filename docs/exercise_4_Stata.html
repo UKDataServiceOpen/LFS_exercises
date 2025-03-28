@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_1_Stata.html"><strong>Stata exercises</strong></a></li><li class="breadcrumb-item"><a href="./exercise_4_Stata.html">Exercise 4</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -208,6 +208,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Exercise 3</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Exercise 4</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -216,17 +222,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exercise-4-estimate-precision-and-uncertainty" id="toc-exercise-4-estimate-precision-and-uncertainty" class="nav-link active" data-scroll-target="#exercise-4-estimate-precision-and-uncertainty">Exercise 4: <br> Estimate precision and uncertainty</a>
-  <ul class="collapse">
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#get-set-up" id="toc-get-set-up" class="nav-link" data-scroll-target="#get-set-up">Get set up</a>
-  <ul class="collapse">
-  <li><a href="#importing-a-stata-format-dataset" id="toc-importing-a-stata-format-dataset" class="nav-link" data-scroll-target="#importing-a-stata-format-dataset">Importing a Stata format dataset</a></li>
-  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
+  <li><a href="#get-set-up" id="toc-get-set-up" class="nav-link" data-scroll-target="#get-set-up">Get set up</a></li>
   <li><a href="#weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" id="toc-weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" class="nav-link" data-scroll-target="#weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings">1. Weighted and unweighted confidence intervals of mean weekly earnings</a></li>
   <li><a href="#part-time-female-employees-across-regions" id="toc-part-time-female-employees-across-regions" class="nav-link" data-scroll-target="#part-time-female-employees-across-regions">2. Part-time female employees across regions</a></li>
   <li><a href="#adjusting-cis-with-published-design-effects" id="toc-adjusting-cis-with-published-design-effects" class="nav-link" data-scroll-target="#adjusting-cis-with-published-design-effects">3. Adjusting CIs with published design effects</a></li>
-  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -235,13 +235,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_1_Stata.html"><strong>Stata exercises</strong></a></li><li class="breadcrumb-item"><a href="./exercise_4_Stata.html">Exercise 4</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Exercise 4: <br> Estimate precision and uncertainty</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="exercise-4-estimate-precision-and-uncertainty" class="level1">
-<h1>Exercise 4: <br> Estimate precision and uncertainty</h1>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 <p>This series of exercises focuses on the precision of estimates calculated from Labour Force Survey data, in other words the degree to which we can trust them to reflect the likely values in the population. In order to do this, we will compute similar measures as before - means and proportions but this time we will be focusing on their confidence intervals.</p>
 <p>Learning objectives:</p>
 <ul>
@@ -257,70 +271,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="get-set-up" class="level2">
 <h2 class="anchored" data-anchor-id="get-set-up">Get set up</h2>
-<p>We will assume that the working directory for this exercise - where syntax files and other materials will be located - will be a folder named <code>LFS_exercises</code>. Once you have downloaded the data, save it somewhere accessible inside <code>LFS_exercises</code> for example in a folder called `Data.</p>
-<p>We can now begin analysing the data using R. First let’s load the packages that we are going to need:</p>
-<p>Let’s open the dataset.</p>
-<p>```{ open, eval=c(-2,-5)} #| echo: -1 #| eval: -2 setwd (“~/”) # setwd (“~/Dropbox/tmps”) setwd (“~/LFS_exercises”)</p>
-<section id="importing-a-stata-format-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="importing-a-stata-format-dataset">Importing a Stata format dataset</h3>
-<p>lfs_od24 &lt;- read_dta( “Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta” )</p>
-<pre><code>
-To make data manipulation easier, let's create a data frame with just the variables we need for the exercise. We can also use this opportunity to  convert categorical variables  into factors in order to make them easier to understand.
-
-```{ mydata}
-dataex4 &lt;- lfs_od24 |&gt;
-  select(PERSNO, PIWT24, PWT24,GRSSWK, INECAC05, ILODEFR,
-         FTPT, HOURPAY, SEX,INDE07M,GOVTOF2 ) |&gt;
-  mutate(
-         across(
-         c(INECAC05:GOVTOF2),\(x) as_factor(x, "both")
-               )
-         ) |&gt;
-  droplevels()</code></pre>
-</section>
+<p>We will assume that the working directory for this exercise - where syntax files and other materials will be located - will be a folder named <code>LFS_exercises</code>. Once you have downloaded the data, save it somewhere accessible inside <code>LFS_exercises</code>, for example in another folder named <code>Data</code>… Then open the QLFS dataset:</p>
+<div id="69f76b89" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">quietly</span> cd  <span class="st">"LFS_exercises/"</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>* Import  the <span class="kw">data</span> from a Stata <span class="kw">format</span> dataset </span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">use</span>  <span class="st">"Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As previously, let’s just keep the variables we need for the exercise.</p>
+<div id="f579879f" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">keep</span> PERSNO PIWT24 PWT24 GRSSWK INECAC05 ILODEFR FTPT HOURPAY SEX INDE07M GOVTOF2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" class="level2">
 <h2 class="anchored" data-anchor-id="weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings">1. Weighted and unweighted confidence intervals of mean weekly earnings</h2>
 <p>In this exercise, we will be comparing the mean gross weekly earnings (<code>GRSSWK</code>) and their confidence intervals using weighted and unweighted estimates. As previously, we will be using the weighting variable specifically designed for earnings: <code>PIWT24</code>.</p>
 <p>First, let’s examine gross weekly earnings and compute its unweighted mean:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource { ex1} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>### Raw data</span>
-<span id="cb2-2"><a href="#cb2-2"></a>summary(lfs_od24$GRSSWK)</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a>### Removing non-response</span>
-<span id="cb2-5"><a href="#cb2-5"></a>summary(lfs_od24$GRSSWK[lfs_od24$GRSSWK&gt;=0])</span>
-<span id="cb2-6"><a href="#cb2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7"></a>hist(lfs_od24$GRSSWK[lfs_od24$GRSSWK&gt;=0],</span>
-<span id="cb2-8"><a href="#cb2-8"></a>     main= "Distribution  of weekly earnings, October-December 2024",</span>
-<span id="cb2-9"><a href="#cb2-9"></a>     xlab = "Gross weekly earnings (GBP)")</span>
-<span id="cb2-10"><a href="#cb2-10"></a></span>
-<span id="cb2-11"><a href="#cb2-11"></a>### Computing the mean</span>
-<span id="cb2-12"><a href="#cb2-12"></a>mw&lt;-mean(lfs_od24$GRSSWK[lfs_od24$GRSSWK&gt;=0],na.rm=T)</span>
-<span id="cb2-13"><a href="#cb2-13"></a></span>
-<span id="cb2-14"><a href="#cb2-14"></a>mw</span>
-<span id="cb2-15"><a href="#cb2-15"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Let’s now compute the confidence interval. We need to do it by hand, using the standard deviation <code>sd()</code> function.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource { sd} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>s.mw&lt;-sd(lfs_od24$GRSSWK[lfs_od24$GRSSWK&gt;=0],na.rm=T)</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>s.mw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>As a reminder, the 95% confidence interval of a mean is the value of the mean plus or minus 1.96 times its standard error. The standard error itself is the standard deviation divided by the square root of the sample size:</p>
-<p>```{ ci.u} lb&lt;-mw-1.96<em>(s.mw/sqrt(nrow(lfs_od24))) ub&lt;-mw+1.96</em>(s.mw/sqrt(nrow(lfs_od24)))</p>
-<p>round(c(mw,lb,ub))</p>
-<pre><code>We can now say that on the basis of unweighted sample values, we could be 95% confident that the mean Gross Weekly earnings of the UK population overall range between £`{}  round(lb)` and £`{}  round(ub)` per week, that is an interval of  £`{}  round(ub)-round(lb)`.
+<div id="ea488986" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1"></a>*** Raw <span class="kw">variable</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>summ GRSSWK</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>*** Removing non-responses</span>
+<span id="cb3-5"><a href="#cb3-5"></a>summ GRSSWK <span class="kw">if</span> GRSSWK&gt;=0</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="kw">quietly</span> <span class="kw">histogram</span>   GRSSWK <span class="kw">if</span> GRSSWK&gt;0, <span class="bn">xtitle</span>(<span class="st">"Earnings (£)"</span>) <span class="bn">title</span>(<span class="st">"Gross weekly earnings in the UK, Oct-Dec 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
 
-Let's now look at the weighted estimates. We will be using the same survey data specific functions as in previous exercises.
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      GRSSWK |     63,069    75.80171    316.4214         -9      23076
 
 
-
-```{ ci.w}
-### Let's declare our data to be survey data with PIWT as weight. 
-dataex4.s&lt;-as_survey_design(weights=PIWT24,dataex4)
- 
-### ... Then get the weights 
-mw.s&lt;-dataex4.s|&gt;
-      summarise(survey_mean(GRSSWK,vartype = "ci"))
-
-mw.s
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      GRSSWK |      7,210    732.4975    623.6522          5      23076
 </code></pre>
+</div>
+</div>
+<p><img src="pics/grsw4.png" class="img-fluid"></p>
+<p>We can compute the mean this way:</p>
+<div id="d5f53d40" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">mean</span> GRSSWK <span class="kw">if</span> GRSSWK&gt;=0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Mean estimation                          Number of obs = 7,210
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+      GRSSWK |   732.4975   7.344713      718.0997    746.8953
+--------------------------------------------------------------</code></pre>
+</div>
+</div>
+<p>By default, Stata provides a ‘naive’ unweighted confidence interval of the mean. As a reminder, the 95% confidence interval of a mean is the value of the mean plus or minus 1.96 times its standard error. The standard error itself is the standard deviation divided by the square root of the sample size.</p>
+<p>We could now say - incorrectly - that on the basis of unweighted sample values, we are 95% confident that the overall mean of gross weekly earnings in the UK population range between £718 and £747 per week, that is an interval of about £29.</p>
+<p>Let’s now compute the weighted mean and confidence interval of GRSSWK. There are different ways of doing this in Stata. We will be using the same survey data specific functions as in previous exercises.</p>
+<div id="097f899f" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1"></a>*** Let's declare our <span class="kw">data</span> to <span class="kw">be</span> survey <span class="kw">data</span> with PIWT <span class="kw">as</span> <span class="kw">weight</span>. </span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">svyset</span> [pw=PIWT24]</span>
+<span id="cb7-3"><a href="#cb7-3"></a> </span>
+<span id="cb7-4"><a href="#cb7-4"></a>*** ... Then <span class="fu">get</span> the weighted <span class="kw">mean</span> </span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="kw">svy</span>:<span class="kw">mean</span> GRSSWK</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Sampling weights: PIWT24
+             VCE: linearized
+     Single unit: missing
+        Strata 1: &lt;one&gt;
+ Sampling unit 1: &lt;observations&gt;
+           FPC 1: &lt;zero&gt;
+
+(running mean on estimation sample)
+
+Survey: Mean estimation
+
+Number of strata =      1         Number of obs   =     63,069
+Number of PSUs   = 63,069         Population size = 29,332,807
+                                  Design df       =     63,068
+
+--------------------------------------------------------------
+             |             Linearized
+             |       Mean   std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+      GRSSWK |   693.7501   6.073396      681.8463     705.654
+--------------------------------------------------------------</code></pre>
+</div>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Answers</a></li></ul>
 <div class="tab-content">
@@ -328,13 +366,13 @@ mw.s
 <ol type="1">
 <li>What are the bounds between which we can be sure 95% of the values can be found, once we weight the data?</li>
 <li>How wide is the weighted confidence interval?</li>
-<li>What is the effect of weighting the data on the precision of estimates</li>
+<li>What is the effect of weighting the data on the precision of estimates?</li>
 </ol>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <ol type="1">
-<li>It is between £<code>{}  round(mw.s[2])</code> and £<code>{}  round(mw.s[3])</code> per week</li>
-<li>£<code>{}  round(mw.s[3] - mw.s[2])</code></li>
+<li>It is between £682 and £706 per week</li>
+<li>£24</li>
 <li>The confidence intervals of weighted value tends to be wider than that of unweighted estimates, which makes them at the same time more representative but less precise than unweighted ones.</li>
 </ol>
 </div>
@@ -343,48 +381,142 @@ mw.s
 </section>
 <section id="part-time-female-employees-across-regions" class="level2">
 <h2 class="anchored" data-anchor-id="part-time-female-employees-across-regions">2. Part-time female employees across regions</h2>
-<p>In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of female employees in London and the North West of England. First, let’s examine the variable for regions:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource { govtof} number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>table(dataex4$GOVTOF2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Let’s recode the missing values in FTPT into system missing.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource { regt} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>dataex4$FTPT2&lt;-ifelse(dataex4$FTPT=="[1] Full time" | dataex4$FTPT=="[2] Part time",as.character(dataex4$FTPT),NA)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>dataex4$FTPT2&lt;-as.factor(dataex4$FTPT2)</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a>### We recreate a weights informed survey design object</span>
-<span id="cb6-5"><a href="#cb6-5"></a>dataex4.s&lt;-as_survey_design(weights=PWT24,dataex4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource { ldnnw} number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2"></a>ldn&lt;-dataex4.s |&gt;  </span>
-<span id="cb7-3"><a href="#cb7-3"></a>   filter(SEX=="[2] Female" &amp; ILODEFR=="[1] In employment" &amp; GOVTOF2=="[8] London") |&gt; </span>
-<span id="cb7-4"><a href="#cb7-4"></a>   group_by(FTPT2) |&gt; </span>
-<span id="cb7-5"><a href="#cb7-5"></a>   cascade(prop=survey_mean(vartype = "ci"))</span>
-<span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a>nw&lt;-dataex4.s |&gt;  </span>
-<span id="cb7-8"><a href="#cb7-8"></a>   filter(SEX=="[2] Female" &amp; </span>
-<span id="cb7-9"><a href="#cb7-9"></a>          ILODEFR=="[1] In employment" &amp; </span>
-<span id="cb7-10"><a href="#cb7-10"></a>          GOVTOF2=="[2] North West") |&gt; </span>
-<span id="cb7-11"><a href="#cb7-11"></a>   group_by(FTPT2) |&gt; </span>
-<span id="cb7-12"><a href="#cb7-12"></a>   cascade(prop=survey_mean(vartype = "ci"))</span>
-<span id="cb7-13"><a href="#cb7-13"></a></span>
-<span id="cb7-14"><a href="#cb7-14"></a>### Raw results for London </span>
-<span id="cb7-15"><a href="#cb7-15"></a>ldn</span>
-<span id="cb7-16"><a href="#cb7-16"></a></span>
-<span id="cb7-17"><a href="#cb7-17"></a></span>
-<span id="cb7-18"><a href="#cb7-18"></a>### Formatted results for the North West</span>
-<span id="cb7-19"><a href="#cb7-19"></a>round(100*</span>
-<span id="cb7-20"><a href="#cb7-20"></a>        nw |&gt; </span>
-<span id="cb7-21"><a href="#cb7-21"></a>        filter(FTPT2=="[2] Part time") |&gt; </span>
-<span id="cb7-22"><a href="#cb7-22"></a>        select(prop,prop_low,prop_upp),</span>
-<span id="cb7-23"><a href="#cb7-23"></a>      2) </span>
-<span id="cb7-24"><a href="#cb7-24"></a></span>
-<span id="cb7-25"><a href="#cb7-25"></a></span>
-<span id="cb7-26"><a href="#cb7-26"></a>### Alternative method</span>
-<span id="cb7-27"><a href="#cb7-27"></a>100*svyby(</span>
-<span id="cb7-28"><a href="#cb7-28"></a>  ~I(FTPT2=="[2] Part time"),~(SEX=="[2] Female" &amp;</span>
-<span id="cb7-29"><a href="#cb7-29"></a>                               ILODEFR=="[1] In employment" &amp;</span>
-<span id="cb7-30"><a href="#cb7-30"></a>                               GOVTOF2=="[2] North West" ),</span>
-<span id="cb7-31"><a href="#cb7-31"></a>                              dataex4.s,</span>
-<span id="cb7-32"><a href="#cb7-32"></a>                              svyciprop,</span>
-<span id="cb7-33"><a href="#cb7-33"></a>                              vartype = "ci"</span>
-<span id="cb7-34"><a href="#cb7-34"></a>              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of part-time employed female employees in London and the North West of England. First, let’s examine the variable for regions:</p>
+<div id="48bb890e" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1"></a> <span class="kw">tab</span> GOVTOF2,<span class="fu">m</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Government Office Region |
+      (2 and 3 combined) |      Freq.     Percent        Cum.
+-------------------------+-----------------------------------
+              North East |      2,597        4.12        4.12
+              North West |      6,748       10.70       14.82
+Yorkshire and Humberside |      5,514        8.74       23.56
+           East Midlands |      4,759        7.55       31.11
+           West Midlands |      5,029        7.97       39.08
+         East of England |      5,381        8.53       47.61
+                  London |      5,456        8.65       56.26
+              South East |      8,831       14.00       70.26
+              South West |      5,832        9.25       79.51
+                   Wales |      2,576        4.08       83.60
+                Scotland |      5,125        8.13       91.72
+        Northern Ireland |      5,221        8.28      100.00
+-------------------------+-----------------------------------
+                   Total |     63,069      100.00</code></pre>
+</div>
+</div>
+<p>Let’s recode the missing values in FTPT into system missing and flag the part-time employed.</p>
+<div id="2754d032" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">recode</span> FTPT 1 3=0 2 4=1 -9 -8=.,<span class="kw">gen</span>(FTPT2)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>lab <span class="kw">var</span> FTPT2 <span class="st">"Whether is employed part-time"</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>lab def FTPT2 0 <span class="st">"Full-time"</span> 1 <span class="st">"Part-time"</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a>lab val FTPT2 FTPT2</span>
+<span id="cb11-7"><a href="#cb11-7"></a></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="kw">tab</span>  FTPT2,<span class="fu">m</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+(63,069 differences between FTPT and FTPT2)
+
+
+
+
+
+ Whether is |
+   employed |
+  part-time |      Freq.     Percent        Cum.
+------------+-----------------------------------
+  Full-time |     22,540       35.74       35.74
+  Part-time |      8,315       13.18       48.92
+          . |     32,214       51.08      100.00
+------------+-----------------------------------
+      Total |     63,069      100.00</code></pre>
+</div>
+</div>
+<div id="f977c7a5" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1"></a>*** We need to <span class="kw">switch</span> from PIWT24 to PWT24...</span>
+<span id="cb13-2"><a href="#cb13-2"></a>*** ... <span class="kw">as</span> we are <span class="kw">not</span> estimating earnings anymore</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="kw">svyset</span> [pw=PWT24]</span>
+<span id="cb13-5"><a href="#cb13-5"></a></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="kw">svy</span>:<span class="kw">prop</span>  FTPT2  <span class="kw">if</span> GOVTOF2==2 &amp; SEX==2   &amp; FTPT2!=., <span class="kw">percent</span> </span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="kw">svy</span>:<span class="kw">prop</span>  FTPT2  <span class="kw">if</span> GOVTOF2==8  &amp; SEX==2  &amp; FTPT2!=., <span class="kw">percent</span> </span>
+<span id="cb13-8"><a href="#cb13-8"></a></span>
+<span id="cb13-9"><a href="#cb13-9"></a>*** Alternative methods</span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="kw">svy</span>:<span class="kw">tab</span> GOVTOF2 FTPT2  <span class="kw">if</span> (GOVTOF2==2 | GOVTOF2==8)   &amp; SEX==2 &amp; FTPT2!=.,stubwidth(20) <span class="kw">percent</span> <span class="ot">row</span> <span class="kw">ci</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Sampling weights: PWT24
+             VCE: linearized
+     Single unit: missing
+        Strata 1: &lt;one&gt;
+ Sampling unit 1: &lt;observations&gt;
+           FPC 1: &lt;zero&gt;
+
+(running proportion on estimation sample)
+
+Survey: Percent estimation
+
+Number of strata =     1           Number of obs   =     1,688
+Number of PSUs   = 1,688           Population size = 1,785,462
+                                   Design df       =     1,687
+
+--------------------------------------------------------------
+             |             Linearized            Logit
+             |    Percent   std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+       FTPT2 |
+  Full-time  |      65.14       1.26         62.63       67.56
+  Part-time  |      34.86       1.26         32.44       37.37
+--------------------------------------------------------------
+
+(running proportion on estimation sample)
+
+Survey: Percent estimation
+
+Number of strata =     1           Number of obs   =     1,426
+Number of PSUs   = 1,426           Population size = 2,307,903
+                                   Design df       =     1,425
+
+--------------------------------------------------------------
+             |             Linearized            Logit
+             |    Percent   std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+       FTPT2 |
+  Full-time  |      74.29       1.23         71.80       76.63
+  Part-time  |      25.71       1.23         23.37       28.20
+--------------------------------------------------------------
+
+(running tabulate on estimation sample)
+
+Number of strata =     1                           Number of obs   =     3,114
+Number of PSUs   = 3,114                           Population size = 4,093,365
+                                                   Design df       =     3,113
+
+------------------------------------------------------------------
+Government Office    |
+Region (2 and 3      |        Whether is employed part-time       
+combined)            |      Full-tim       Part-tim          Total
+---------------------+--------------------------------------------
+          North West |         65.14          34.86            100
+                     | [62.63,67.56]  [32.44,37.37]               
+                     | 
+              London |         74.29          25.71            100
+                     |  [71.8,76.63]   [23.37,28.2]               
+                     | 
+               Total |          70.3           29.7            100
+                     | [68.52,72.02]  [27.98,31.48]               
+------------------------------------------------------------------
+Key: Row percentage
+     [95% confidence interval for row percentage]
+
+  Pearson:
+    Uncorrected   chi2(1)         =   30.7505
+    Design-based  F(1, 3113)      =   26.5033     P = 0.0000</code></pre>
+</div>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Answers</a></li></ul>
 <div class="tab-content">
@@ -401,18 +533,37 @@ mw.s
 <li>They don’t overlap, meaning that the difference are likely to be significant (at the 95% threshold) in the population</li>
 <li>The confidence intervals clearly overlap. It is unlikely that significant difference in the proportion of female part-timers significantly differ between the two regions.</li>
 </ol>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource { ne} number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a>ne&lt;-dataex4.s |&gt;  </span>
-<span id="cb8-2"><a href="#cb8-2"></a>   filter(SEX=="[2] Female" &amp; </span>
-<span id="cb8-3"><a href="#cb8-3"></a>          ILODEFR=="[1] In employment" &amp; </span>
-<span id="cb8-4"><a href="#cb8-4"></a>          GOVTOF2=="[1] North East") |&gt; </span>
-<span id="cb8-5"><a href="#cb8-5"></a>   group_by(FTPT2) |&gt; </span>
-<span id="cb8-6"><a href="#cb8-6"></a>   cascade(prop=survey_mean(vartype = "ci"))</span>
-<span id="cb8-7"><a href="#cb8-7"></a></span>
-<span id="cb8-8"><a href="#cb8-8"></a>round(100*</span>
-<span id="cb8-9"><a href="#cb8-9"></a>        ne |&gt; </span>
-<span id="cb8-10"><a href="#cb8-10"></a>        filter(FTPT2=="[2] Part time") |&gt; </span>
-<span id="cb8-11"><a href="#cb8-11"></a>        select(prop,prop_low,prop_upp),</span>
-<span id="cb8-12"><a href="#cb8-12"></a>      2) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="23149add" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">svy</span>:<span class="kw">tab</span> GOVTOF2 FTPT2  <span class="kw">if</span> (GOVTOF2==1 | GOVTOF2==2)   &amp; SEX==2 &amp; FTPT2!=.,stubwidth(20) <span class="kw">percent</span> <span class="ot">row</span> <span class="kw">ci</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(running tabulate on estimation sample)
+
+Number of strata =     1                           Number of obs   =     2,292
+Number of PSUs   = 2,292                           Population size = 2,402,027
+                                                   Design df       =     2,291
+
+------------------------------------------------------------------
+Government Office    |
+Region (2 and 3      |        Whether is employed part-time       
+combined)            |      Full-tim       Part-tim          Total
+---------------------+--------------------------------------------
+          North East |         65.54          34.46            100
+                     | [61.41,69.45]  [30.55,38.59]               
+                     | 
+          North West |         65.14          34.86            100
+                     | [62.63,67.56]  [32.44,37.37]               
+                     | 
+               Total |         65.24          34.76            100
+                     | [63.11,67.31]  [32.69,36.89]               
+------------------------------------------------------------------
+Key: Row percentage
+     [95% confidence interval for row percentage]
+
+  Pearson:
+    Uncorrected   chi2(1)         =    0.0311
+    Design-based  F(1, 2291)      =    0.0278     P = 0.8677</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -420,33 +571,79 @@ mw.s
 <section id="adjusting-cis-with-published-design-effects" class="level2">
 <h2 class="anchored" data-anchor-id="adjusting-cis-with-published-design-effects">3. Adjusting CIs with published design effects</h2>
 <p>Design effects account for the impact of survey design (e.g., clustering and stratification) on the precision of estimates. Here, we will be adjusting the CI of the proportion of women and men employed (<code>ILODEFR</code>) in manufacturing (<code>INDE07M</code>) in their main job using design effects published in Volume 1 of the LFS documentation.</p>
-<p>Let’s begin by examining the sector variable:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource { intab} number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href="#cb9-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2"></a>cbind(Freq.=table(dataex4$INDE07M[dataex4$ILODEFR=="[1] In employment"]),</span>
-<span id="cb9-3"><a href="#cb9-3"></a>      Pct.=round(100*</span>
-<span id="cb9-4"><a href="#cb9-4"></a>            prop.table(</span>
-<span id="cb9-5"><a href="#cb9-5"></a>            table(dataex4$INDE07M[dataex4$ILODEFR=="[1] In employment"])),</span>
-<span id="cb9-6"><a href="#cb9-6"></a>            1)</span>
-<span id="cb9-7"><a href="#cb9-7"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Let’s then compute the proportion of people employed in manufacturing:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource { citab} number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="#cb10-1"></a>fem&lt;-dataex4.s |&gt;  </span>
-<span id="cb10-2"><a href="#cb10-2"></a>   filter(SEX=="[2] Female" &amp; </span>
-<span id="cb10-3"><a href="#cb10-3"></a>          ILODEFR=="[1] In employment") |&gt; </span>
-<span id="cb10-4"><a href="#cb10-4"></a>   group_by(INDE07M=="[3] C -Manufacturing") |&gt; </span>
-<span id="cb10-5"><a href="#cb10-5"></a>   cascade(prop=survey_mean(vartype = "ci"))</span>
-<span id="cb10-6"><a href="#cb10-6"></a></span>
-<span id="cb10-7"><a href="#cb10-7"></a>mam&lt;-dataex4.s |&gt;  </span>
-<span id="cb10-8"><a href="#cb10-8"></a>   filter(SEX=="[1] Male" &amp; </span>
-<span id="cb10-9"><a href="#cb10-9"></a>          ILODEFR=="[1] In employment") |&gt; </span>
-<span id="cb10-10"><a href="#cb10-10"></a>   group_by(INDE07M=="[3] C -Manufacturing") |&gt; </span>
-<span id="cb10-11"><a href="#cb10-11"></a>   cascade(prop=survey_mean(vartype = "ci"))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>… and examine the results for females:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource { fem} number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a href="#cb11-1"></a>round(100*fem,2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>… And males:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource { mam} number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href="#cb12-1"></a>round(100*mam,2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The above results are ‘naive’ confidence intervals ie confidence intervals that do not take into account survey design and depending on the case, maybe too narrow ie overstate the precision of the estimates - or too wide.</p>
-<p>In order to compute more robust standard errors, we need to have access to survey design variables such as strata and primary sampling units identifiers, These are unfortunately withheld by the producers of the LFS&lt; due to concerns about potential disclosure of personal information.</p>
-<p>Another approach that can be implemented for some headline estimates consists in adapting confidence intervals based on the design factors (DEFF) published by the ONS. These can be in the the Volume 1 of the documentation. For the October-December edition of the LFS, this file is called: <code>lfs_user_guide_vol1_background_2024.pdf</code>.</p>
+<p>Let’s begin by examining the sector variable and creating dummy variables. We recode “Does not apply” as system missing but keep the non responses (-8).</p>
+<div id="4a2c2189" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1"></a>ta INDE07M <span class="kw">if</span> INDE07M!=-9,<span class="kw">gen</span>(IndSect) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+            Industry sector in main job |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                              No answer |         67        0.22        0.22
+  A - Agriculture, forestry and fishing |        346        1.12        1.34
+               B,D,E - Energy and water |        520        1.68        3.02
+                       C -Manufacturing |      2,544        8.24       11.26
+                       F - Construction |      1,961        6.35       17.61
+G,I -Distribution, hotels and restauran |      4,749       15.38       32.98
+       H,J -Transport and communication |      2,883        9.33       42.32
+          K,L,M,N - Banking and finance |      5,640       18.26       60.58
+O,P,Q - Public admin, education and hea |     10,498       33.99       94.57
+               R,S,T,U - Other services |      1,678        5.43      100.00
+----------------------------------------+-----------------------------------
+                                  Total |     30,886      100.00</code></pre>
+</div>
+</div>
+<p>Given that we kept non-responses, manufacturing respondents are flagged with <code>IndSect4</code> Let’s then compute the proportion of men and women employed in manufacturing.</p>
+<ul>
+<li>Women:</li>
+</ul>
+<div id="3e7e0abd" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">svy</span>:<span class="kw">prop</span>  IndSect4  <span class="kw">if</span> ILODEFR==1 &amp; SEX==2, <span class="kw">percent</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(running proportion on estimation sample)
+
+Survey: Percent estimation
+
+Number of strata =      1         Number of obs   =     15,545
+Number of PSUs   = 15,545         Population size = 16,363,390
+                                  Design df       =     15,544
+
+--------------------------------------------------------------
+             |             Linearized            Logit
+             |    Percent   std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+    IndSect4 |
+          0  |      95.18       0.19         94.79       95.54
+          1  |       4.82       0.19          4.46        5.21
+--------------------------------------------------------------</code></pre>
+</div>
+</div>
+<ul>
+<li>… And men:</li>
+</ul>
+<div id="e674777d" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">svy</span>:<span class="kw">prop</span>  IndSect4  <span class="kw">if</span> ILODEFR==1 &amp; SEX==1, <span class="kw">percent</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(running proportion on estimation sample)
+
+Survey: Percent estimation
+
+Number of strata =      1         Number of obs   =     15,325
+Number of PSUs   = 15,325         Population size = 17,488,528
+                                  Design df       =     15,324
+
+--------------------------------------------------------------
+             |             Linearized            Logit
+             |    Percent   std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+    IndSect4 |
+          0  |      89.02       0.27         88.47       89.54
+          1  |      10.98       0.27         10.46       11.53
+--------------------------------------------------------------</code></pre>
+</div>
+</div>
+<p>The above confidence intervals do not take into account the survey design and depending on the variable, maybe too narrow ie overstate the precision of the estimates - or too wide.</p>
+<p>In order to compute more robust CIs or standard errors, we need to have access to survey design variables such as strata and primary sampling units identifiers. These are unfortunately withheld by the producers of the LFS due to concerns about potential risk of disclosure of personal information.</p>
+<p>Another approach that can be implemented for some headline estimates consists in adapting confidence intervals based on the design factors (DEFF) published by the ONS. These can be found in the Volume 1 of the LFS documentation. For the October-December 2024 edition, this file is called: <code>lfs_user_guide_vol1_background_2024.pdf</code>.</p>
 <div>
 
 </div>
@@ -462,7 +659,7 @@ mw.s
 </div>
 </div>
 </div>
-<p>The design effects for the proportion of female and males employed in manufacturing are respectively 1.2216 and 1.3048:</p>
+<p>The design effects for the proportion of females and males employed in manufacturing are respectively 1.2216 and 1.3048:</p>
 <div>
 
 </div>
@@ -478,32 +675,35 @@ mw.s
 </div>
 </div>
 </div>
-<p>We now need to adapt these to the confidence intervals we computed earlier. In order to do this, we need our original standard errors - as the DEFF are meant to adjust these. We can then obtain the adjusted CIs for females:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource { adjfem} number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a href="#cb13-1"></a>sef&lt;-dataex4.s |&gt;  </span>
-<span id="cb13-2"><a href="#cb13-2"></a>   filter(SEX=="[2] Female" &amp; </span>
-<span id="cb13-3"><a href="#cb13-3"></a>          ILODEFR=="[1] In employment") |&gt; </span>
-<span id="cb13-4"><a href="#cb13-4"></a>   group_by(INDE07M=="[3] C -Manufacturing") |&gt; </span>
-<span id="cb13-5"><a href="#cb13-5"></a>   cascade(prop=survey_mean(vartype = "se"))</span>
-<span id="cb13-6"><a href="#cb13-6"></a></span>
-<span id="cb13-7"><a href="#cb13-7"></a>round(</span>
-<span id="cb13-8"><a href="#cb13-8"></a>c(100*sef$prop[2],</span>
-<span id="cb13-9"><a href="#cb13-9"></a>100*sef$prop[2]-1.96*sqrt(sef$prop_se[2]*1.2216),</span>
-<span id="cb13-10"><a href="#cb13-10"></a>100*sef$prop[2]+1.96*sqrt(sef$prop_se[2]*1.2216)</span>
-<span id="cb13-11"><a href="#cb13-11"></a>),2</span>
-<span id="cb13-12"><a href="#cb13-12"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>… Then for males:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource { adjmal} number-lines code-with-copy"><code class="sourceCode"><span id="cb14-1"><a href="#cb14-1"></a>sem&lt;-dataex4.s |&gt;  </span>
-<span id="cb14-2"><a href="#cb14-2"></a>   filter(SEX=="[1] Male" &amp; </span>
-<span id="cb14-3"><a href="#cb14-3"></a>          ILODEFR=="[1] In employment") |&gt; </span>
-<span id="cb14-4"><a href="#cb14-4"></a>   group_by(INDE07M=="[3] C -Manufacturing") |&gt; </span>
-<span id="cb14-5"><a href="#cb14-5"></a>   cascade(prop=survey_mean(vartype = "se"))</span>
-<span id="cb14-6"><a href="#cb14-6"></a></span>
-<span id="cb14-7"><a href="#cb14-7"></a>round(</span>
-<span id="cb14-8"><a href="#cb14-8"></a>c(100*sem$prop[2],</span>
-<span id="cb14-9"><a href="#cb14-9"></a>100*sem$prop[2]-1.96*sqrt(sem$prop_se[2]*1.3048),</span>
-<span id="cb14-10"><a href="#cb14-10"></a>100*sem$prop[2]+1.96*sqrt(sem$prop_se[2]*1.3048)</span>
-<span id="cb14-11"><a href="#cb14-11"></a>),2</span>
-<span id="cb14-12"><a href="#cb14-12"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We now need to adapt these to the confidence intervals we computed earlier. In order to do this, we need to start with the standard errors - as the DEFF are meant to adjust these. We can then obtain the adjusted CIs for females.</p>
+<p>From the above table, we can see that the proportion of women employed in manufacturing is 4.83, the standard error of this proportion, 0.19. From the documentation, we know that the design factor is 1.2216. We are now able to compute the adjusted confidence intervals for females by hand:</p>
+<div id="5ce2e0b4" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb23-1"><a href="#cb23-1"></a>*** Lower bound</span>
+<span id="cb23-2"><a href="#cb23-2"></a>dis 4.82-1.96*<span class="fu">sqrt</span>(0.19*1.2216)</span>
+<span id="cb23-3"><a href="#cb23-3"></a></span>
+<span id="cb23-4"><a href="#cb23-4"></a>*** Upper  bound</span>
+<span id="cb23-5"><a href="#cb23-5"></a>dis 4.82+1.96*<span class="fu">sqrt</span>(0.19*1.2216)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+3.8757274
+
+5.7642726</code></pre>
+</div>
+</div>
+<p>… For males: the proportion employed in manufacturing is 11.01, the standard error 0.28 and the design factor is 1.3048:</p>
+<div id="e77d9573" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb25-1"><a href="#cb25-1"></a>*** Lower bound</span>
+<span id="cb25-2"><a href="#cb25-2"></a>dis 10.98-1.96*<span class="fu">sqrt</span>(0.27*1.3048)</span>
+<span id="cb25-3"><a href="#cb25-3"></a></span>
+<span id="cb25-4"><a href="#cb25-4"></a>*** Upper  bound</span>
+<span id="cb25-5"><a href="#cb25-5"></a>dis 10.98+1.96*<span class="fu">sqrt</span>(0.27*1.3048)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+9.8166513
+
+12.143349</code></pre>
+</div>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Answers</a></li></ul>
 <div class="tab-content">
@@ -514,14 +714,13 @@ mw.s
 </ol>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<p>1.They have narrowed, which means that in this case, taking the survey design into account improves the precision of estimates.<br>
-2. We would not be able to do this with the safeguarded version of the data. We would need to use the secured version, and compute the adjusted estimates ourselves.</p>
+<p>1.They have widened, which means that in this case, not taking the survey design led us to overestimate the precision of estimates.<br>
+2. We would not be able to do this with the safeguarded version of the data as there are no design factors for earnings published by the ONS. We would need to use the secured version of the data, and compute the adjusted estimates ourselves using the appropriate survey functions.</p>
 </div>
 </div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
