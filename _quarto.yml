@@ -1,19 +1,60 @@
 project:
   type: website
+  output-dir: docs
+  render:
+   - index.qmd
+   - exercise_*
+
+jupyter: nbstata
 
 website:
-  title: "LFS_exercises"
-  navbar:
-    left:
+#  title: "Working with the Labour Force Survey"
+   sidebar:
+      logo: "pics/UKDS_Logos_Col_Grey_300dpi.png"
+      logo-href: http:// ukdataservice.ac.uk
+      logo-alt: "UKDS homepage"
+
+      style: "floating"
+      contents:
+      
       - href: index.qmd
-        text: Home
-      - about.qmd
+        text: "**Introduction**"
+
+      - section: "**R exercises**"
+        contents:
+        - href: exercise_1.qmd
+          text: Exercise 1
+        - href: exercise_2.qmd
+          text: Exercise 2
+        - href: exercise_3.qmd
+          text: Exercise 3
+        - href: exercise_4.qmd
+          text: Exercise 4
+          
+      - section: "**Stata exercises**" 
+        contents:
+        - href: exercise_1_Stata.qmd
+          text: Exercise 1
+        - href: exercise_2_Stata.qmd
+          text: Exercise 2
+        - href: exercise_3_Stata.qmd
+          text: Exercise 3
+        - href: exercise_4_Stata.qmd
+          text: Exercise 4
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    code-overflow: scroll
+    code-line-numbers: true
     toc: true
+    toc-location: left
+    highlight-style: arrow-light
+    smooth-scroll: true
+    link-external-newwindow: true
+    citations-hover: true
+    footnotes-hover: true
+css: ukds.css
 
-editor: visual
+execute:
+  warning: false
 
