@@ -225,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-3-labour-market-flows" id="toc-exercise-3-labour-market-flows" class="nav-link active" data-scroll-target="#exercise-3-labour-market-flows">Exercise 3: Labour Market Flows</a>
   <ul class="collapse">
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#set-up" id="toc-set-up" class="nav-link" data-scroll-target="#set-up">Set up</a></li>
+  <li><a href="#get-set-up" id="toc-get-set-up" class="nav-link" data-scroll-target="#get-set-up">Get set up</a></li>
   <li><a href="#lets-examine-the-working-dataset" id="toc-lets-examine-the-working-dataset" class="nav-link" data-scroll-target="#lets-examine-the-working-dataset">Let’s examine the working dataset</a></li>
   <li><a href="#method-1-using-the-flow-variable" id="toc-method-1-using-the-flow-variable" class="nav-link" data-scroll-target="#method-1-using-the-flow-variable">Method 1: Using the FLOW variable</a></li>
   <li><a href="#method-2-employment-situation-at-w1-and-w2" id="toc-method-2-employment-situation-at-w1-and-w2" class="nav-link" data-scroll-target="#method-2-employment-situation-at-w1-and-w2">Method 2: Employment situation at W1 and W2</a></li>
@@ -259,15 +259,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>This exercise relies on the Two-Quarter LFS Longitudinal Dataset for July - December 2024, which is available from the UK Data Service <a href="http://doi.org/10.5255/UKDA-SN-9348-1">(Study number 9348).</a></p>
 </section>
-<section id="set-up" class="level2">
-<h2 class="anchored" data-anchor-id="set-up">Set up</h2>
+<section id="get-set-up" class="level2">
+<h2 class="anchored" data-anchor-id="get-set-up">Get set up</h2>
+<p>Let’s load the packages that are are going to need:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(haven)  <span class="do">### Functions to open Stata or SPSS datasets</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(dplyr)  <span class="do">### Easier data manipulation </span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(survey) <span class="do">### Survey data analysis functions</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(srvyr)  <span class="do">### Easier  manipulation of survey data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s open the dataset. As in the previous exercises, we downloaded it into a <em>Data</em> folder inside the working directory: <em>LFS_exercises</em>.</p>
+<p>We suggest that you create a folder named <code>LFS_exercises</code> as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within <code>LFS_exercises</code>, such as a subfolder named <code>Data</code>.</p>
+<p><em>LFS_exercises</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span> (<span class="st">"LFS_exercises"</span>) <span class="co"># Set the working directory</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
@@ -406,15 +408,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="method-1-using-the-flow-variable" class="level2">
 <h2 class="anchored" data-anchor-id="method-1-using-the-flow-variable">Method 1: Using the FLOW variable</h2>
-<p>In order to match the definition used by the ONS for their published estimates, we will examine the FLOW variable but only consider respondents aged 16-64. We will then weight the variable with the longitudinal weight <code>LGWT24</code>. In addition to adjusting for non-response and sampling error, longitudinal weights also correct for respondents who drop out from the survey between waves.</p>
-<p>As before, we first create a variable flagging the subpopulation of interest, here those aged 16-64.</p>
+<p>In order to match the definition used by the ONS for their published estimates, we will examine the FLOW variable but only consider respondents aged 16-64. We will then weight the variable with the longitudinal weight <code>LGWT24</code>. In addition to adjusting for non-response and sampling error, longitudinal weights also correct for respondents who drop out from the survey between waves:</p>
+<ul>
+<li>As with porevious exercises, we create a variable flagging the subpopulation of interest, here those aged 16-64.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dataex3<span class="ot">&lt;-</span> dataex3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
 <span id="cb7-2"><a href="#cb7-2"></a>                     <span class="at">wrkage=</span><span class="fu">ifelse</span>(AGE2<span class="sc">&gt;=</span><span class="dv">16</span> <span class="sc">&amp;</span> AGE2<span class="sc">&lt;=</span><span class="dv">64</span>,<span class="st">"16-64"</span>,<span class="st">"Other"</span>),</span>
 <span id="cb7-3"><a href="#cb7-3"></a>                     <span class="at">wrkage=</span><span class="fu">as.factor</span>(wrkage)</span>
 <span id="cb7-4"><a href="#cb7-4"></a>                      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We then a copy of the working dataset that takes weights into account.</p>
+<ul>
+<li>We then create a copy of the working dataset that takes weights into account.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>dataex3.s<span class="ot">&lt;-</span> dataex3<span class="sc">|&gt;</span> </span>
 <span id="cb8-2"><a href="#cb8-2"></a>            <span class="fu">as_survey_design</span>(<span class="at">weights=</span>LGWT24)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -425,43 +431,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-2"><a href="#cb9-2"></a>dataex3.s <span class="sc">|&gt;</span> </span>
 <span id="cb9-3"><a href="#cb9-3"></a>            <span class="fu">group_by</span>(FLOW,wrkage) <span class="sc">|&gt;</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a>            <span class="fu">summarize</span>(<span class="at">Counts =</span> <span class="fu">survey_total</span>()</span>
-<span id="cb9-5"><a href="#cb9-5"></a>            )</span>
-<span id="cb9-6"><a href="#cb9-6"></a></span>
-<span id="cb9-7"><a href="#cb9-7"></a>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 21 × 4
-# Groups:   FLOW [12]
-   FLOW                                                  wrkage Counts Counts_se
-   &lt;fct&gt;                                                 &lt;fct&gt;   &lt;dbl&gt;     &lt;dbl&gt;
- 1 [1] Aged 15 at both quarters                          Other  6.77e5    50488.
- 2 [2] Entrant to working-age between first and final q… 16-64  2.35e5    28906.
- 3 [3] In employment at first quarter; in employment at… 16-64  3.13e7   268695.
- 4 [3] In employment at first quarter; in employment at… Other  8.70e5    42242.
- 5 [4] In employment at first quarter; unemployed at fi… 16-64  3.02e5    41681.
- 6 [4] In employment at first quarter; unemployed at fi… Other  4.19e3     2602.
- 7 [5] In employment at first quarter; inactive at fina… 16-64  6.95e5    54523.
- 8 [5] In employment at first quarter; inactive at fina… Other  7.88e4    12639.
- 9 [6] Unemployed at first quarter; in employment at fi… 16-64  4.80e5    55017.
-10 [6] Unemployed at first quarter; in employment at fi… Other  5.22e3     3964.
-# ℹ 11 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="do">### Lets make the results easier to read</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>t <span class="sc">|&gt;</span> <span class="fu">filter</span>(wrkage<span class="sc">==</span><span class="st">"16-64"</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>wrkage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 3
-# Groups:   FLOW [10]
-   FLOW                                                         Counts Counts_se
-   &lt;fct&gt;                                                         &lt;dbl&gt;     &lt;dbl&gt;
- 1 [2] Entrant to working-age between first and final quarter   2.35e5    28906.
- 2 [3] In employment at first quarter; in employment at final … 3.13e7   268695.
- 3 [4] In employment at first quarter; unemployed at final qua… 3.02e5    41681.
- 4 [5] In employment at first quarter; inactive at final quart… 6.95e5    54523.
- 5 [6] Unemployed at first quarter; in employment at final qua… 4.80e5    55017.
- 6 [7] Unemployed at first quarter; unemployed at final quarte… 7.31e5    60265.
- 7 [8] Unemployed at first quarter; inactive at final quarter … 3.15e5    37675.
- 8 [9] Inactive at first quarter; in employment at final quart… 6.63e5    52295.
- 9 [10] Inactive at first quarter; unemployed at final quarter… 4.65e5    49403.
-10 [11] Inactive at first quarter; inactive at final quarter (… 7.85e6   166938.</code></pre>
+<span id="cb9-5"><a href="#cb9-5"></a>            ) <span class="sc">|&gt;</span> </span>
+<span id="cb9-6"><a href="#cb9-6"></a>           <span class="fu">filter</span>(wrkage<span class="sc">==</span><span class="st">"16-64"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="do">## t</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 73%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">FLOW</th>
+<th style="text-align: left;">wrkage</th>
+<th style="text-align: right;">Counts</th>
+<th style="text-align: right;">Counts_se</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">[2] Entrant to working-age between first and final quarter</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">234903</td>
+<td style="text-align: right;">28905.93</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">[3] In employment at first quarter; in employment at final quarter (EE)</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">31274220</td>
+<td style="text-align: right;">268694.80</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">[4] In employment at first quarter; unemployed at final quarter (EU)</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">302127</td>
+<td style="text-align: right;">41680.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">[5] In employment at first quarter; inactive at final quarter (EN)</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">695306</td>
+<td style="text-align: right;">54523.32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">[6] Unemployed at first quarter; in employment at final quarter (UE)</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">479910</td>
+<td style="text-align: right;">55016.71</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">[7] Unemployed at first quarter; unemployed at final quarter (UU)</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">730805</td>
+<td style="text-align: right;">60265.12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">[8] Unemployed at first quarter; inactive at final quarter (UN)</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">315412</td>
+<td style="text-align: right;">37674.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">[9] Inactive at first quarter; in employment at final quarter (NE)</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">662687</td>
+<td style="text-align: right;">52295.42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">[10] Inactive at first quarter; unemployed at final quarter (NU)</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">465278</td>
+<td style="text-align: right;">49403.13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">[11] Inactive at first quarter; inactive at final quarter (NN)</td>
+<td style="text-align: left;">16-64</td>
+<td style="text-align: right;">7849338</td>
+<td style="text-align: right;">166938.31</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -478,25 +530,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="method-2-employment-situation-at-w1-and-w2" class="level2">
 <h2 class="anchored" data-anchor-id="method-2-employment-situation-at-w1-and-w2">Method 2: Employment situation at W1 and W2</h2>
-<p>Here, we create a variable to flag a group of respondents based on their situation at the first and second quarters.</p>
+<p>Here we examine the situation of respondents at the first and second quarters.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>dataex3 <span class="ot">&lt;-</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>dataex3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">NewJob=</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>                  <span class="fu">ifelse</span>(ILODEFR2<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span> </span>
-<span id="cb13-4"><a href="#cb13-4"></a>                         EMPLEN2<span class="sc">==</span><span class="st">"[1] Less than 3 months"</span> </span>
-<span id="cb13-5"><a href="#cb13-5"></a>                         <span class="sc">&amp;</span> AGE2<span class="sc">&gt;</span><span class="dv">15</span> <span class="sc">&amp;</span> AGE2<span class="sc">&lt;</span><span class="dv">65</span>,</span>
-<span id="cb13-6"><a href="#cb13-6"></a>                         <span class="st">"New job at Q2"</span>, </span>
-<span id="cb13-7"><a href="#cb13-7"></a>                         <span class="st">"Anything else"</span>),</span>
-<span id="cb13-8"><a href="#cb13-8"></a>                  <span class="at">NewJob=</span><span class="fu">as.factor</span>(NewJob)</span>
-<span id="cb13-9"><a href="#cb13-9"></a>                  )</span>
-<span id="cb13-10"><a href="#cb13-10"></a></span>
-<span id="cb13-11"><a href="#cb13-11"></a>dataex3.s<span class="ot">&lt;-</span> dataex3<span class="sc">|&gt;</span> <span class="fu">as_survey_design</span>(<span class="at">weights=</span>LGWT24)</span>
-<span id="cb13-12"><a href="#cb13-12"></a></span>
-<span id="cb13-13"><a href="#cb13-13"></a>                                    </span>
-<span id="cb13-14"><a href="#cb13-14"></a>dataex3.s <span class="sc">|&gt;</span> </span>
-<span id="cb13-15"><a href="#cb13-15"></a>  <span class="fu">group_by</span>(NewJob) <span class="sc">|&gt;</span></span>
-<span id="cb13-16"><a href="#cb13-16"></a>   <span class="fu">summarize</span>(<span class="at">Counts =</span> <span class="fu">survey_total</span>()</span>
-<span id="cb13-17"><a href="#cb13-17"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dataex3 <span class="ot">&lt;-</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>dataex3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">NewJob=</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>                  <span class="fu">ifelse</span>(ILODEFR2<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span> </span>
+<span id="cb10-4"><a href="#cb10-4"></a>                         EMPLEN2<span class="sc">==</span><span class="st">"[1] Less than 3 months"</span> </span>
+<span id="cb10-5"><a href="#cb10-5"></a>                         <span class="sc">&amp;</span> AGE2<span class="sc">&gt;</span><span class="dv">15</span> <span class="sc">&amp;</span> AGE2<span class="sc">&lt;</span><span class="dv">65</span>,</span>
+<span id="cb10-6"><a href="#cb10-6"></a>                         <span class="st">"New job at Q2"</span>, </span>
+<span id="cb10-7"><a href="#cb10-7"></a>                         <span class="st">"Anything else"</span>),</span>
+<span id="cb10-8"><a href="#cb10-8"></a>                  <span class="at">NewJob=</span><span class="fu">as.factor</span>(NewJob)</span>
+<span id="cb10-9"><a href="#cb10-9"></a>                  )</span>
+<span id="cb10-10"><a href="#cb10-10"></a></span>
+<span id="cb10-11"><a href="#cb10-11"></a>dataex3.s<span class="ot">&lt;-</span> dataex3<span class="sc">|&gt;</span> <span class="fu">as_survey_design</span>(<span class="at">weights=</span>LGWT24)</span>
+<span id="cb10-12"><a href="#cb10-12"></a></span>
+<span id="cb10-13"><a href="#cb10-13"></a>                                    </span>
+<span id="cb10-14"><a href="#cb10-14"></a>dataex3.s <span class="sc">|&gt;</span> </span>
+<span id="cb10-15"><a href="#cb10-15"></a>  <span class="fu">group_by</span>(NewJob) <span class="sc">|&gt;</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a>   <span class="fu">summarize</span>(<span class="at">Counts =</span> <span class="fu">survey_total</span>()</span>
+<span id="cb10-17"><a href="#cb10-17"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   NewJob          Counts Counts_se
@@ -514,9 +566,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>dataex3 <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">select</span>(ILODEFR1,EMPLEN2) <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">summary</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>dataex3 <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">select</span>(ILODEFR1,EMPLEN2) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3"></a>  <span class="fu">summary</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               ILODEFR1                              EMPLEN2    
  [1] In employment :11684   [-9] Does not apply          :5899  
@@ -538,34 +590,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This time we will be looking at transitions between employment broadly defined and self-employment from wave 1 to wave 2.<br>
 In order to do this, we will create a simplified economic activity variable recording employees (including those on training schemes as well as unpaid family workers) the unemployed, and the economically inactive at waves 1 and 2.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>dataex3 <span class="ot">&lt;-</span> dataex3 <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href="#cb17-2"></a>            <span class="fu">mutate</span>(</span>
-<span id="cb17-3"><a href="#cb17-3"></a>            <span class="at">eco1=</span><span class="fu">case_when</span>(</span>
-<span id="cb17-4"><a href="#cb17-4"></a>                     INCAC051<span class="sc">==</span><span class="st">"[1] Employee"</span> <span class="sc">|</span> INCAC051<span class="sc">==</span><span class="st">"[3] Government emp &amp; training programmes"</span> <span class="sc">|</span> </span>
-<span id="cb17-5"><a href="#cb17-5"></a>                     INCAC051<span class="sc">==</span><span class="st">"[4] Unpaid family worker"</span> <span class="sc">~</span> <span class="st">"Employee+"</span>,</span>
-<span id="cb17-6"><a href="#cb17-6"></a>                     INCAC051<span class="sc">==</span><span class="st">"[2] Self-employed"</span> <span class="sc">~</span> <span class="st">"Self-employed"</span>,</span>
-<span id="cb17-7"><a href="#cb17-7"></a>                     INCAC051<span class="sc">==</span><span class="st">"[5] ILO unemployed"</span> <span class="sc">~</span> <span class="st">"Unemployed"</span>,</span>
-<span id="cb17-8"><a href="#cb17-8"></a>                     <span class="at">.default=</span><span class="st">"Inactive"</span></span>
-<span id="cb17-9"><a href="#cb17-9"></a>                     ),</span>
-<span id="cb17-10"><a href="#cb17-10"></a>              <span class="at">eco1=</span><span class="fu">as.factor</span>(eco1),</span>
-<span id="cb17-11"><a href="#cb17-11"></a>              <span class="at">eco2=</span><span class="fu">case_when</span>(</span>
-<span id="cb17-12"><a href="#cb17-12"></a>                     INCAC052<span class="sc">==</span><span class="st">"[1] Employee"</span> <span class="sc">|</span> INCAC052<span class="sc">==</span><span class="st">"[3] Government emp &amp; training programmes"</span> <span class="sc">|</span> </span>
-<span id="cb17-13"><a href="#cb17-13"></a>                     INCAC052<span class="sc">==</span><span class="st">"[4] Unpaid family worker"</span> <span class="sc">~</span> <span class="st">"Employee+"</span>,</span>
-<span id="cb17-14"><a href="#cb17-14"></a>                     INCAC052<span class="sc">==</span><span class="st">"[2] Self-employed"</span> <span class="sc">~</span> <span class="st">"Self-employed"</span>,</span>
-<span id="cb17-15"><a href="#cb17-15"></a>                     INCAC052<span class="sc">==</span><span class="st">"[5] ILO unemployed"</span> <span class="sc">~</span> <span class="st">"Unemployed"</span>,</span>
-<span id="cb17-16"><a href="#cb17-16"></a>                     <span class="at">.default=</span><span class="st">"Inactive"</span>),</span>
-<span id="cb17-17"><a href="#cb17-17"></a>               <span class="at">eco2=</span><span class="fu">as.factor</span>(eco2)</span>
-<span id="cb17-18"><a href="#cb17-18"></a>                     ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>dataex3 <span class="ot">&lt;-</span> dataex3 <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2"></a>            <span class="fu">mutate</span>(</span>
+<span id="cb14-3"><a href="#cb14-3"></a>            <span class="at">eco1=</span><span class="fu">case_when</span>(</span>
+<span id="cb14-4"><a href="#cb14-4"></a>                     INCAC051<span class="sc">==</span><span class="st">"[1] Employee"</span> <span class="sc">|</span> INCAC051<span class="sc">==</span><span class="st">"[3] Government emp &amp; training programmes"</span> <span class="sc">|</span> </span>
+<span id="cb14-5"><a href="#cb14-5"></a>                     INCAC051<span class="sc">==</span><span class="st">"[4] Unpaid family worker"</span> <span class="sc">~</span> <span class="st">"Employee+"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6"></a>                     INCAC051<span class="sc">==</span><span class="st">"[2] Self-employed"</span> <span class="sc">~</span> <span class="st">"Self-employed"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7"></a>                     INCAC051<span class="sc">==</span><span class="st">"[5] ILO unemployed"</span> <span class="sc">~</span> <span class="st">"Unemployed"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8"></a>                     <span class="at">.default=</span><span class="st">"Inactive"</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a>                     ),</span>
+<span id="cb14-10"><a href="#cb14-10"></a>              <span class="at">eco1=</span><span class="fu">as.factor</span>(eco1),</span>
+<span id="cb14-11"><a href="#cb14-11"></a>              <span class="at">eco2=</span><span class="fu">case_when</span>(</span>
+<span id="cb14-12"><a href="#cb14-12"></a>                     INCAC052<span class="sc">==</span><span class="st">"[1] Employee"</span> <span class="sc">|</span> INCAC052<span class="sc">==</span><span class="st">"[3] Government emp &amp; training programmes"</span> <span class="sc">|</span> </span>
+<span id="cb14-13"><a href="#cb14-13"></a>                     INCAC052<span class="sc">==</span><span class="st">"[4] Unpaid family worker"</span> <span class="sc">~</span> <span class="st">"Employee+"</span>,</span>
+<span id="cb14-14"><a href="#cb14-14"></a>                     INCAC052<span class="sc">==</span><span class="st">"[2] Self-employed"</span> <span class="sc">~</span> <span class="st">"Self-employed"</span>,</span>
+<span id="cb14-15"><a href="#cb14-15"></a>                     INCAC052<span class="sc">==</span><span class="st">"[5] ILO unemployed"</span> <span class="sc">~</span> <span class="st">"Unemployed"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16"></a>                     <span class="at">.default=</span><span class="st">"Inactive"</span>),</span>
+<span id="cb14-17"><a href="#cb14-17"></a>               <span class="at">eco2=</span><span class="fu">as.factor</span>(eco2)</span>
+<span id="cb14-18"><a href="#cb14-18"></a>                     ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s now get the results by using a cross-tabulation of economic activity at time 1 and time 2. We will rely again on <code>wrkage</code> to limit the analysis on the 16-64 as well as the longitudinal weights. The easiest way of doing this is to create a three-way table, which will in effect create a flow table for the 16-64 and another one for the other respondents.</p>
-<p>We will first need to recreate the weights-informed dataset as we created new variables since the last time.</p>
+<p>Let’s now get the results by using a cross-tabulation of economic activity at time 1 and time 2. We will rely again on <code>wrkage</code> to limit the analysis on the 16-64 as well as the longitudinal weights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>dataex3.s<span class="ot">&lt;-</span> dataex3<span class="sc">|&gt;</span> </span>
-<span id="cb18-2"><a href="#cb18-2"></a>            <span class="fu">as_survey_design</span>(<span class="at">weights=</span>LGWT24)</span>
-<span id="cb18-3"><a href="#cb18-3"></a></span>
-<span id="cb18-4"><a href="#cb18-4"></a>r<span class="ot">&lt;-</span> <span class="fu">svytable</span>(<span class="sc">~</span>eco1<span class="sc">+</span>eco2<span class="sc">+</span>wrkage,</span>
-<span id="cb18-5"><a href="#cb18-5"></a>          <span class="at">design=</span>dataex3.s</span>
-<span id="cb18-6"><a href="#cb18-6"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>dataex3.s<span class="ot">&lt;-</span> dataex3<span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2"></a>            <span class="fu">as_survey_design</span>(<span class="at">weights=</span>LGWT24)</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a>r<span class="ot">&lt;-</span> <span class="fu">svytable</span>(<span class="sc">~</span>eco1<span class="sc">+</span>eco2<span class="sc">+</span>wrkage,</span>
+<span id="cb15-5"><a href="#cb15-5"></a>          <span class="at">design=</span>dataex3.s</span>
+<span id="cb15-6"><a href="#cb15-6"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true"><em>Review questions 4</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Answers</a></li></ul>
@@ -589,7 +640,7 @@ In order to do this, we will create a simplified economic activity variable reco
 </section>
 <section id="what-next" class="level2">
 <h2 class="anchored" data-anchor-id="what-next">What next?</h2>
-<p>This was the final structured exercise. Some ideas for what to do next are:</p>
+<p>Some ideas for what to do next are:</p>
 <ul>
 <li>Use the methods above to examine flows between industry or occupation (SC10MMJ1 SC10MMJ2 in792sm2 in792sm1).</li>
 <li>Open the full dataset to examine what variables in the Two-Quarter Longitudinal Dataset.</li>

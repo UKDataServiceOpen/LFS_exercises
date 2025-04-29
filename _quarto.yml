@@ -3,7 +3,14 @@ project:
   output-dir: docs
   render:
    - index.qmd
-   - exercise_*
+   - exercise_1.qmd
+   - exercise_1_Stata.qmd
+   - exercise_2.qmd
+   - exercise_2_Stata.qmd
+   - exercise_3.qmd
+   - exercise_3_Stata.qmd
+   - exercise_4.qmd
+   - exercise_4_Stata.qmd
 
 jupyter: nbstata
 
@@ -57,4 +64,5 @@ css: ukds.css
 
 execute:
   warning: false
+#  cache: true
 
