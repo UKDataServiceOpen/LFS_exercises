@@ -24,7 +24,7 @@ We will assume that the working directory for this exercise - where syntax files
 quietly cd  "LFS_exercises/"
 
 * Import  the data from a Stata format dataset 
-use  "Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
+use  "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
 ```
 
 As previously, let's just keep the variables we need for the exercise. 

@@ -16,7 +16,7 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set-up
 
-One you have downloaded the data, save it somewhere accessible, for example in a `Data` folder inside  `LFS_exercises`. We can now begin analysing the data using R. First let's load the packages that are are going to need...
+We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`.
 
 ...  And open the QLFS dataset:
 
@@ -106,7 +106,7 @@ ta SEX
 
 ## Answers
 
-1.  There are 63,059 cases
+1.  There are 63,069 cases
 
 2.  `INECAC05` records  self-reported basic economic activity (ILO definition)
 
@@ -121,7 +121,7 @@ In order to provide reliable estimates of population values, survey data needs t
 
 Below, we compare weighted and unweighted frequencies and percentages.
 
-We will be using Stata's specially designed survey commands.
+We will be using Stata's survey commands.
 
 Let us first examine again the variable measuring - JOBTYP - whether respondents work in a temporary job or not:
 
@@ -131,7 +131,7 @@ tab JOBTYP,nol
 
 ```
 
-... and create a version without missing values.
+... and create a version with missing values recoded as system missing.
 
 ```{stata jobtmp}
  
@@ -148,18 +148,16 @@ tab JobTmp JOBTYP, missing
 
 ```
 
-We then tell Stata about the weights in the data:
+We then declare the the data to be weightey survey  data:
 
 ```{stata svydes}
 svyset [pw=PWT24]
 ```
 
-Please note that we needed to remove observations with missing weights values, in effect observations that should not be taken into account to calculate population values. If we don't we will get an error message.
-
-We can now compute weighted frequencies and percentages using a survey specific command: `svy:tab`:
+We can now compute the weighted totals and percentages:
 
 ```{stata svyfreqs}
-svy:tab JobTmp
+svy:tab JobTmp, percent
 
 svy:tab  JOBTYP,count format(%9.0f)
 ```
@@ -201,25 +199,29 @@ svy:tab  PartTime,count format(%9.0f)
 
 ## Splitting by sex and working time status
 
-We then obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
+We can obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
 
 ```{stata tmp_ftpt}
 
 svy:tab  PartTime JobTmp,count format(%9.0f)
 ```
 
-We can add a third variable using the `subpop`option in order to simultaneously examine the number of temporary and part-time employees by gender. We however need to recode SEX as a 0/1 ie dummy variable.
-
+We can simultaneously examine the number of temporary and part-time employees by gender by using the `subpop` option. 
 ```{stata sex}
-*** Creating the dummy variables
+*** We need first to recode SEX as a 0/1 ie dummy variable.
 
-tab SEX, gen(sex)
+tab SEX, gen(sex) 
 
 ta sex2
 
-svy,subpop(sex1):tab  PartTime JobTmp,count format(%9.0f)
+```
 
-svy,subpop(sex2):tab  PartTime JobTmp,count format(%9.0f)
+```{stata}
+*** Totals by sex
+
+svy,subpop(sex1):tab  PartTime JobTmp,count format(%9.0f) 
+
+svy,subpop(sex2):tab  PartTime JobTmp,count format(%9.0f) 
 ```
 
 ### Review questions

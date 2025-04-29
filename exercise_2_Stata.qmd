@@ -1,4 +1,4 @@
-# Weekly earnings of employees
+<!-- # Weekly earnings of employees -->
 
 In this exercise, you will recreate a labour market analysis by the ONS, reported in the table [EARN04: Gross weekly earnings of full-time employees \[last accessed 21/02/2025\]](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04). Currently, this table is updated four times a year in February, May, August and November using data from the Quarterly Labour Force Survey.
 
@@ -16,10 +16,11 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set up
 
-We will assume that the working directory for this exercise - where syntax files and other materials  will be located - will be a folder named `LFS_exercises`.   Once you have downloaded the data, save it somewhere accessible inside `LFS_exercises`, for example in  another folder named `Data`...  Then open the QLFS dataset:
+We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`.
+
 
 ```{stata open}
-cd  "LFS_exercises/"
+quietly cd  "LFS_exercises/"
 
 * Import  the data from a Stata format dataset 
 use  "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
@@ -33,36 +34,33 @@ keep PERSNO PIWT24 PWT24 GRSSWK  INECAC05  ILODEFR FTPT  HOURPAY SEX
 ```
 
 
-## Let's examine the dataset
+## Examine the dataset
 
-We can use again `describe` in order to inspect the data and the new variables:
+Let's inspect the data and the new variables:
 
 ```{stata inspect}
 describe
-
 ```
-
-## Examine weekly earnings
 
 We can also examine descriptive statistics for weekly earnings
 
 ```{stata desc1}
 summ GRSSWK,detail
 ```
-Non responses are coded using negative values, which may potentially impact on the outcome of statistical analysis. Let's retain  respondents who provided a valid answer only: 
+Non responses are coded using negative values, which will affect analysis results. Let's do it again, this time with respondents who provided a valid answer only: 
 
 ```{stata desc2}
 summ GRSSWK if GRSSWK>0,detail
 ```
 
-We could also have a look at weekly earnings using a histogram. Given that income data tends to be skewed to the right (a relatively small number of respondents have very large earnings), which may affect the legibility of histograms, we will restrict the plot to the earnings of 99% of respondents, leaving out the 1% highest earners.  
-
-The above results tell us that   99% of earners earn less than £2,500 per week . 
+Let's plot the distribution of weekly earnings using a histogram. Given that income data tends to be skewed to the right (a relatively small number of respondents have very large earnings), which reduces the visibility lower earnings, we will leaving out the 1% highest earners, that is respondents  earning more than £2,500 per week. 
 
 
 
 ```{stata plot}
-quietly histogram   GRSSWK if GRSSWK>0 & GRSSWK<=2500,  xtitle("Earnings (£) -- 1st-99th percentiles") title("Gross weekly earnings in the UK, Oct-Dec 2024")
+quietly histogram   GRSSWK if GRSSWK>0 & GRSSWK<=2500,  ///
+                    xtitle("Earnings (£) -- 1st-99th percentiles") ///
+                    title("Gross weekly earnings in the UK, Oct-Dec 2024")
 ```
 
 ```{stata plot}
@@ -83,7 +81,9 @@ Plot the distribution of hourly earnings  up to the 99th percentile.
 ```{stata hourly}
 summ HOURPAY if HOURPAY>0,detail
 
-quietly histogram  HOURPAY if HOURPAY>0 & HOURPAY<=69.23, xtitle("Earnings (£) -- 1st-99th percentiles") title("Hourly earnings in the UK, Oct-Dec 2024")
+quietly histogram  HOURPAY if HOURPAY>0 & HOURPAY<=69.23, ///
+                   xtitle("Earnings (£) -- 1st-99th percentiles") ///
+                   title("Hourly earnings in the UK, Oct-Dec 2024")
 ```
 
 ```{stata printh}
@@ -107,21 +107,23 @@ It is important to remain mindful of definitions:
 
 - *Full-time* and *part-time* refer to people's self declared working-time status, irrespective of whether they are employed or self-employed
 
-LFS  data provides the INECAC05 variable, which records all nuances of economic activity (there are 35 of them!), including employment and self-employment. There is also ILODEFR which records the broad economic activity status (ie Whether employed, unemployed, etc.) and group together self-employed and employees.
+The INECAC05 variable records all nuances of economic activity (there are 35 of them!), including employment and self-employment. There is also ILODEFR which records broader economic activity status (ie Whether employed, unemployed, or on a government training scheme etc.) and group together self-employed and employees.
 
 We will now examine these  variables.
 
-```{stata summ2}         
-summ INECAC05
-tab INECAC05
-
-summ FTPT
-tab FTPT
+```{stata tab_inecac}         
+tab INECAC05,m
 ```
 
 If we further want to know about about the number of employees by working-time status, we will need to explictly restrict the analysis to those: 
 
-```{stata tabdesc}         
+```{stata tab_ftpt}  
+tab FTPT 
+```
+
+
+```{stata tab_employ}  
+*** Looking at employees only
 tab FTPT if INECAC05==1
 ```
 
@@ -136,8 +138,7 @@ There are 19,680 full-time employees in the  sample.
 ## Answer
 1. 
 ```{stata  subset}
-summ ILODEFR
-tab ILODEFR
+tab ILODEFR,m
 ```
 
 2. 
@@ -152,12 +153,11 @@ There are 2,823 respondents in full-time self-employment in the sample.
 
 ## ONS estimates for employees' gross weekly earnings
 
-The code below recreates the ONS results showing the distribution of income for full-time employees overall and by gender. 
-It does it in three stages:
+The code below recreates the ONS results showing the distribution of income for full-time employees overall and by gender. We do it in two stages:
 
-- First, we create a variable to flag to match the ONS' definition of full-time employees  (ie those who work full-time and earn up to £100 hourly). 
+- First, we create a variable to match the ONS' definition of full-time employees
 
-   It may be a good idea to double check the definition used by the ONS [in its publication.](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04) Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for  respondents' main job, and also that *those earnings more than £100 per hour* are excluded. 
+   It is always a good idea to double check the ONS definition  [in its publication.](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04) Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for  respondents' main job, and also that *those earnings more than £100 per hour* are excluded. 
 
 
 ```{stata ftEmp}
@@ -169,9 +169,9 @@ lab def ftEmp 0 "Anything else" 1 "Full-time employee"
 lab val  ftEmp ftEmp
 
 tab ftEmp
-```
 
-Stata does not directly allow computing median  with survey data due to issue with variance estimation. We follow the solution suggested here: [] 
+```
+- We then compute the median earnings for full-timers matching the ONS definition:
 
 ```{stata svy}
 _pctile GRSSWK  if ftEmp==1 [pw=PIWT24]
@@ -180,7 +180,7 @@ return list
 ```
 
 
-The median weekly earnings of  full-time employees in the UK in October-December 2024 was £692. We need to keep in mind that by using the income weights `PIWT`, those with missing values on `GRSSWK` are automatically left out. If for some reason  we are not using these, we will have to exclude missing values  explicitly (`GRSSWK>0`)
+The median weekly earnings of  full-time employees in the UK in October-December 2024 was £692. We need to keep in mind that by using the income weights `PIWT`, those with missing values on `GRSSWK` are automatically left out.
 
 ::: panel-tabset
 ## Questions
@@ -189,7 +189,7 @@ The median weekly earnings of  full-time employees in the UK in October-December
 
 2.  What are earnings at the lowest decile for males and females  in the UK?
 
-3. Why are we using a different weight from exercise 1?
+3. Why are we using a different weight from Exercise 1?
 
 
 ## Answers
@@ -222,7 +222,7 @@ The median weekly earnings for men and women in the lowest decile in the UK are 
 :::
 
 ## How many people work as full-time employee?
-This question relies on  a slightly different definition that we have used so far since this time we won't excludce those earning more than £100 per hour. This means we need to recreate a new variable to flag this group, or pass directly the definition to the estimation function. The figures published by the ONS can be found [in Table EMP01 here](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa).
+This question relies on  a slightly different definition that we have used so far since this time we won't exclude those earning more than £100 per hour. The figures published by the ONS can be found [in Table EMP01 here](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa).
 
 Let's follow the same steps as before: 
 

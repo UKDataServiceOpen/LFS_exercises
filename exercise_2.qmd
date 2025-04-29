@@ -16,7 +16,7 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set up
 
-We will assume that the working directory for this exercise - where syntax files and other materials  will be located - will be a folder named `LFS_exercises`.   Once you have downloaded the data, save it somewhere accessible inside `LFS_exercises`, for example in  another folder named `Data`. 
+We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`.
 
 We can now begin analysing the data using R. First let's load the packages that are are going to need:
 
@@ -38,7 +38,7 @@ lfs_od24 <- read_dta(
                     ) 
 ```
 
-As there are many variables in the LFS, let's create a data frame with just the variables we need for the exercise. We can also use this opportunity to  convert categorical variables  into factors in order to make them easier to understand and manipulate. For greater output clarity, we also remove unused categories of categorical variables using `droplevels()`.
+As there are many variables in the LFS, let's create a data frame with just those required for this exercise. We also  convert the original variables  into factors in order to make them easier to manipulate. 
 
 ```{r mydata}
 dataex2 <- lfs_od24 |> 
@@ -48,7 +48,7 @@ dataex2 <- lfs_od24 |>
          c(INECAC05,ILODEFR,FTPT,SEX),\(x) as_factor(x, "both")
                )
          ) |>
-  droplevels()
+  droplevels() ### Removing unused categories 
 ```
 
 
@@ -69,13 +69,14 @@ We can also examine descriptive statistics for weekly earnings
 ```{r desc1}
 summary(dataex2$GRSSWK)
 ```
-Non responses are coded using negative values, which may potentially impact on the outcome of statistical analysis. Let's retain  respondents who provided a valid answer only: 
+Non responses are coded using negative values, which will affect analysis results. Let's do it again, this time with respondents who provided a valid answer only: 
 
 ```{r desc2}
 summary(dataex2$GRSSWK[dataex2$GRSSWK>0])
 ```
 
-We could also have a look at weekly earnings using a histogram. Given that income data tends to be skewed to the right (a relatively small number of respondents have very large earnings), which may affect the legibility of histograms, we will restrict the plot to the earnings of 99% of respondents, leaving out the 1% highest earners. In order to find out about the relevant earnings threshold, we can type the command as follows:
+Let's plot the distribution of weekly earnings using a histogram. Given that income data tends to be skewed to the right (a relatively small number of respondents have very large earnings), which reduces the visibility lower earnings, we will leaving out the 1% highest earners. 
+
 
 ```{r quantil}
 quantile(dataex2$GRSSWK[dataex2$GRSSWK>0],.99)
@@ -86,7 +87,7 @@ We now know that 99% of earners earn less than `{r} paste0("£", prettyNum(round
 
 
 ```{r plot}
-hist(dataex2$GRSSWK[dataex2$GRSSWK>0 & dataex2$GRSSWK<2499],
+hist(dataex2$GRSSWK[dataex2$GRSSWK>0 & dataex2$GRSSWK<=2499],
      xlab="Earnings (£) -- 1st-99th percentiles",          # x axis label
      main="Gross weekly earnings in the UK, Oct-Dec 2024", # Plot title
      freq=F)                                               # Print probabilities 
@@ -122,10 +123,14 @@ LFS  data provides the INECAC05 variable, which records all nuances of economic 
 
 We will now examine these  variables.
 
-```{r sumboth}         
-dataex2 |> select(FTPT,INECAC05) |> 
-           summary()
+```{r sumINE}         
+table(dataex2$INECAC05)
 ```
+
+```{r sumFT}         
+table(dataex2$FTPT)
+```
+
 
 If we further want to know about about the number of employees by working-time status, we will need to explictly restrict the analysis to those: 
 
@@ -168,7 +173,7 @@ There are `{r} prettyNum(ft.emp.2[[3]], big.mark=",")` respondents in full-time 
 ## ONS estimates for employees' gross weekly earnings
 
 The code below recreates the ONS results showing the distribution of income for full-time employees overall and by gender. 
-It does it in three stages:
+It does it in two stages:
 
 - First, we create a variable to flag to match the ONS' definition of full-time employees  (ie those who work full-time and earn up to £100 hourly). 
 
@@ -192,23 +197,19 @@ dataex2<-dataex2 |>
 table(dataex2$ftEmp)
 ```
 
-- We then create a version of the data that takes the income weights into account:
+- We then create a version of the data that takes the income weights into account and compute the results:
 
 ```{r svy}
 de.s<-   dataex2|> 
          as_survey_design(weights=PIWT24)
-```
 
-... And finally, we compute  the results:
-
-```{r med}
 medinc<- de.s |> group_by(ftEmp)  |> 
         summarise(Median=survey_old_median(GRSSWK,vartype="ci")) |>
         ungroup()
 medinc
 ```
 
-The median weekly earnings of  full-time employees in the UK in October-December 2024 was £`{r} round(medinc[[2]][2])`. We need to keep in mind that by using the income weights, those with missing values on GRSSWK are automatically left out. If for some reason  we are not using these, we will have to exclude missing values  explicitly  (`GRSSWK>0`)
+The median weekly earnings of  full-time employees in the UK in October-December 2024 was £`{r} round(medinc[[2]][2])`. We need to keep in mind that by using the income weights, those with missing values on GRSSWK are automatically left out. 
 
 ::: panel-tabset
 ## Questions
@@ -248,7 +249,7 @@ The median weekly earnings for men and women in the lowest decile in the UK are 
 :::
 
 ## How many people work as full-time employee?
-This question relies on  a slightly different definition that we have used so far since this time we won't excludce those earning more than £100 per hour. This means we need to recreate a new variable to flag this group, or pass directly the definition to the estimation function. The figures published by the ONS can be found [in Table EMP01 here](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa).
+This question relies on  a slightly different definition that we have used so far since this time we won't exclude those earning more than £100 per hour. The figures published by the ONS can be found [in Table EMP01 here](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa).
 
 Let's follow the same steps as before: 
 
@@ -266,16 +267,12 @@ dataex2<-dataex2 |>
                    )
 ```
 
-Let's the recreate our copy of the data that includes weights: 
-
+Let's then update the copy of the data that includes weights and  produce our estimates: 
+ 
 ```{r svy2}
-
 de.s<-   dataex2|> 
          as_survey_design(weights=PIWT24)
-```
-And finally, let's produce our estimates: 
 
-```{r ftest}
 fte<-de.s |> group_by(ftEmp2) |>
         summarise(survey_total(vartype="ci"))
 

@@ -31,7 +31,8 @@ As previously, let's just keep the variables we need for the exercise.
 
 
 ```{stata keep} 
-keep AGES2 AGE2 LGWT24 EMPLEN1 EMPLEN2 FLOW SEX ILODEFR1 ILODEFR2 INCAC051 INCAC052 SC20MMJ1 SC20MMJ2  In792sm2 In792sm1
+keep AGES2 AGE2 LGWT24 EMPLEN1 EMPLEN2 FLOW SEX ILODEFR1 ILODEFR2 ///
+     INCAC051 INCAC052 SC20MMJ1 SC20MMJ2  In792sm2 In792sm1
   
 ```
 
@@ -69,7 +70,7 @@ ta FLOW
 In order to match the definition used by the ONS for their published  estimates, we will examine the  FLOW variable but only consider respondents aged 16-64. We will then weight the variable with the longitudinal weight `LGWT24`. In addition to  adjusting for non-response and sampling error, longitudinal weights also correct for respondents who drop out from the survey between waves.
 
 
-As before, we first  create a variable flagging the subpopulation of interest, here those aged 16-64.
+As before, we begin by  flagging those aged 16-64:
 
 
 ```{stata wrkage}
@@ -84,16 +85,17 @@ lab val wrkage wrkage
 ta AGE2 wrkage
 ```
 
-We then  declare the dataset to be survey data: 
+We then  declare the dataset to be weighted survey data: 
 
 
 ```{stata  sdesign}
 svyset [pw=LGWT24]
 ```
 
-And finally, we compute the estimates using the survey data version of the `tab` command. We also use the option `stubwidth` for proper display of the labels.
+And finally, we compute the estimates. .
 
 ```{stata total}
+*** `stubwidth` allows for proper display of the labels
 svy, subpop(wrkage):tab FLOW, count format(%9.0f)  stubwidth(32) 
 
 ```
@@ -111,7 +113,9 @@ The second line of the table above  tells us that there were 31,274,220 people i
 
 ## Method 2: Employment situation at W1 and W2
 
-Here, we create a  variable to flag a group of respondents based on their situation at the first and second quarters.
+Here we examine the  situation of respondents at the first and second quarters.
+
+
 ```{stata select}
 gen NewJob=0
 replace NewJob=1 if ILODEFR2==1 &  EMPLEN2 & wrkage==1,

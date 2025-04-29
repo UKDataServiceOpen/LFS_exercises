@@ -16,9 +16,11 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set-up
 
-One you have downloaded the data, save it somewhere accessible, for example in a folder named `LFS_exercises`. We can now begin analysing the data using R. First let's load the packages that are are going to need...
+We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`.
 
-```{r}
+First let's load the packages that are are going to need...
+
+```{r prep}
 library(haven)  ### Functions to open Stata or SPSS datasets
 library(dplyr)  ### Easier data manipulation 
 library(survey) ### Survey data analysis functions
@@ -26,6 +28,8 @@ library(srvyr)  ### Easier  manipulation of survey data
 
 ```
 ...  And open the QLFS dataset:
+
+
 
 ```{r open}
 setwd ("LFS_exercises")
@@ -54,8 +58,8 @@ There are `{r} ncol(lfs_od24)` variables in the dataset.
 
 As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to make the variable categories easier to understand by converting them into factors. For greater clarity, we also remove unused categories of categorical variables using `droplevels()`.
 
-```{r mydata}
-mydata <- lfs_od24 |> 
+```{r dataex1}
+dataex1 <- lfs_od24 |> 
   select(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)|>
   mutate(across(.cols=JBTP101:SEX, 
                 .fns=as_factor,"both")
@@ -65,31 +69,31 @@ mydata <- lfs_od24 |>
 
 ## Examine the variables
 
-We can have a look at the raw data by using `head()` or `View()`
+Let's  have a look at the raw data.
 
 ```{r head}
-head(mydata)
+head(dataex1)
 
-View(mydata) # A nicer looking output
+View(dataex1) # A nicer looking output
 ```
 
 Now let's examine in more detail the variables we are going to work with.
 
 ```{r summ}
-mydata |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |> 
+dataex1 |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |> 
            summary()
 ```
 
-We can also inspect the description of a variable by looking at its label. Let's take for example `FTPT`:
+We can also inspect the description of `FTPT` by looking at its label. 
 
 ```{r attr}
 attr(lfs_od24$FTPT,"label")
 ```
 
-A common way of getting frequency tables in R consists in using `table()`:
+Let's  look again at the distribution of `FTPT`:
 
 ```{r tabs1}
-t<-table(mydata$FTPT) ### Simple frequency table
+t<-table(dataex1$FTPT) ### Simple frequency table
 
 t
 ```
@@ -97,17 +101,14 @@ t
 We can also examine percentages:
 
 ```{r tabs2}
-t<- 100*prop.table(t) ### Getting percentage
-t
+t.p<- 100*prop.table(t) ### Getting percentages
+t.p |> round(1)         ### Rounding to one digit
+
+cbind("Freq"=t, 
+      "Pct"= t.p |> round(1) 
+      )
 ```
 
-Finally we can round the percentages in order to make them easier to read:
-
-```{r tabs3}
-t<-round(t,1) ### Rounding to one digit
-
-t
-```
 
 ::: panel-tabset
 ## Questions
@@ -120,9 +121,9 @@ t
 
 ## Answers
 
-1.  There are `{r} prettyNum(nrow(mydata), big.mark=",")` cases
+1.  There are `{r} prettyNum(nrow(dataex1), big.mark=",")` cases
 
-2.  `INECAC05` records `{r} attr(mydata$INECAC05,"label")`
+2.  `INECAC05` records `{r} attr(lfs_od24$INECAC05,"label")`
 
 3.  Respondents not in employment are coded as missing values for these variables. Missing values were recorded as -9 "Does not apply" and -8 "No answer" in the original data.
 :::
@@ -140,16 +141,16 @@ We will be using `as_survey_design()`, a R function from the `survey` and `srvyr
 Let us first examine the variable measuring - JOBTYP - whether respondents work in a temporary job or not:
 
 ```{r freqs}
-table(mydata$JOBTYP)
-
-round(100*prop.table(table(mydata$JOBTYP)),1)
+cbind("Freq"=table(dataex1$JOBTYP), 
+      "Pct"=  100*prop.table(table(dataex1$JOBTYP)) |> round(1) 
+      )
 ```
 
 ... and create a version without missing values.
 
 ```{r jobtmp}
  
-mydata <- mydata |> 
+dataex1 <- dataex1 |> 
           mutate (
                  JobTmp = ifelse(JOBTYP == "[2] Not permanent in some way",
                                  "Temporary",
@@ -161,29 +162,32 @@ mydata <- mydata |>
                  JobTmp = as.factor(JobTmp)
                   )
 
-table(mydata$JobTmp)
+cbind("Freq"=table(dataex1$JobTmp), 
+      "Pct"=  (100*prop.table(table(dataex1$JobTmp))) |> round(1) 
+      )
 ```
 
-Using a function from the `survey` package, we create a weights-aware version of the data that we will be using for susbsequent analysis:
+We create a survey design - informed version of the data that we will be using for susbsequent analysis:
 
 ```{r svydes}
-mydata.s<-mydata|> 
+dataex1.s<-dataex1|> 
          filter(!is.na(PWT24) ) |> 
          as_survey_design(weights=PWT24)
 ```
 
 Please note that we needed to remove observations with missing weights values, in effect observations that should not be taken into account to calculate population values. If we don't we will get an error message.
 
-We can now compute weighted frequencies and percentages using a survey specific command: `svytable()`:
+We can now compute the weighted distribution of `JobTmp`:
 
 ```{r svyfreqs}
-svytable(~JobTmp, mydata.s)
+t<-svytable(~JobTmp, dataex1.s)
 
-round(100*
-       prop.table(
-         svytable(~JobTmp, mydata.s)
-         ),1
+
+cbind("Freq"=t, 
+      "Pct"=  (100*prop.table(t)) |> round(1) 
       )
+
+
 ```
 
 ### Review questions
@@ -203,7 +207,7 @@ round(100*
 
 ```{r pt}
 
- mydata <- mydata |> 
+ dataex1 <- dataex1 |> 
                   mutate (
                     PartTime = ifelse(FTPT == "[4] New Deal-PT" | FTPT  == "[2] Part time",
                                       "Part-time",
@@ -216,23 +220,25 @@ round(100*
                   )
 
 
-mydata.s<-mydata|> 
+dataex1.s<-dataex1|> 
          filter(!is.na(PWT24) ) |> 
          as_survey_design(weights=PWT24)
 
-round(100*
-       prop.table(
-         table(mydata$PartTime)
-         ),1
+
+### Unweighted frequencies
+cbind("Freq"=table(dataex1$PartTime), 
+      "Pct"=  (100*prop.table(table(dataex1$PartTime))) |> 
+              round(1) 
+      )
+
+### Population estimates
+
+t<-svytable(~PartTime, dataex1.s)
+cbind("Freq"=t, 
+      "Pct"=  (100*prop.table(t)) |> round(1) 
       )
 
 
-
-round(100*
-       prop.table(
-         svytable(~PartTime, mydata.s)
-         ),1
-      )
 
 ```
 :::
@@ -242,26 +248,29 @@ round(100*
 We then obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
 
 ```{r tmp_ftpt}
-t1<-svytable(~PartTime+JobTmp,mydata.s)
+t1<-svytable(~PartTime+JobTmp,dataex1.s)
 
-t1
-            round(
-                  100*prop.table(
-                   t1
-                   ,1) # Requests denominators to be each working time status
-                  ,1)
+cbind("Freq"=t1, 
+      "Pct"=  (100*prop.table(t1,1)) |> ### Row pct 
+        round(1) 
+      )
 ```
 
 We can add a third variable to the table to simultaneously examine the number of temporary and part-time employees by gender.
 
 ```{r sex}
-t2<-svytable(~PartTime+JobTmp+SEX,mydata.s)
+t2<-svytable(~PartTime+JobTmp+SEX,dataex1.s)
 
-            round(
-                  100*prop.table(
-                   t2
-                   ,3) # Requests denominators to be each gender/working time combination.
-                  ,1)
+res<-list()       ### List of results
+res[["Males, totals"]]<-t2[,,1]
+res[["Males, Percent"]]<-(prop.table(t2[,,1],1)*100)|>
+                         round(1)
+
+res[["Females, totals"]]<-t2[,,2]
+res[["Females, Percent"]]<-(prop.table(t2[,,2],1)*100)|>
+                        round(1)
+
+res
 ```
 
 
@@ -278,11 +287,11 @@ t2<-svytable(~PartTime+JobTmp+SEX,mydata.s)
 
 ## Answers
 
-1.  There are `{r} prettyNum(svytable(~JobTmp,mydata.s)[2],big.mark = ",")` temporary employees, of which `{r } prettyNum(svytable(~JobTmp+PartTime,mydata.s)[4],big.mark = ",")` part-time.
+1.  There are `{r} prettyNum(svytable(~JobTmp,dataex1.s)[2],big.mark = ",")` temporary employees, of which `{r} prettyNum(svytable(~JobTmp+PartTime,dataex1.s)[4],big.mark = ",")` part-time.
 
 2.  There are `{r} prettyNum(t2[2,2,2] ,big.mark = ",")` females in part-time temporary employment
 
-3.  In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is only `{r} prettyNum(xtabs(~JobTmp+PartTime+SEX,mydata)[8],big.mark = ",")`
+3.  In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is only `{r} prettyNum(xtabs(~JobTmp+PartTime+SEX,dataex1)[8],big.mark = ",")`
 :::
 
 Note: You can check if your results match those in the [ONS EMP07 dataset](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07).

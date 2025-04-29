@@ -36,7 +36,7 @@ setwd ("LFS_exercises")
 
 ### Importing a Stata format dataset 
 lfs_od24 <- read_dta(
-        "Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
+        "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
                     )
 ```
 
