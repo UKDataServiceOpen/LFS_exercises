@@ -89,7 +89,7 @@ We now know that 99% of earners earn less than `{r} paste0("£", prettyNum(round
 ```{r plot}
 hist(dataex2$GRSSWK[dataex2$GRSSWK>0 & dataex2$GRSSWK<=2499],
      xlab="Earnings (£) -- 1st-99th percentiles",          # x axis label
-     main="Gross weekly earnings in the UK, Oct-Dec 2024", # Plot title
+     main="Gross Weekly Earnings (£) -- 1st-99th percentiles, Oct-Dec 2024", # Plot title
      freq=F)                                               # Print probabilities 
 ```
 

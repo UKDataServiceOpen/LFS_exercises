@@ -1,7 +1,7 @@
 # Exercise 4: <BR/> Estimate precision and uncertainty
 
 
-This series of exercises focuses on the precision of estimates calculated from  Labour Force Survey data, in other words  the degree to which we can trust  them to reflect  the likely values in  the population. In order to do this, we will compute similar measures as before - means and proportions but this time  we will be focusing on their confidence intervals.
+This series of exercises focuses on the precision of estimates produced from Labour Force Survey data—that is, how much the results might vary due to sampling. To explore this, we’ll calculate the same types of measures as before—means and proportions—but this time we’ll pay particular attention to their confidence intervals.
 
 Learning objectives:
 
@@ -18,9 +18,9 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set up
 
-We will assume that the working directory for this exercise - where syntax files and other materials  will be located - will be a folder named `LFS_exercises`.   Once you have downloaded the data, save it somewhere accessible inside `LFS_exercises` for example in a folder called `Data.
+We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`. 
 
-We can now begin analysing the data using R. First let's load the packages that we are going to need:
+First let's load the packages that we are going to need:
 
 ```{r}
 library(haven)  ### Functions to open Stata or SPSS datasets
@@ -40,7 +40,8 @@ lfs_od24 <- read_dta(
                     )
 ```
 
-To make data manipulation easier, let's create a data frame with just the variables we need for the exercise. We can also use this opportunity to  convert categorical variables  into factors in order to make them easier to understand.
+As there are many variables in the LFS, let's create a data frame with just those required for this exercise. We also  convert the original variables  into factors in order to make them easier to work with. 
+
 
 ```{r mydata}
 dataex4 <- lfs_od24 |>
@@ -66,9 +67,11 @@ summary(dataex4$GRSSWK)
 ### Removing non-responses
 summary(dataex4$GRSSWK[dataex4$GRSSWK>=0])
 
-hist(dataex4$GRSSWK[dataex4$GRSSWK>=0],
+### Plotting incomes up to the 99th percentile
+hist(dataex4$GRSSWK[dataex4$GRSSWK>=0 & 
+                    dataex4$GRSSWK<=quantile(dataex4$GRSSWK[dataex4$GRSSWK>=0],.99)],
      main= "Distribution  of weekly earnings, October-December 2024",
-     xlab = "Gross weekly earnings (GBP)")
+     xlab = "Gross Weekly Earnings (£) -- 1st-99th percentiles, Oct-Dec 2024")
 
 ### Computing the mean
 mw<-mean(dataex4$GRSSWK[dataex4$GRSSWK>=0],na.rm=T)
@@ -78,7 +81,7 @@ mw
 
 ```
 
-Let's now compute the confidence interval. We need to do it by hand, using the standard deviation `sd()` function. 
+Let's now compute the confidence interval. We need to do it by hand, using the standard deviation. 
 
 ``` {r sd}
 s.mw<-sd(dataex4$GRSSWK[dataex4$GRSSWK>=0],na.rm=T)
@@ -89,8 +92,10 @@ s.mw
 As a reminder, the 95% confidence interval of a mean is the value of the mean plus or minus 1.96 times its standard error. The standard error itself is the standard deviation divided by the square root of the sample size:
 
 ```{r ci.u}
-lb<-mw-(1.96*(s.mw/sqrt(nrow(dataex4[dataex4$GRSSWK>=0,]))))
-ub<-mw+(1.96*(s.mw/sqrt(nrow(dataex4[dataex4$GRSSWK>=0,]))))
+se<-s.mw/sqrt(nrow(dataex4[dataex4$GRSSWK>=0,]))
+
+lb<-mw-(1.96*se)
+ub<-mw+(1.96*se)
 
 round(c(mw,lb,ub))
 
@@ -122,7 +127,7 @@ mw.s
 ### Answers
 1. It is between £`{r}  round(mw.s[2])` and £`{r}  round(mw.s[3])`  per week
 2. £`{r}  round(mw.s[3] - mw.s[2]) `
-3. The confidence intervals  of weighted value tends to be wider than that of unweighted estimates, which makes them at the same time more representative but less precise than unweighted ones.
+3. In general,  confidence intervals  and standard deviations of weighted estimates  tend to be wider than those of unweighted estimates, which makes them at the same time more representative but less precise. However, the opposite is true in this case: the weighted confidence intervals of GRSSWK are narrower than the unweighted ones.
 
 :::
 
@@ -159,41 +164,24 @@ dataex4.s<-as_survey_design(weights=PWT24,dataex4)
 
 ldn<-dataex4.s |>  
    filter(SEX=="[2] Female" & 
-          GOVTOF2=="[8] London" & 
+          GOVTOF2=="[8] London" &      
           !is.na(FTPT2)
           )  |> 
    group_by(FTPT2) |> 
-   cascade(prop=survey_mean(vartype = "ci"))
+   summarise(survey_prop(vartype = "ci")*100)
 
 nw<-dataex4.s |>  
    filter(SEX=="[2] Female" & 
-          GOVTOF2=="[2] North West" &
+          GOVTOF2=="[2] North West" &          
           !is.na(FTPT2)
           ) |> 
    group_by(FTPT2) |> 
-   cascade(prop=survey_mean(vartype = "ci"))
-
-### Raw results for London 
-ldn
+   summarise(survey_prop(vartype = "ci")*100)
 
 
-### Formatted results for the North West
-round(100*
-        nw |> 
-        filter(FTPT2=="Part-time") |> 
-        select(prop,prop_low,prop_upp),
-      2) 
+ldn ### Results for London 
 
-
-### Alternative method
-100*svyby(
-  ~I(FTPT2=="[2] Part time"),~(SEX=="[2] Female" &
-                               ILODEFR=="[1] In employment" &
-                               GOVTOF2=="[2] North West" ),
-                              dataex4.s,
-                              svyciprop,
-                              vartype = "ci"
-              )
+nw ### Results for the North West 
 
 ``` 
 
@@ -205,22 +193,18 @@ round(100*
 
 ### Answers
 1. Yes, they are very close at about 5 percentage points.
-2. They don't overlap, meaning that the difference are likely to be significant (at the 95% threshold) in the population 
+2. They don't overlap, meaning that the difference are likely to be significant (at the 95% confidence level) in the population 
 3. The confidence intervals clearly overlap. It is unlikely that significant difference in the proportion of female part-timers significantly differ between the two regions.
 ```{r ne}
 ne<-dataex4.s |>  
    filter(SEX=="[2] Female" & 
-          ILODEFR=="[1] In employment" & 
-          GOVTOF2=="[1] North East") |> 
+        GOVTOF2=="[1] North East" &
+          !is.na(FTPT2)
+          ) |> 
    group_by(FTPT2) |> 
-   cascade(prop=survey_mean(vartype = "ci"))
+   summarise(survey_prop(vartype = "ci")*100)
 
-round(100*
-        ne |> 
-        filter(FTPT2=="[2] Part time") |> 
-        select(prop,prop_low,prop_upp),
-      2) 
-
+ne
 ```
 :::
 
@@ -252,27 +236,28 @@ fem<-dataex4.s |>
           ILODEFR=="[1] In employment" &
           INDE07M!="[-9] Does not apply") |> 
    group_by(INDE07M=="[3] C -Manufacturing") |> 
-   cascade(prop=survey_mean(vartype = "ci"))
+   summarise(survey_prop(vartype = "ci")*100)
 
 mam<-dataex4.s |>  
    filter(SEX=="[1] Male" & 
           ILODEFR=="[1] In employment"&
           INDE07M!="[-9] Does not apply") |> 
    group_by(INDE07M=="[3] C -Manufacturing") |> 
-   cascade(prop=survey_mean(vartype = "ci"))
+   summarise(survey_prop(vartype = "ci")*100)
 ```
 ... and examine the results for each gender:
 
 - Females
 
 ```{r fem}
-round(100*fem,2)
+fem
 ```
 
 - ... And males:
 
 ```{r mam}
-round(100*mam,2)
+mam
+
 ```
 
 
@@ -306,17 +291,15 @@ sef<-dataex4.s |>
           ILODEFR=="[1] In employment" &
           INDE07M!="[-9] Does not apply") |> 
    group_by(INDE07M=="[3] C -Manufacturing") |> 
-   cascade(prop=survey_mean(vartype = "se"))
+      summarise(survey_prop(vartype = "se")*100)
 
-### Converting into percentages
-sef<-100*sef
 
 sef
 
 round(
-c(sef$prop[2],
-(sef$prop[2]-1.96*sqrt(sef$prop_se[2]*1.2216)),
-(sef$prop[2]+1.96*sqrt(sef$prop_se[2]*1.2216))
+c(sef$coef[2],
+sef$coef[2]-1.96*sqrt(sef$`_se`[2] * 1.2216),
+sef$coef[2]+1.96*sqrt(sef$`_se`[2]*1.2216)
 ),2
 )
 ```
@@ -329,17 +312,15 @@ sem<-dataex4.s |>
           ILODEFR=="[1] In employment" &
           INDE07M!="[-9] Does not apply")  |> 
    group_by(INDE07M=="[3] C -Manufacturing") |> 
-   cascade(prop=survey_mean(vartype = "se"))
+      summarise(survey_prop(vartype = "se")*100)
 
-### Converting into percentages
-sem<-100*sem
 
 sem
 
 round(
-c(sem$prop[2],
-(sem$prop[2]-1.96*sqrt(sem$prop_se[2]*1.2216)),
-(sem$prop[2]+1.96*sqrt(sem$prop_se[2]*1.2216))
+c(sem$coef[2],
+sem$coef[2]-1.96*sqrt(sem$`_se`[2]*1.2216),
+sem$coef[2]+1.96*sqrt(sem$`_se`[2]*1.2216)
 ),2
 )
 ```
