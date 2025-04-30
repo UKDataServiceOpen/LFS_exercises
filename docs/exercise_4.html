@@ -245,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="exercise-4-estimate-precision-and-uncertainty" class="level1">
 <h1>Exercise 4: <br> Estimate precision and uncertainty</h1>
-<p>This series of exercises focuses on the precision of estimates calculated from Labour Force Survey data, in other words the degree to which we can trust them to reflect the likely values in the population. In order to do this, we will compute similar measures as before - means and proportions but this time we will be focusing on their confidence intervals.</p>
+<p>This series of exercises focuses on the precision of estimates produced from Labour Force Survey data—that is, how much the results might vary due to sampling. To explore this, we’ll calculate the same types of measures as before—means and proportions—but this time we’ll pay particular attention to their confidence intervals.</p>
 <p>Learning objectives:</p>
 <ul>
 <li>To be able to compute and interpret confidence intervals of earnings in the LFS;</li>
@@ -260,8 +260,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="get-set-up" class="level2">
 <h2 class="anchored" data-anchor-id="get-set-up">Get set up</h2>
-<p>We will assume that the working directory for this exercise - where syntax files and other materials will be located - will be a folder named <code>LFS_exercises</code>. Once you have downloaded the data, save it somewhere accessible inside <code>LFS_exercises</code> for example in a folder called `Data.</p>
-<p>We can now begin analysing the data using R. First let’s load the packages that we are going to need:</p>
+<p>We suggest that you create a folder named <code>LFS_exercises</code> as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within <code>LFS_exercises</code>, such as a subfolder named <code>Data</code>.</p>
+<p>First let’s load the packages that we are going to need:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(haven)  <span class="do">### Functions to open Stata or SPSS datasets</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(dplyr)  <span class="do">### Easier data manipulation</span></span>
@@ -277,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5"></a>        <span class="st">"Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a>                    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To make data manipulation easier, let’s create a data frame with just the variables we need for the exercise. We can also use this opportunity to convert categorical variables into factors in order to make them easier to understand.</p>
+<p>As there are many variables in the LFS, let’s create a data frame with just those required for this exercise. We also convert the original variables into factors in order to make them easier to work with.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dataex4 <span class="ot">&lt;-</span> lfs_od24 <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">select</span>(PERSNO, PIWT24, PWT24,GRSSWK, INECAC05, ILODEFR,</span>
@@ -307,9 +307,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
     5.0   413.2   615.0   732.5   923.0 23076.0 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">hist</span>(dataex4<span class="sc">$</span>GRSSWK[dataex4<span class="sc">$</span>GRSSWK<span class="sc">&gt;=</span><span class="dv">0</span>],</span>
-<span id="cb8-2"><a href="#cb8-2"></a>     <span class="at">main=</span> <span class="st">"Distribution  of weekly earnings, October-December 2024"</span>,</span>
-<span id="cb8-3"><a href="#cb8-3"></a>     <span class="at">xlab =</span> <span class="st">"Gross weekly earnings (GBP)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="do">### Plotting incomes up to the 99th percentile</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">hist</span>(dataex4<span class="sc">$</span>GRSSWK[dataex4<span class="sc">$</span>GRSSWK<span class="sc">&gt;=</span><span class="dv">0</span> <span class="sc">&amp;</span> </span>
+<span id="cb8-3"><a href="#cb8-3"></a>                    dataex4<span class="sc">$</span>GRSSWK<span class="sc">&lt;=</span><span class="fu">quantile</span>(dataex4<span class="sc">$</span>GRSSWK[dataex4<span class="sc">$</span>GRSSWK<span class="sc">&gt;=</span><span class="dv">0</span>],.<span class="dv">99</span>)],</span>
+<span id="cb8-4"><a href="#cb8-4"></a>     <span class="at">main=</span> <span class="st">"Distribution  of weekly earnings, October-December 2024"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>     <span class="at">xlab =</span> <span class="st">"Gross Weekly Earnings (£) -- 1st-99th percentiles, Oct-Dec 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -325,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 732.4975</code></pre>
 </div>
 </div>
-<p>Let’s now compute the confidence interval. We need to do it by hand, using the standard deviation <code>sd()</code> function.</p>
+<p>Let’s now compute the confidence interval. We need to do it by hand, using the standard deviation.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>s.mw<span class="ot">&lt;-</span><span class="fu">sd</span>(dataex4<span class="sc">$</span>GRSSWK[dataex4<span class="sc">$</span>GRSSWK<span class="sc">&gt;=</span><span class="dv">0</span>],<span class="at">na.rm=</span>T)</span>
 <span id="cb11-2"><a href="#cb11-2"></a></span>
@@ -336,10 +338,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>As a reminder, the 95% confidence interval of a mean is the value of the mean plus or minus 1.96 times its standard error. The standard error itself is the standard deviation divided by the square root of the sample size:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>lb<span class="ot">&lt;-</span>mw<span class="sc">-</span>(<span class="fl">1.96</span><span class="sc">*</span>(s.mw<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(dataex4[dataex4<span class="sc">$</span>GRSSWK<span class="sc">&gt;=</span><span class="dv">0</span>,]))))</span>
-<span id="cb13-2"><a href="#cb13-2"></a>ub<span class="ot">&lt;-</span>mw<span class="sc">+</span>(<span class="fl">1.96</span><span class="sc">*</span>(s.mw<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(dataex4[dataex4<span class="sc">$</span>GRSSWK<span class="sc">&gt;=</span><span class="dv">0</span>,]))))</span>
-<span id="cb13-3"><a href="#cb13-3"></a></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="fu">round</span>(<span class="fu">c</span>(mw,lb,ub))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>se<span class="ot">&lt;-</span>s.mw<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(dataex4[dataex4<span class="sc">$</span>GRSSWK<span class="sc">&gt;=</span><span class="dv">0</span>,]))</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a>lb<span class="ot">&lt;-</span>mw<span class="sc">-</span>(<span class="fl">1.96</span><span class="sc">*</span>se)</span>
+<span id="cb13-4"><a href="#cb13-4"></a>ub<span class="ot">&lt;-</span>mw<span class="sc">+</span>(<span class="fl">1.96</span><span class="sc">*</span>se)</span>
+<span id="cb13-5"><a href="#cb13-5"></a></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="fu">round</span>(<span class="fu">c</span>(mw,lb,ub))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 732 718 747</code></pre>
 </div>
@@ -376,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>It is between £682 and £706 per week</li>
 <li>£24</li>
-<li>The confidence intervals of weighted value tends to be wider than that of unweighted estimates, which makes them at the same time more representative but less precise than unweighted ones.</li>
+<li>In general, confidence intervals and standard deviations of weighted estimates tend to be wider than those of unweighted estimates, which makes them at the same time more representative but less precise. However, the opposite is true in this case: the weighted confidence intervals of GRSSWK are narrower than the unweighted ones.</li>
 </ol>
 </div>
 </div>
@@ -439,56 +443,36 @@ FTPT                  FALSE  TRUE
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>ldn<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
 <span id="cb24-2"><a href="#cb24-2"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[2] Female"</span> <span class="sc">&amp;</span> </span>
-<span id="cb24-3"><a href="#cb24-3"></a>          GOVTOF2<span class="sc">==</span><span class="st">"[8] London"</span> <span class="sc">&amp;</span> </span>
+<span id="cb24-3"><a href="#cb24-3"></a>          GOVTOF2<span class="sc">==</span><span class="st">"[8] London"</span> <span class="sc">&amp;</span>      </span>
 <span id="cb24-4"><a href="#cb24-4"></a>          <span class="sc">!</span><span class="fu">is.na</span>(FTPT2)</span>
 <span id="cb24-5"><a href="#cb24-5"></a>          )  <span class="sc">|&gt;</span> </span>
 <span id="cb24-6"><a href="#cb24-6"></a>   <span class="fu">group_by</span>(FTPT2) <span class="sc">|&gt;</span> </span>
-<span id="cb24-7"><a href="#cb24-7"></a>   <span class="fu">cascade</span>(<span class="at">prop=</span><span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>))</span>
+<span id="cb24-7"><a href="#cb24-7"></a>   <span class="fu">summarise</span>(<span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>)<span class="sc">*</span><span class="dv">100</span>)</span>
 <span id="cb24-8"><a href="#cb24-8"></a></span>
 <span id="cb24-9"><a href="#cb24-9"></a>nw<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
 <span id="cb24-10"><a href="#cb24-10"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[2] Female"</span> <span class="sc">&amp;</span> </span>
-<span id="cb24-11"><a href="#cb24-11"></a>          GOVTOF2<span class="sc">==</span><span class="st">"[2] North West"</span> <span class="sc">&amp;</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a>          GOVTOF2<span class="sc">==</span><span class="st">"[2] North West"</span> <span class="sc">&amp;</span>          </span>
 <span id="cb24-12"><a href="#cb24-12"></a>          <span class="sc">!</span><span class="fu">is.na</span>(FTPT2)</span>
 <span id="cb24-13"><a href="#cb24-13"></a>          ) <span class="sc">|&gt;</span> </span>
 <span id="cb24-14"><a href="#cb24-14"></a>   <span class="fu">group_by</span>(FTPT2) <span class="sc">|&gt;</span> </span>
-<span id="cb24-15"><a href="#cb24-15"></a>   <span class="fu">cascade</span>(<span class="at">prop=</span><span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>))</span>
+<span id="cb24-15"><a href="#cb24-15"></a>   <span class="fu">summarise</span>(<span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>)<span class="sc">*</span><span class="dv">100</span>)</span>
 <span id="cb24-16"><a href="#cb24-16"></a></span>
-<span id="cb24-17"><a href="#cb24-17"></a><span class="do">### Raw results for London </span></span>
-<span id="cb24-18"><a href="#cb24-18"></a>ldn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-17"><a href="#cb24-17"></a></span>
+<span id="cb24-18"><a href="#cb24-18"></a>ldn <span class="do">### Results for London </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 4
-  FTPT2      prop prop_low prop_upp
-  &lt;fct&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-1 Full-time 0.743    0.719    0.767
-2 Part-time 0.257    0.233    0.281
-3 &lt;NA&gt;      1        1        1    </code></pre>
+<pre><code># A tibble: 2 × 4
+  FTPT2      coef `_low` `_upp`
+  &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Full-time  74.3   71.8   76.6
+2 Part-time  25.7   23.4   28.2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="do">### Formatted results for the North West</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">round</span>(<span class="dv">100</span><span class="sc">*</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a>        nw <span class="sc">|&gt;</span> </span>
-<span id="cb26-4"><a href="#cb26-4"></a>        <span class="fu">filter</span>(FTPT2<span class="sc">==</span><span class="st">"Part-time"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb26-5"><a href="#cb26-5"></a>        <span class="fu">select</span>(prop,prop_low,prop_upp),</span>
-<span id="cb26-6"><a href="#cb26-6"></a>      <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>nw <span class="do">### Results for the North West </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   prop prop_low prop_upp
-1 34.86     32.4    37.33</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="do">### Alternative method</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="dv">100</span><span class="sc">*</span><span class="fu">svyby</span>(</span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="sc">~</span><span class="fu">I</span>(FTPT2<span class="sc">==</span><span class="st">"[2] Part time"</span>),<span class="sc">~</span>(SEX<span class="sc">==</span><span class="st">"[2] Female"</span> <span class="sc">&amp;</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a>                               ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a>                               GOVTOF2<span class="sc">==</span><span class="st">"[2] North West"</span> ),</span>
-<span id="cb28-6"><a href="#cb28-6"></a>                              dataex4.s,</span>
-<span id="cb28-7"><a href="#cb28-7"></a>                              svyciprop,</span>
-<span id="cb28-8"><a href="#cb28-8"></a>                              <span class="at">vartype =</span> <span class="st">"ci"</span></span>
-<span id="cb28-9"><a href="#cb28-9"></a>              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      SEX == "[2] Female" &amp; ILODEFR == "[1] In employment" &amp; GOVTOF2 == "[2] North West"
-FALSE                                                                                  0
-TRUE                                                                                 100
-      I(FTPT2 == "[2] Part time")         ci_l         ci_u
-FALSE                2.763892e-10 2.735295e-10 2.792787e-10
-TRUE                 2.818598e-10 2.677776e-10 2.966827e-10</code></pre>
+<pre><code># A tibble: 2 × 4
+  FTPT2      coef `_low` `_upp`
+  &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Full-time  65.1   62.6   67.6
+2 Part-time  34.9   32.4   37.4</code></pre>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -504,25 +488,25 @@ TRUE                 2.818598e-10 2.677776e-10 2.966827e-10</code></pre>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <ol type="1">
 <li>Yes, they are very close at about 5 percentage points.</li>
-<li>They don’t overlap, meaning that the difference are likely to be significant (at the 95% threshold) in the population</li>
+<li>They don’t overlap, meaning that the difference are likely to be significant (at the 95% confidence level) in the population</li>
 <li>The confidence intervals clearly overlap. It is unlikely that significant difference in the proportion of female part-timers significantly differ between the two regions.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>ne<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
-<span id="cb30-2"><a href="#cb30-2"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[2] Female"</span> <span class="sc">&amp;</span> </span>
-<span id="cb30-3"><a href="#cb30-3"></a>          ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span> </span>
-<span id="cb30-4"><a href="#cb30-4"></a>          GOVTOF2<span class="sc">==</span><span class="st">"[1] North East"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb30-5"><a href="#cb30-5"></a>   <span class="fu">group_by</span>(FTPT2) <span class="sc">|&gt;</span> </span>
-<span id="cb30-6"><a href="#cb30-6"></a>   <span class="fu">cascade</span>(<span class="at">prop=</span><span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>))</span>
-<span id="cb30-7"><a href="#cb30-7"></a></span>
-<span id="cb30-8"><a href="#cb30-8"></a><span class="fu">round</span>(<span class="dv">100</span><span class="sc">*</span></span>
-<span id="cb30-9"><a href="#cb30-9"></a>        ne <span class="sc">|&gt;</span> </span>
-<span id="cb30-10"><a href="#cb30-10"></a>        <span class="fu">filter</span>(FTPT2<span class="sc">==</span><span class="st">"[2] Part time"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb30-11"><a href="#cb30-11"></a>        <span class="fu">select</span>(prop,prop_low,prop_upp),</span>
-<span id="cb30-12"><a href="#cb30-12"></a>      <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>ne<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
+<span id="cb28-2"><a href="#cb28-2"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[2] Female"</span> <span class="sc">&amp;</span> </span>
+<span id="cb28-3"><a href="#cb28-3"></a>        GOVTOF2<span class="sc">==</span><span class="st">"[1] North East"</span> <span class="sc">&amp;</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a>          <span class="sc">!</span><span class="fu">is.na</span>(FTPT2)</span>
+<span id="cb28-5"><a href="#cb28-5"></a>          ) <span class="sc">|&gt;</span> </span>
+<span id="cb28-6"><a href="#cb28-6"></a>   <span class="fu">group_by</span>(FTPT2) <span class="sc">|&gt;</span> </span>
+<span id="cb28-7"><a href="#cb28-7"></a>   <span class="fu">summarise</span>(<span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>)<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb28-8"><a href="#cb28-8"></a></span>
+<span id="cb28-9"><a href="#cb28-9"></a>ne</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] prop     prop_low prop_upp
-&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<pre><code># A tibble: 2 × 4
+  FTPT2      coef `_low` `_upp`
+  &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Full-time  65.5   61.4   69.5
+2 Part-time  34.5   30.5   38.6</code></pre>
 </div>
 </div>
 </div>
@@ -534,12 +518,12 @@ TRUE                 2.818598e-10 2.677776e-10 2.966827e-10</code></pre>
 <p>Design effects account for the impact of survey design (e.g., clustering and stratification) on the precision of estimates. Here, we will be adjusting the CI of the proportion of women and men employed (<code>ILODEFR</code>) in manufacturing (<code>INDE07M</code>) in their main job using design effects published in Volume 1 of the LFS documentation.</p>
 <p>Let’s begin by examining the sector variable:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">cbind</span>(<span class="at">Freq.=</span><span class="fu">table</span>(dataex4<span class="sc">$</span>INDE07M[dataex4<span class="sc">$</span>ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span>]),</span>
-<span id="cb32-2"><a href="#cb32-2"></a>      <span class="at">Pct.=</span><span class="fu">round</span>(<span class="dv">100</span><span class="sc">*</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a>            <span class="fu">prop.table</span>(</span>
-<span id="cb32-4"><a href="#cb32-4"></a>            <span class="fu">table</span>(dataex4<span class="sc">$</span>INDE07M[dataex4<span class="sc">$</span>ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span>])),</span>
-<span id="cb32-5"><a href="#cb32-5"></a>            <span class="dv">1</span>)</span>
-<span id="cb32-6"><a href="#cb32-6"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">cbind</span>(<span class="at">Freq.=</span><span class="fu">table</span>(dataex4<span class="sc">$</span>INDE07M[dataex4<span class="sc">$</span>ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span>]),</span>
+<span id="cb30-2"><a href="#cb30-2"></a>      <span class="at">Pct.=</span><span class="fu">round</span>(<span class="dv">100</span><span class="sc">*</span></span>
+<span id="cb30-3"><a href="#cb30-3"></a>            <span class="fu">prop.table</span>(</span>
+<span id="cb30-4"><a href="#cb30-4"></a>            <span class="fu">table</span>(dataex4<span class="sc">$</span>INDE07M[dataex4<span class="sc">$</span>ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span>])),</span>
+<span id="cb30-5"><a href="#cb30-5"></a>            <span class="dv">1</span>)</span>
+<span id="cb30-6"><a href="#cb30-6"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                               Freq. Pct.
 [-9] Does not apply                               29  0.1
@@ -557,43 +541,45 @@ TRUE                 2.818598e-10 2.677776e-10 2.966827e-10</code></pre>
 </div>
 <p>Let’s then compute the proportion of men and women employed in manufacturing. We leave out “Does not apply” as system missing but keep the non responses later.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>fem<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
-<span id="cb34-2"><a href="#cb34-2"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[2] Female"</span> <span class="sc">&amp;</span> </span>
-<span id="cb34-3"><a href="#cb34-3"></a>          ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a>          INDE07M<span class="sc">!=</span><span class="st">"[-9] Does not apply"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb34-5"><a href="#cb34-5"></a>   <span class="fu">group_by</span>(INDE07M<span class="sc">==</span><span class="st">"[3] C -Manufacturing"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb34-6"><a href="#cb34-6"></a>   <span class="fu">cascade</span>(<span class="at">prop=</span><span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>))</span>
-<span id="cb34-7"><a href="#cb34-7"></a></span>
-<span id="cb34-8"><a href="#cb34-8"></a>mam<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
-<span id="cb34-9"><a href="#cb34-9"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[1] Male"</span> <span class="sc">&amp;</span> </span>
-<span id="cb34-10"><a href="#cb34-10"></a>          ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span><span class="sc">&amp;</span></span>
-<span id="cb34-11"><a href="#cb34-11"></a>          INDE07M<span class="sc">!=</span><span class="st">"[-9] Does not apply"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb34-12"><a href="#cb34-12"></a>   <span class="fu">group_by</span>(INDE07M<span class="sc">==</span><span class="st">"[3] C -Manufacturing"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb34-13"><a href="#cb34-13"></a>   <span class="fu">cascade</span>(<span class="at">prop=</span><span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>fem<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
+<span id="cb32-2"><a href="#cb32-2"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[2] Female"</span> <span class="sc">&amp;</span> </span>
+<span id="cb32-3"><a href="#cb32-3"></a>          ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a>          INDE07M<span class="sc">!=</span><span class="st">"[-9] Does not apply"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-5"><a href="#cb32-5"></a>   <span class="fu">group_by</span>(INDE07M<span class="sc">==</span><span class="st">"[3] C -Manufacturing"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-6"><a href="#cb32-6"></a>   <span class="fu">summarise</span>(<span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>)<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb32-7"><a href="#cb32-7"></a></span>
+<span id="cb32-8"><a href="#cb32-8"></a>mam<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
+<span id="cb32-9"><a href="#cb32-9"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[1] Male"</span> <span class="sc">&amp;</span> </span>
+<span id="cb32-10"><a href="#cb32-10"></a>          ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span><span class="sc">&amp;</span></span>
+<span id="cb32-11"><a href="#cb32-11"></a>          INDE07M<span class="sc">!=</span><span class="st">"[-9] Does not apply"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-12"><a href="#cb32-12"></a>   <span class="fu">group_by</span>(INDE07M<span class="sc">==</span><span class="st">"[3] C -Manufacturing"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-13"><a href="#cb32-13"></a>   <span class="fu">summarise</span>(<span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>)<span class="sc">*</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>… and examine the results for each gender:</p>
 <ul>
 <li>Females</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">round</span>(<span class="dv">100</span><span class="sc">*</span>fem,<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>fem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  INDE07M == "[3] C -Manufacturing"   prop prop_low prop_upp
-1                                 0  95.18    94.80    95.55
-2                               100   4.82     4.45     5.20
-3                                NA 100.00   100.00   100.00</code></pre>
+<pre><code># A tibble: 2 × 4
+  `INDE07M == "[3] C -Manufacturing"`  coef `_low` `_upp`
+  &lt;lgl&gt;                               &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 FALSE                               95.2   94.8   95.5 
+2 TRUE                                 4.82   4.46   5.21</code></pre>
 </div>
 </div>
 <ul>
 <li>… And males:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">round</span>(<span class="dv">100</span><span class="sc">*</span>mam,<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>mam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  INDE07M == "[3] C -Manufacturing"   prop prop_low prop_upp
-1                                 0  89.02    88.48    89.56
-2                               100  10.98    10.44    11.52
-3                                NA 100.00   100.00   100.00</code></pre>
+<pre><code># A tibble: 2 × 4
+  `INDE07M == "[3] C -Manufacturing"`  coef `_low` `_upp`
+  &lt;lgl&gt;                               &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 FALSE                                89.0   88.5   89.5
+2 TRUE                                 11.0   10.5   11.5</code></pre>
 </div>
 </div>
 <p>The above confidence intervals do not take into account the survey design and depending on the variable, maybe too narrow ie overstate the precision of the estimates - or too wide.</p>
@@ -632,58 +618,56 @@ TRUE                 2.818598e-10 2.677776e-10 2.966827e-10</code></pre>
 </div>
 <p>We now need to adapt these to the confidence intervals we computed earlier. In order to do this, we need the original standard errors - as the DEFF are meant to adjust these. We can then obtain the adjusted CIs for females:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>sef<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
-<span id="cb39-2"><a href="#cb39-2"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[2] Female"</span> <span class="sc">&amp;</span> </span>
-<span id="cb39-3"><a href="#cb39-3"></a>          ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span></span>
-<span id="cb39-4"><a href="#cb39-4"></a>          INDE07M<span class="sc">!=</span><span class="st">"[-9] Does not apply"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb39-5"><a href="#cb39-5"></a>   <span class="fu">group_by</span>(INDE07M<span class="sc">==</span><span class="st">"[3] C -Manufacturing"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb39-6"><a href="#cb39-6"></a>   <span class="fu">cascade</span>(<span class="at">prop=</span><span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">"se"</span>))</span>
-<span id="cb39-7"><a href="#cb39-7"></a></span>
-<span id="cb39-8"><a href="#cb39-8"></a><span class="do">### Converting into percentages</span></span>
-<span id="cb39-9"><a href="#cb39-9"></a>sef<span class="ot">&lt;-</span><span class="dv">100</span><span class="sc">*</span>sef</span>
-<span id="cb39-10"><a href="#cb39-10"></a></span>
-<span id="cb39-11"><a href="#cb39-11"></a>sef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>sef<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
+<span id="cb37-2"><a href="#cb37-2"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[2] Female"</span> <span class="sc">&amp;</span> </span>
+<span id="cb37-3"><a href="#cb37-3"></a>          ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a>          INDE07M<span class="sc">!=</span><span class="st">"[-9] Does not apply"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-5"><a href="#cb37-5"></a>   <span class="fu">group_by</span>(INDE07M<span class="sc">==</span><span class="st">"[3] C -Manufacturing"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-6"><a href="#cb37-6"></a>      <span class="fu">summarise</span>(<span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="st">"se"</span>)<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb37-7"><a href="#cb37-7"></a></span>
+<span id="cb37-8"><a href="#cb37-8"></a></span>
+<span id="cb37-9"><a href="#cb37-9"></a>sef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  INDE07M == "[3] C -Manufacturing"       prop   prop_se
-1                                 0  95.175181 0.1914759
-2                               100   4.824819 0.1914759
-3                                NA 100.000000 0.0000000</code></pre>
+<pre><code># A tibble: 2 × 3
+  `INDE07M == "[3] C -Manufacturing"`  coef `_se`
+  &lt;lgl&gt;                               &lt;dbl&gt; &lt;dbl&gt;
+1 FALSE                               95.2  0.191
+2 TRUE                                 4.82 0.191</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">round</span>(</span>
-<span id="cb41-2"><a href="#cb41-2"></a><span class="fu">c</span>(sef<span class="sc">$</span>prop[<span class="dv">2</span>],</span>
-<span id="cb41-3"><a href="#cb41-3"></a>(sef<span class="sc">$</span>prop[<span class="dv">2</span>]<span class="sc">-</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(sef<span class="sc">$</span>prop_se[<span class="dv">2</span>]<span class="sc">*</span><span class="fl">1.2216</span>)),</span>
-<span id="cb41-4"><a href="#cb41-4"></a>(sef<span class="sc">$</span>prop[<span class="dv">2</span>]<span class="sc">+</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(sef<span class="sc">$</span>prop_se[<span class="dv">2</span>]<span class="sc">*</span><span class="fl">1.2216</span>))</span>
-<span id="cb41-5"><a href="#cb41-5"></a>),<span class="dv">2</span></span>
-<span id="cb41-6"><a href="#cb41-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="fu">round</span>(</span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="fu">c</span>(sef<span class="sc">$</span>coef[<span class="dv">2</span>],</span>
+<span id="cb39-3"><a href="#cb39-3"></a>sef<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">-</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(sef<span class="sc">$</span><span class="st">`</span><span class="at">_se</span><span class="st">`</span>[<span class="dv">2</span>] <span class="sc">*</span> <span class="fl">1.2216</span>),</span>
+<span id="cb39-4"><a href="#cb39-4"></a>sef<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">+</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(sef<span class="sc">$</span><span class="st">`</span><span class="at">_se</span><span class="st">`</span>[<span class="dv">2</span>]<span class="sc">*</span><span class="fl">1.2216</span>)</span>
+<span id="cb39-5"><a href="#cb39-5"></a>),<span class="dv">2</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.82 3.88 5.77</code></pre>
 </div>
 </div>
 <p>… Then for males:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>sem<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
-<span id="cb43-2"><a href="#cb43-2"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[1] Male"</span> <span class="sc">&amp;</span> </span>
-<span id="cb43-3"><a href="#cb43-3"></a>          ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span></span>
-<span id="cb43-4"><a href="#cb43-4"></a>          INDE07M<span class="sc">!=</span><span class="st">"[-9] Does not apply"</span>)  <span class="sc">|&gt;</span> </span>
-<span id="cb43-5"><a href="#cb43-5"></a>   <span class="fu">group_by</span>(INDE07M<span class="sc">==</span><span class="st">"[3] C -Manufacturing"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb43-6"><a href="#cb43-6"></a>   <span class="fu">cascade</span>(<span class="at">prop=</span><span class="fu">survey_mean</span>(<span class="at">vartype =</span> <span class="st">"se"</span>))</span>
-<span id="cb43-7"><a href="#cb43-7"></a></span>
-<span id="cb43-8"><a href="#cb43-8"></a><span class="do">### Converting into percentages</span></span>
-<span id="cb43-9"><a href="#cb43-9"></a>sem<span class="ot">&lt;-</span><span class="dv">100</span><span class="sc">*</span>sem</span>
-<span id="cb43-10"><a href="#cb43-10"></a></span>
-<span id="cb43-11"><a href="#cb43-11"></a>sem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>sem<span class="ot">&lt;-</span>dataex4.s <span class="sc">|&gt;</span>  </span>
+<span id="cb41-2"><a href="#cb41-2"></a>   <span class="fu">filter</span>(SEX<span class="sc">==</span><span class="st">"[1] Male"</span> <span class="sc">&amp;</span> </span>
+<span id="cb41-3"><a href="#cb41-3"></a>          ILODEFR<span class="sc">==</span><span class="st">"[1] In employment"</span> <span class="sc">&amp;</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a>          INDE07M<span class="sc">!=</span><span class="st">"[-9] Does not apply"</span>)  <span class="sc">|&gt;</span> </span>
+<span id="cb41-5"><a href="#cb41-5"></a>   <span class="fu">group_by</span>(INDE07M<span class="sc">==</span><span class="st">"[3] C -Manufacturing"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb41-6"><a href="#cb41-6"></a>      <span class="fu">summarise</span>(<span class="fu">survey_prop</span>(<span class="at">vartype =</span> <span class="st">"se"</span>)<span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb41-7"><a href="#cb41-7"></a></span>
+<span id="cb41-8"><a href="#cb41-8"></a></span>
+<span id="cb41-9"><a href="#cb41-9"></a>sem</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  INDE07M == "[3] C -Manufacturing"      prop prop_se
-1                                 0  89.01653 0.27476
-2                               100  10.98347 0.27476
-3                                NA 100.00000 0.00000</code></pre>
+<pre><code># A tibble: 2 × 3
+  `INDE07M == "[3] C -Manufacturing"`  coef `_se`
+  &lt;lgl&gt;                               &lt;dbl&gt; &lt;dbl&gt;
+1 FALSE                                89.0 0.275
+2 TRUE                                 11.0 0.275</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">round</span>(</span>
-<span id="cb45-2"><a href="#cb45-2"></a><span class="fu">c</span>(sem<span class="sc">$</span>prop[<span class="dv">2</span>],</span>
-<span id="cb45-3"><a href="#cb45-3"></a>(sem<span class="sc">$</span>prop[<span class="dv">2</span>]<span class="sc">-</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(sem<span class="sc">$</span>prop_se[<span class="dv">2</span>]<span class="sc">*</span><span class="fl">1.2216</span>)),</span>
-<span id="cb45-4"><a href="#cb45-4"></a>(sem<span class="sc">$</span>prop[<span class="dv">2</span>]<span class="sc">+</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(sem<span class="sc">$</span>prop_se[<span class="dv">2</span>]<span class="sc">*</span><span class="fl">1.2216</span>))</span>
-<span id="cb45-5"><a href="#cb45-5"></a>),<span class="dv">2</span></span>
-<span id="cb45-6"><a href="#cb45-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">round</span>(</span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="fu">c</span>(sem<span class="sc">$</span>coef[<span class="dv">2</span>],</span>
+<span id="cb43-3"><a href="#cb43-3"></a>sem<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">-</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(sem<span class="sc">$</span><span class="st">`</span><span class="at">_se</span><span class="st">`</span>[<span class="dv">2</span>]<span class="sc">*</span><span class="fl">1.2216</span>),</span>
+<span id="cb43-4"><a href="#cb43-4"></a>sem<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">+</span><span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>(sem<span class="sc">$</span><span class="st">`</span><span class="at">_se</span><span class="st">`</span>[<span class="dv">2</span>]<span class="sc">*</span><span class="fl">1.2216</span>)</span>
+<span id="cb43-5"><a href="#cb43-5"></a>),<span class="dv">2</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10.98  9.85 12.12</code></pre>
 </div>

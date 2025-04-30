@@ -1,6 +1,5 @@
 # Exercise 4: <BR/> Estimate precision and uncertainty
 
-
 This series of exercises focuses on the precision of estimates calculated from  Labour Force Survey data, in other words  the degree to which we can trust  them to reflect  the likely values in  the population. In order to do this, we will compute similar measures as before - means and proportions but this time  we will be focusing on their confidence intervals.
 
 Learning objectives:
@@ -18,7 +17,7 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 ## Get set up
 
-We will assume that the working directory for this exercise - where syntax files and other materials  will be located - will be a folder named `LFS_exercises`.   Once you have downloaded the data, save it somewhere accessible inside `LFS_exercises`, for example in  another folder named `Data`...  Then open the QLFS dataset:
+We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`. Then open the QLFS dataset:
 
 ```{stata open}
 quietly cd  "LFS_exercises/"
@@ -91,7 +90,8 @@ svy:mean GRSSWK
 ### Answers
 1. It is between £682 and £706  per week
 2. £24
-3. The confidence intervals  of weighted value tends to be wider than that of unweighted estimates, which makes them at the same time more representative but less precise than unweighted ones.
+3. In general,  confidence intervals  and standard deviations of weighted estimates  tend to be wider than those of unweighted estimates, which makes them at the same time more representative but less precise. However, the opposite is true here: the weighted confidence intervals of GRSSWK are narrower than the unweighted ones. 
+
 
 :::
 
@@ -127,8 +127,6 @@ svyset [pw=PWT24]
 svy:prop  FTPT2  if GOVTOF2==2 & SEX==2   & FTPT2!=., percent 
 svy:prop  FTPT2  if GOVTOF2==8  & SEX==2  & FTPT2!=., percent 
 
-*** Alternative methods
-svy:tab GOVTOF2 FTPT2  if (GOVTOF2==2 | GOVTOF2==8)   & SEX==2 & FTPT2!=.,stubwidth(20) percent row ci
 ``` 
 
 ::: panel-tabset
@@ -139,7 +137,7 @@ svy:tab GOVTOF2 FTPT2  if (GOVTOF2==2 | GOVTOF2==8)   & SEX==2 & FTPT2!=.,stubwi
 
 ### Answers
 1. Yes, they are very close at about 5 percentage points.
-2. They don't overlap, meaning that the difference are likely to be significant (at the 95% threshold) in the population 
+2. They don't overlap, meaning that the difference are likely to be significant (at the 95% confidence level) in the population 
 3. The confidence intervals clearly overlap. It is unlikely that significant difference in the proportion of female part-timers significantly differ between the two regions.
 
 ```{stata ne}
