@@ -218,7 +218,7 @@ cbind("Freq"=t,
 ```
 :::
 
-## Splitting by sex and working time status
+## Splitting by working time status and sex
 
 We then obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
 
