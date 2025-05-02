@@ -105,15 +105,13 @@ attr(lfs_od24$FTPT,"label")
 2.  Most of the missing cases are due to the variables not being applicable to all respondents. For example, the variable `FTPT` applies only to individuals aged 16 and over who are in employment. Similarly, `jbtp101`only applies to respondents who indicated that their job was not permanent in some way (i.e. where *JOBTYP = 2*).
 :::
 
-## Weighted and unweighted frequencies
+## Getting weighted frequencies
 
-In order to provide reliable estimates of population values, survey data needs to be *weighted* when analysed. Weights are variables whose values increase or decrease the relative importance of observations, depending on how likely respondents were to take part to the survey. Some weights are only designed to correct the relative importance of observations, whereas others in addition also enable calculating population totals - the latter are called grossing weights.
+To get correct estimates of population values, we need to apply the weight.
 
-Below, we compare weighted and unweighted frequencies and percentages.
+We will use `as_survey_design()`, an R function from the `survey` and `srvyr` packages, to create a weighted version of our data.
 
-We will be using `as_survey_design()`, a R function from the `survey` and `srvyr` packages that in effect creates a weighted version of our data.
-
-Let us first examine the variable measuring - JOBTYP - whether respondents work in a temporary job or not:
+Let's first examine the variable `JOBTYP`, which indicates whether respondents work in a temporary job or not.
 
 ```{r freqs}
 cbind("Freq"=table(dataex1$JOBTYP), 
@@ -121,7 +119,7 @@ cbind("Freq"=table(dataex1$JOBTYP),
       )
 ```
 
-... and create a version without missing values.
+Since we have missing values (e.g. 'Does not apply'), we can mark them as missing (NA) so they do not affect the analysis.
 
 ```{r jobtmp}
  
@@ -142,17 +140,17 @@ cbind("Freq"=table(dataex1$JobTmp),
       )
 ```
 
-We create a survey design - informed version of the data that we will be using for susbsequent analysis:
+Now, create a version of the data with the weight applied, which we will use in the rest of the analysis.
 
 ```{r svydes}
 dataex1.s<-dataex1|> 
-         filter(!is.na(PWT24) ) |> 
+         filter(!is.na(PWT24) ) |> #remove obs with missing values
          as_survey_design(weights=PWT24)
 ```
 
-Please note that we needed to remove observations with missing weights values, in effect observations that should not be taken into account to calculate population values. If we don't we will get an error message.
+Note: In the code above, we removed observations with missing weight values. These cases should not be taken into account when calculating population estimates – and if we don't remove them, R will return an error message.
 
-We can now compute the weighted distribution of `JobTmp`:
+Now, compute the weighted frequency of `JobTmp`.
 
 ```{r svyfreqs}
 t<-svytable(~JobTmp, dataex1.s)
