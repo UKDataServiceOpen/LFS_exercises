@@ -257,7 +257,7 @@ res
 
 2.  How many females are in part-time temporary employment?
 
-3.  How many applicable cases to we have for the above analysis?
+    1.  How many applicable cases to we have for the above analysis? (THIS IS NOT A QUESTION THAT CAN BE ANSWERED EASILY - COULD BE CHANGED TO SOMETHING LIKE, HOW WOULD YOU FIND OUT THE NUMBER OF APPLICABLE CASES? OR POSSIBLE MOVE IT TO BELOW AND IN MAIN TEXT - SOMETHING LIKE . We started with a sample of X, but how many applicable cases do we have in this analysis, then explain how to get the answer?)
 
 ## Answers
 
