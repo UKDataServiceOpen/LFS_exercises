@@ -12,7 +12,7 @@ Learning outcomes:
 
 The data used in this exercise relates to an estimate published by the ONS for October-December 2024.
 
-To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2024](http://doi.org/10.5255/UKDA-SN-9349-3).
+To follow the exercise, you need to access the relevant dataset from the UK Data Service: [SN 9349: Quarterly Labour Force Survey, October - December, 2024](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=9349).
 
 ## Get set-up
 
