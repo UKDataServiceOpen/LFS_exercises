@@ -27,10 +27,10 @@ library(survey) ### Survey data analysis functions
 library(srvyr)  ### Easier  manipulation of survey data
 
 ```
-Set the working directory using setwd ("LFS_exercises")
+
+Set the working directory `using setwd ("LFS_exercises").`
+
 And open the QLFS dataset.
-
-
 
 ```{r open}
 
@@ -48,13 +48,13 @@ nrow(lfs_od24) # Number of rows (observations)
 ::: panel-tabset
 ## Revision question
 
-1. How many variables are there?
-2. How many cases are there?
+1.  How many variables are there?
+2.  How many cases are there?
 
 ## Answers
 
-1. There are `{r} ncol(lfs_od24)` variables in the dataset.
-2. There are `{r} prettyNum(nrow(dataex1), big.mark=",")` cases
+1.  There are `{r} ncol(lfs_od24)` variables in the dataset.
+2.  There are `{r} prettyNum(nrow(dataex1), big.mark=",")` cases
 :::
 
 As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to convert categorical variables into factors, which will make them easier to understand. At the same time, we can remove any unused categories using `droplevels()`.
@@ -68,12 +68,12 @@ dataex1 <- lfs_od24 |>
   droplevels()
 ```
 
-Let's  have a look at the raw data.
+Let's have a look at the raw data.
 
 ```{r head}
 head(dataex1)
 
-View(dataex1) # A nicer looking output
+View(dataex1) # Nicer looking output
 ```
 
 ## Examine the variables
@@ -85,28 +85,25 @@ dataex1 |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |>
            summary()
 ```
 
-We can also inspect the descriptive labels for variables. The code below is for the variable `FTPT`. 
+We can also inspect the descriptive labels for variables. The code below is for the variable `FTPT`.
 
 ```{r attr}
 attr(lfs_od24$FTPT,"label")
 ```
 
-
-
 ::: panel-tabset
 ## Questions
 
-1.  What does the variable `INECAC05` relate to?
+1.  What does the variable `INECAC05` relate to? Tip: you can adapt the code above to see the label.
 
-2.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`. 
+2.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`.
 
 ## Answers
+
 1.  `INECAC05` records `{r} attr(lfs_od24$INECAC05,"label")`
 
-2.  Respondents not in employment are coded as missing values for these variables. Missing values were recorded as -9 "Does not apply" and -8 "No answer" in the original data.
+2.  Most of the missing cases are due to the variables not being applicable to all respondents. For example, the variable `FTPT` applies only to individuals aged 16 and over who are in employment. Similarly, `jbtp101`only applies to respondents who indicated that their job was not permanent in some way (i.e. where *JOBTYP = 2*).
 :::
-
-
 
 ## Weighted and unweighted frequencies
 
@@ -250,7 +247,6 @@ res[["Females, Percent"]]<-(prop.table(t2[,,2],1)*100)|>
 
 res
 ```
-
 
 ### Review questions
 
