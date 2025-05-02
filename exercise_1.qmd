@@ -83,7 +83,7 @@ dataex1 |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |>
            summary()
 ```
 
-We can also inspect the description of `FTPT` by looking at its label. 
+We can also inspect the descriptive labels for variables. The code below is for the variable `FTPT`. 
 
 ```{r attr}
 attr(lfs_od24$FTPT,"label")
