@@ -174,7 +174,9 @@ cbind("Freq"=t,
 
 ## Answers
 
-1.  `PWT24` is a grossing weight. Therefore, frequencies now reflect population totals.
+1.  Yes, the frequencies change quite a lot once we apply the weights — they become much higher. This is because the weights in the Labour Force Survey (LFS) are designed to sum to known population totals. That makes it easier to estimate overall population values like totals, means, and proportions.
+
+    The LFS weights also account for the survey’s sample design: individuals who had a lower chance of being selected are given higher weights to correct for that. They also help adjust for different levels of non-response across subgroups in the population, which means the results are more likely to reflect the population accurately.
 
 2.  The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables.
 
