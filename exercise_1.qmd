@@ -170,7 +170,7 @@ cbind("Freq"=t,
 
 1.  Do the frequencies change noticeably when the weight is applied?
 
-2.  Create a variable to indicate those working part time and examine weighted and unweighted frequencies.
+2.  Create a variable to indicate those working part time and examine weighted and unweighted frequencies. \[TOO MUCH FOR A REVIEW QUESTION - PEOPLE COULD MISS THIS STEP AND THEN GET AN ERROR BELOW - MOVE INTO MAIN TEXT\]
 
 ## Answers
 
