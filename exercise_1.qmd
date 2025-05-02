@@ -220,7 +220,7 @@ cbind("Freq"=t,
 
 ## Splitting by working time status and sex
 
-We then obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
+We will now create a table to examine full-time and part-time employees by job tenure.
 
 ```{r tmp_ftpt}
 t1<-svytable(~PartTime+JobTmp,dataex1.s)
@@ -231,7 +231,7 @@ cbind("Freq"=t1,
       )
 ```
 
-We can add a third variable to the table to simultaneously examine the number of temporary and part-time employees by gender.
+And finally, let's add a third variable to the table to examine the number of temporary and part-time employees by gender.
 
 ```{r sex}
 t2<-svytable(~PartTime+JobTmp+SEX,dataex1.s)
