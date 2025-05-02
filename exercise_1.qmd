@@ -18,7 +18,7 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`.
 
-First let's load the packages that are are going to need...
+First let's load the packages that are are going to need.
 
 ```{r prep}
 library(haven)  ### Functions to open Stata or SPSS datasets
@@ -27,16 +27,15 @@ library(survey) ### Survey data analysis functions
 library(srvyr)  ### Easier  manipulation of survey data
 
 ```
-...  And open the QLFS dataset:
+Set the working directory using setwd ("LFS_exercises")
+And open the QLFS dataset.
 
 
 
 ```{r open}
-setwd ("LFS_exercises")
-
 
 # Import  the data from a Stata format dataset 
-lfs_od24 <- read_dta("Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta")
+lfs_od24 <- read_dta("data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta")
 ```
 
 Inspect the dataset and find out the number of cases and variables.
@@ -56,7 +55,7 @@ How many variables are there?
 There are `{r} ncol(lfs_od24)` variables in the dataset.
 :::
 
-As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to make the variable categories easier to understand by converting them into factors. For greater clarity, we also remove unused categories of categorical variables using `droplevels()`.
+As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to convert categorical variables into factors, which will make them easier to understand. At the same time, we can remove any unused categories using `droplevels()`.
 
 ```{r dataex1}
 dataex1 <- lfs_od24 |> 
