@@ -66,8 +66,6 @@ dataex1 <- lfs_od24 |>
   droplevels()
 ```
 
-## Examine the variables
-
 Let's  have a look at the raw data.
 
 ```{r head}
@@ -75,6 +73,8 @@ head(dataex1)
 
 View(dataex1) # A nicer looking output
 ```
+
+## Examine the variables
 
 Now let's examine in more detail the variables we are going to work with.
 
