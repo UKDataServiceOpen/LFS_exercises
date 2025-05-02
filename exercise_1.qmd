@@ -89,24 +89,6 @@ We can also inspect the descriptive labels for variables. The code below is for 
 attr(lfs_od24$FTPT,"label")
 ```
 
-Let's  look again at the distribution of `FTPT`:
-
-```{r tabs1}
-t<-table(dataex1$FTPT) ### Simple frequency table
-
-t
-```
-
-We can also examine percentages:
-
-```{r tabs2}
-t.p<- 100*prop.table(t) ### Getting percentages
-t.p |> round(1)         ### Rounding to one digit
-
-cbind("Freq"=t, 
-      "Pct"= t.p |> round(1) 
-      )
-```
 
 
 ::: panel-tabset
