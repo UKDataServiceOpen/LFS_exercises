@@ -27,27 +27,35 @@ website:
       - href: index.qmd
         text: "**Introduction**"
 
-      - section: "**R exercises**"
+      - section: "**1. Temporary work**"
         contents:
         - href: exercise_1.qmd
-          text: Exercise 1
-        - href: exercise_2.qmd
-          text: Exercise 2
-        - href: exercise_3.qmd
-          text: Exercise 3
-        - href: exercise_4.qmd
-          text: Exercise 4
-          
-      - section: "**Stata exercises**" 
-        contents:
+          text: R
         - href: exercise_1_Stata.qmd
-          text: Exercise 1
+          text: Stata
+
+
+      - section: "**2. Weekly earnings**"
+        contents:
+        - href: exercise_2.qmd
+          text: R
         - href: exercise_2_Stata.qmd
-          text: Exercise 2
+          text: Stata
+
+      - section: "**3. Labour Market Flows**"
+        contents:
+        - href: exercise_3.qmd
+          text: R
         - href: exercise_3_Stata.qmd
-          text: Exercise 3
+          text: Stata
+
+      - section: "**4. Estimates precision**"
+        contents:
+        - href: exercise_4.qmd
+          text: R
         - href: exercise_4_Stata.qmd
-          text: Exercise 4
+          text: Stata
+
 
 format:
   html:

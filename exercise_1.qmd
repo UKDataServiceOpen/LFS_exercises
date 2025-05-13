@@ -27,7 +27,7 @@ library(survey) ### Survey data analysis functions
 library(srvyr)  ### Easier  manipulation of survey data
 
 ```
-...  And open the QLFS dataset:
+<!-- ...  And open the QLFS dataset: -->
 
 
 
