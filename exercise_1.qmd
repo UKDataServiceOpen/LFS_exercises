@@ -25,7 +25,6 @@ library(haven)  ### Functions to open Stata or SPSS datasets
 library(dplyr)  ### Easier data manipulation 
 library(survey) ### Survey data analysis functions
 library(srvyr)  ### Easier  manipulation of survey data
-
 ```
 
 Set the working directory `using setwd ("LFS_exercises").`
@@ -33,9 +32,10 @@ Set the working directory `using setwd ("LFS_exercises").`
 And open the QLFS dataset.
 
 ```{r open}
+setwd ("LFS_exercises")
 
 # Import  the data from a Stata format dataset 
-lfs_od24 <- read_dta("data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta")
+lfs_od24 <- read_dta("Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta")
 ```
 
 Inspect the dataset and find out the number of cases and variables.
@@ -54,7 +54,7 @@ nrow(lfs_od24) # Number of rows (observations)
 ## Answers
 
 1.  There are `{r} ncol(lfs_od24)` variables in the dataset.
-2.  There are `{r} prettyNum(nrow(dataex1), big.mark=",")` cases
+2.  There are `{r} prettyNum(nrow(lfs_od24), big.mark=",")` cases
 :::
 
 As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to convert categorical variables into factors, which will make them easier to understand. At the same time, we can remove any unused categories using `droplevels()`.
@@ -96,7 +96,7 @@ attr(lfs_od24$FTPT,"label")
 
 1.  What does the variable `INECAC05` relate to? Tip: you can adapt the code above to see the label.
 
-2.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`.
+2.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`?
 
 ## Answers
 

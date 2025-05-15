@@ -102,7 +102,7 @@ ta SEX
 
 2.  What does the variable `INECAC05` relate to?
 
-3.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`. 
+3.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`?
 
 ## Answers
 

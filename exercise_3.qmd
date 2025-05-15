@@ -102,7 +102,7 @@ dataex3.s<- dataex3|>
 
 And finally, we compute the estimates.
 
-```{r total, echo=-4, eval=-3}
+```{r total,eval=-3,echo=-4}
 
 t<-
 dataex3.s |> 
