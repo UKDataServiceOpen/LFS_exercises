@@ -259,11 +259,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#examine-the-variables" id="toc-examine-the-variables" class="nav-link" data-scroll-target="#examine-the-variables">Examine the variables</a></li>
   <li><a href="#getting-weighted-frequencies" id="toc-getting-weighted-frequencies" class="nav-link" data-scroll-target="#getting-weighted-frequencies">Getting weighted frequencies</a>
   <ul class="collapse">
-  <li><a href="#review-questions" id="toc-review-questions" class="nav-link" data-scroll-target="#review-questions">Review questions</a></li>
+  <li><a href="#questions-1" id="toc-questions-1" class="nav-link" data-scroll-target="#questions-1">Questions</a></li>
   </ul></li>
   <li><a href="#splitting-by-working-time-status-and-sex" id="toc-splitting-by-working-time-status-and-sex" class="nav-link" data-scroll-target="#splitting-by-working-time-status-and-sex">Splitting by working time status and sex</a>
   <ul class="collapse">
-  <li><a href="#review-questions-1" id="toc-review-questions-1" class="nav-link" data-scroll-target="#review-questions-1">Review questions</a></li>
+  <li><a href="#review-questions" id="toc-review-questions" class="nav-link" data-scroll-target="#review-questions">Review questions</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -296,14 +296,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-set-up" class="level2">
 <h2 class="anchored" data-anchor-id="get-set-up">Get set-up</h2>
 <p>We suggest that you create a folder named <code>LFS_exercises</code> as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within <code>LFS_exercises</code>, such as a subfolder named <code>Data</code>.</p>
-<p>First let’s load the packages that are are going to need.</p>
+<p>First let’s load the packages that we are going to need.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(haven)  <span class="do">### Functions to open Stata or SPSS datasets</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(dplyr)  <span class="do">### Easier data manipulation </span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(survey) <span class="do">### Survey data analysis functions</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(srvyr)  <span class="do">### Easier  manipulation of survey data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Set the working directory <code>using setwd ("LFS_exercises").</code></p>
+<p>Set the working directory using <code>setwd ("LFS_exercises").</code></p>
 <p>And open the QLFS dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span> (<span class="st">"LFS_exercises"</span>)</span>
@@ -398,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                                                          </code></pre>
 </div>
 </div>
-<p>We can also inspect the descriptive labels for variables. The code below is for the variable <code>FTPT</code>.</p>
+<p>We can also inspect the variables labels. The code below is for the variable <code>FTPT</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">attr</span>(lfs_od24<span class="sc">$</span>FTPT,<span class="st">"label"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -440,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [2] Not permanent in some way  1252   0</code></pre>
 </div>
 </div>
-<p>Since we have missing values (e.g.&nbsp;‘Does not apply’), we can mark them as missing (NA) so they do not affect the analysis.</p>
+<p>Since we have missing values (e.g.&nbsp;‘Does not apply’), we can mark them as system missing (NA in R) so they do not affect the analysis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>dataex1 <span class="ot">&lt;-</span> dataex1 <span class="sc">|&gt;</span> </span>
 <span id="cb17-2"><a href="#cb17-2"></a>          <span class="fu">mutate</span> (</span>
@@ -466,11 +466,11 @@ Temporary      1252  4.8</code></pre>
 <p>Now, create a version of the data with the weight applied, which we will use in the rest of the analysis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>dataex1.s<span class="ot">&lt;-</span>dataex1<span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a href="#cb19-2"></a>         <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PWT24) ) <span class="sc">|&gt;</span> <span class="co">#remove obs with missing values</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>         <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PWT24) ) <span class="sc">|&gt;</span> <span class="co">#remove obs with missing weight value </span></span>
 <span id="cb19-3"><a href="#cb19-3"></a>         <span class="fu">as_survey_design</span>(<span class="at">weights=</span>PWT24)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note: In the code above, we removed observations with missing weight values. These cases should not be taken into account when calculating population estimates – and if we don’t remove them, R will return an error message.</p>
-<p>Now, compute the weighted frequency of <code>JobTmp</code>.</p>
+<p>Now, compute the weighted frequencies of <code>JobTmp</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>t<span class="ot">&lt;-</span><span class="fu">svytable</span>(<span class="sc">~</span>JobTmp, dataex1.s)</span>
 <span id="cb20-2"><a href="#cb20-2"></a></span>
@@ -484,15 +484,15 @@ Not temporary 27802100 94.8
 Temporary      1514206  5.2</code></pre>
 </div>
 </div>
-<section id="review-questions" class="level3">
-<h3 class="anchored" data-anchor-id="review-questions">Review questions</h3>
+<section id="questions-1" class="level3">
+<h3 class="anchored" data-anchor-id="questions-1">Questions</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <ol type="1">
 <li><p>Do the frequencies change noticeably when the weight is applied?</p></li>
-<li><p>Create a variable to indicate those working part time and examine weighted and unweighted frequencies. [TOO MUCH FOR A REVIEW QUESTION - PEOPLE COULD MISS THIS STEP AND THEN GET AN ERROR BELOW - MOVE INTO MAIN TEXT]</p></li>
+<li><p>Using the code we used to create <code>JobTmp</code> above as guide, create a variable to indicate those working part time and examine their weighted and unweighted frequencies. You are going to need this variable later.</p></li>
 </ol>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
@@ -603,26 +603,43 @@ PartTime        Not temporary Temporary
   Part-time              90.6       9.4</code></pre>
 </div>
 </div>
-<section id="review-questions-1" class="level3">
-<h3 class="anchored" data-anchor-id="review-questions-1">Review questions</h3>
+<section id="review-questions" class="level3">
+<h3 class="anchored" data-anchor-id="review-questions">Review questions</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <ol type="1">
 <li><p>How many people are temporary employees (all and part-time) in this quarter?</p></li>
-<li><p>How many females are in part-time temporary employment?</p>
-<ol type="1">
-<li>How many applicable cases to we have for the above analysis? (THIS IS NOT A QUESTION THAT CAN BE ANSWERED EASILY - COULD BE CHANGED TO SOMETHING LIKE, HOW WOULD YOU FIND OUT THE NUMBER OF APPLICABLE CASES? OR POSSIBLE MOVE IT TO BELOW AND IN MAIN TEXT - SOMETHING LIKE . We started with a sample of X, but how many applicable cases do we have in this analysis, then explain how to get the answer?)</li>
-</ol></li>
+<li><p>How many females are in part-time temporary employment?</p></li>
+<li><p>How can we find out the number of applicable cases for men in part-time temporary employment - ie the number of cases in the sample used to calculate the population counts?</p></li>
 </ol>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <ol type="1">
 <li><p>There are 1,514,206 temporary employees, of which 812,464 part-time.</p></li>
 <li><p>There are 475,513 females in part-time temporary employment</p></li>
-<li><p>In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is only 443</p></li>
+<li><p>In order to get the number of applicable cases, we need to look at the unweighted frequencies of <code>SEX</code> by <code>JobTmp</code> by <code>PartTime</code>:</p></li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">table</span>(dataex1<span class="sc">$</span>JobTmp,dataex1<span class="sc">$</span>PartTime,dataex1<span class="sc">$</span>SEX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, ,  = [1] Male
+
+               
+                Not part-time Part-time
+  Not temporary         10631      1319
+  Temporary               273       288
+
+, ,  = [2] Female
+
+               
+                Not part-time Part-time
+  Not temporary          8534      4616
+  Temporary               247       443</code></pre>
+</div>
+</div>
+<p>The number of (unweighted) valid cases for this analysis is only 288</p>
 </div>
 </div>
 </div>

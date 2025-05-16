@@ -302,7 +302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>The data used in this exercise relates to an estimate published by the ONS for October-December 2024.</p>
-<p>To follow the exercise, you need to access the relevant dataset from the UK Data Service: <a href="http://doi.org/10.5255/UKDA-SN-9349-3">Quarterly Labour Force Survey, October - December, 2024</a>.</p>
+<p>To follow the exercise, you need to access the relevant dataset from the UK Data Service: <a href="https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=9349">SN 9349: Quarterly Labour Force Survey, October - December, 2024</a>.</p>
 </section>
 <section id="get-set-up" class="level2">
 <h2 class="anchored" data-anchor-id="get-set-up">Get set-up</h2>
@@ -452,12 +452,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <ol type="1">
 <li><p>Do the frequencies change noticeably when the weight is applied?</p></li>
-<li><p>Create a variable to indicate those working part time and examine weighted and unweighted frequencies.</p></li>
+<li><p>Using the code we used to create <code>JobTmp</code> above as guide, create a variable to indicate those working part time and examine their weighted and unweighted frequencies. You are going to need this variable later.</p></li>
 </ol>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <ol type="1">
-<li><p><code>PWT24</code> is a grossing weight. Therefore, frequencies now reflect population totals.</p></li>
+<li><p>Yes, the frequencies change quite a lot once we apply the weights — they become much higher. This is because the weights in the Labour Force Survey (LFS) are designed to sum to known population totals. That makes it easier to estimate overall population values like totals, means, and proportions.</p>
+<p>The LFS weights also account for the survey’s sample design: individuals who had a lower chance of being selected are given higher weights to correct for that. They also help adjust for different levels of non-response across subgroups in the population, which means the results are more likely to reflect the population accurately.</p></li>
 <li><p>The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables.</p></li>
 </ol>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource { pt} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>FREQUENCIES VARIABLES=FTPT /ORDER=ANALYSIS.</span>
@@ -524,15 +525,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li><p>How many people are temporary employees (all and part-time) in this quarter?</p></li>
 <li><p>How many females are in part-time temporary employment?</p></li>
-<li><p>How many applicable cases to we have for the above analysis?</p></li>
+<li><p>How can we find out the number of applicable cases for men in part-time temporary employment - ie the number of cases in the sample used to calculate the population counts?</p></li>
 </ol>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <ol type="1">
 <li><p>There are 1,513,083 temporary employees, of which 812,464 part-time.</p></li>
 <li><p>There are 475,513 females in part-time temporary employment</p></li>
-<li><p>In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is only 443 respondents.</p></li>
 </ol>
+<p>In order to get the number of applicable cases, we need to look at the unweighted frequencies of <code>SEX</code> by <code>JobTmp</code> by <code>PartTime</code>. The number of (unweighted) valid cases for this analysis is only 288 respondents.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource { unweight} number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href="#cb9-1"></a>* Split the dataset by SEX.</span>
 <span id="cb9-2"><a href="#cb9-2"></a>SORT CASES BY SEX.</span>
 <span id="cb9-3"><a href="#cb9-3"></a>SPLIT FILE LAYERED BY SEX.</span>

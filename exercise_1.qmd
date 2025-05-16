@@ -18,7 +18,7 @@ To follow the exercise, you need to access the relevant dataset from the UK Data
 
 We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`.
 
-First let's load the packages that are are going to need.
+First let's load the packages that we are going to need.
 
 ```{r prep}
 library(haven)  ### Functions to open Stata or SPSS datasets
@@ -27,7 +27,7 @@ library(survey) ### Survey data analysis functions
 library(srvyr)  ### Easier  manipulation of survey data
 ```
 
-Set the working directory `using setwd ("LFS_exercises").`
+Set the working directory using `setwd ("LFS_exercises").`
 
 And open the QLFS dataset.
 
@@ -85,7 +85,7 @@ dataex1 |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |>
            summary()
 ```
 
-We can also inspect the descriptive labels for variables. The code below is for the variable `FTPT`.
+We can also inspect the variables labels. The code below is for the variable `FTPT`.
 
 ```{r attr}
 attr(lfs_od24$FTPT,"label")
@@ -119,7 +119,7 @@ cbind("Freq"=table(dataex1$JOBTYP),
       )
 ```
 
-Since we have missing values (e.g. 'Does not apply'), we can mark them as missing (NA) so they do not affect the analysis.
+Since we have missing values (e.g. 'Does not apply'), we can mark them as system missing (NA in R) so they do not affect the analysis.
 
 ```{r jobtmp}
  
@@ -144,13 +144,13 @@ Now, create a version of the data with the weight applied, which we will use in 
 
 ```{r svydes}
 dataex1.s<-dataex1|> 
-         filter(!is.na(PWT24) ) |> #remove obs with missing values
+         filter(!is.na(PWT24) ) |> #remove obs with missing weight value 
          as_survey_design(weights=PWT24)
 ```
 
 Note: In the code above, we removed observations with missing weight values. These cases should not be taken into account when calculating population estimates – and if we don't remove them, R will return an error message.
 
-Now, compute the weighted frequency of `JobTmp`.
+Now, compute the weighted frequencies of `JobTmp`.
 
 ```{r svyfreqs}
 t<-svytable(~JobTmp, dataex1.s)
@@ -163,14 +163,14 @@ cbind("Freq"=t,
 
 ```
 
-### Review questions
+### Questions
 
 ::: panel-tabset
 ## Questions
 
 1.  Do the frequencies change noticeably when the weight is applied?
 
-2.  Create a variable to indicate those working part time and examine weighted and unweighted frequencies. \[TOO MUCH FOR A REVIEW QUESTION - PEOPLE COULD MISS THIS STEP AND THEN GET AN ERROR BELOW - MOVE INTO MAIN TEXT\]
+2.  Using the code we used to create `JobTmp` above as guide, create a variable to indicate those working part time and examine their weighted and unweighted frequencies. You are going to need this variable later.
 
 ## Answers
 
@@ -257,7 +257,7 @@ res
 
 2.  How many females are in part-time temporary employment?
 
-    1.  How many applicable cases to we have for the above analysis? (THIS IS NOT A QUESTION THAT CAN BE ANSWERED EASILY - COULD BE CHANGED TO SOMETHING LIKE, HOW WOULD YOU FIND OUT THE NUMBER OF APPLICABLE CASES? OR POSSIBLE MOVE IT TO BELOW AND IN MAIN TEXT - SOMETHING LIKE . We started with a sample of X, but how many applicable cases do we have in this analysis, then explain how to get the answer?)
+3.  How can we find out the number of applicable cases for men in part-time temporary employment - ie the number of cases in the sample used to calculate the population counts?
 
 ## Answers
 
@@ -265,7 +265,14 @@ res
 
 2.  There are `{r} prettyNum(t2[2,2,2] ,big.mark = ",")` females in part-time temporary employment
 
-3.  In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is only `{r} prettyNum(xtabs(~JobTmp+PartTime+SEX,dataex1)[8],big.mark = ",")`
+3.  In order to get the number of applicable cases, we need to look at the unweighted frequencies of `SEX` by `JobTmp` by `PartTime`: 
+
+```{r validcases}
+
+table(dataex1$JobTmp,dataex1$PartTime,dataex1$SEX)
+```
+
+The number of (unweighted) valid cases for this analysis is only `{r} prettyNum(xtabs(~JobTmp+PartTime+SEX,dataex1)[4],big.mark = ",")`
 :::
 
 Note: You can check if your results match those in the [ONS EMP07 dataset](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07).

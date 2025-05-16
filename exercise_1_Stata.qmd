@@ -12,7 +12,8 @@ Learning outcomes:
 
 The data used in this exercise relates to an estimate published by the ONS for October-December 2024.
 
-To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2024](http://doi.org/10.5255/UKDA-SN-9349-3).
+To follow the exercise, you need to access the relevant dataset from the UK Data Service: [SN 9349: Quarterly Labour Force Survey, October - December, 2024](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=9349).
+
 
 ## Get set-up
 
@@ -169,13 +170,16 @@ svy:tab  JOBTYP,count format(%9.0f)
 
 1.  Do the frequencies change noticeably when the weight is applied?
 
-2.  Create a variable to indicate those working part time and examine weighted and unweighted frequencies.
+2.  Using the code we used to create `JobTmp` above as guide, create a variable to indicate those working part time and examine their weighted and unweighted frequencies. You are going to need this variable later.
 
 ## Answers
 
-1.  `PWT24` is a grossing weight. Therefore, frequencies now reflect population totals.
+1.  Yes, the frequencies change quite a lot once we apply the weights — they become much higher. This is because the weights in the Labour Force Survey (LFS) are designed to sum to known population totals. That makes it easier to estimate overall population values like totals, means, and proportions.
+
+    The LFS weights also account for the survey’s sample design: individuals who had a lower chance of being selected are given higher weights to correct for that. They also help adjust for different levels of non-response across subgroups in the population, which means the results are more likely to reflect the population accurately.
 
 2.  The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables.
+
 
 ```{stata pt}
 ta FTPT, nol
@@ -233,7 +237,7 @@ svy,subpop(sex2):tab  PartTime JobTmp,count format(%9.0f)
 
 2.  How many females are in part-time temporary employment?
 
-3.  How many applicable cases to we have for the above analysis?
+3.  How can we find out the number of applicable cases for men in part-time temporary employment - ie the number of cases in the sample used to calculate the population counts?
 
 ## Answers
 
@@ -241,7 +245,7 @@ svy,subpop(sex2):tab  PartTime JobTmp,count format(%9.0f)
 
 2.  There are 475,513 females in part-time temporary employment
 
-3.  In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is only 443 respondents.
+3.  In order to get the number of applicable cases, we need to look at the unweighted frequencies of `SEX` by `JobTmp` by `PartTime`. The number of (unweighted) valid cases for this analysis is only 288 respondents.
 
 ```{stata unweight} 
 bysort SEX: ta JobTmp PartTime
