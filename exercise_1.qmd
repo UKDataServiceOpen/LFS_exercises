@@ -12,28 +12,27 @@ Learning outcomes:
 
 The data used in this exercise relates to an estimate published by the ONS for October-December 2024.
 
-To follow the exercise, you need to access the relevant dataset from the UK Data Service: [Quarterly Labour Force Survey, October - December, 2024](http://doi.org/10.5255/UKDA-SN-9349-3).
+To follow the exercise, you need to access the relevant dataset from the UK Data Service: [SN 9349: Quarterly Labour Force Survey, October - December, 2024](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=9349).
 
 ## Get set-up
 
 We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`.
 
-First let's load the packages that are are going to need...
+First let's load the packages that we are going to need.
 
 ```{r prep}
 library(haven)  ### Functions to open Stata or SPSS datasets
 library(dplyr)  ### Easier data manipulation 
 library(survey) ### Survey data analysis functions
 library(srvyr)  ### Easier  manipulation of survey data
-
 ```
-<!-- ...  And open the QLFS dataset: -->
 
+Set the working directory using `setwd ("LFS_exercises").`
 
+And open the QLFS dataset.
 
 ```{r open}
 setwd ("LFS_exercises")
-
 
 # Import  the data from a Stata format dataset 
 lfs_od24 <- read_dta("Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta")
@@ -49,14 +48,16 @@ nrow(lfs_od24) # Number of rows (observations)
 ::: panel-tabset
 ## Revision question
 
-How many variables are there?
+1.  How many variables are there?
+2.  How many cases are there?
 
 ## Answers
 
-There are `{r} ncol(lfs_od24)` variables in the dataset.
+1.  There are `{r} ncol(lfs_od24)` variables in the dataset.
+2.  There are `{r} prettyNum(nrow(lfs_od24), big.mark=",")` cases
 :::
 
-As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to make the variable categories easier to understand by converting them into factors. For greater clarity, we also remove unused categories of categorical variables using `droplevels()`.
+As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to convert categorical variables into factors, which will make them easier to understand. At the same time, we can remove any unused categories using `droplevels()`.
 
 ```{r dataex1}
 dataex1 <- lfs_od24 |> 
@@ -67,15 +68,15 @@ dataex1 <- lfs_od24 |>
   droplevels()
 ```
 
-## Examine the variables
-
-Let's  have a look at the raw data.
+Let's have a look at the raw data.
 
 ```{r head}
 head(dataex1)
 
-View(dataex1) # A nicer looking output
+View(dataex1) # Nicer looking output
 ```
+
+## Examine the variables
 
 Now let's examine in more detail the variables we are going to work with.
 
@@ -84,61 +85,33 @@ dataex1 |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |>
            summary()
 ```
 
-We can also inspect the description of `FTPT` by looking at its label. 
+We can also inspect the variables labels. The code below is for the variable `FTPT`.
 
 ```{r attr}
 attr(lfs_od24$FTPT,"label")
 ```
 
-Let's  look again at the distribution of `FTPT`:
-
-```{r tabs1}
-t<-table(dataex1$FTPT) ### Simple frequency table
-
-t
-```
-
-We can also examine percentages:
-
-```{r tabs2}
-t.p<- 100*prop.table(t) ### Getting percentages
-t.p |> round(1)         ### Rounding to one digit
-
-cbind("Freq"=t, 
-      "Pct"= t.p |> round(1) 
-      )
-```
-
-
 ::: panel-tabset
 ## Questions
 
-1.  How many cases are there?
+1.  What does the variable `INECAC05` relate to? Tip: you can adapt the code above to see the label.
 
-2.  What does the variable `INECAC05` relate to?
-
-3.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`. 
+2.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`?
 
 ## Answers
 
-1.  There are `{r} prettyNum(nrow(dataex1), big.mark=",")` cases
+1.  `INECAC05` records `{r} attr(lfs_od24$INECAC05,"label")`
 
-2.  `INECAC05` records `{r} attr(lfs_od24$INECAC05,"label")`
-
-3.  Respondents not in employment are coded as missing values for these variables. Missing values were recorded as -9 "Does not apply" and -8 "No answer" in the original data.
+2.  Most of the missing cases are due to the variables not being applicable to all respondents. For example, the variable `FTPT` applies only to individuals aged 16 and over who are in employment. Similarly, `jbtp101`only applies to respondents who indicated that their job was not permanent in some way (i.e. where *JOBTYP = 2*).
 :::
 
+## Getting weighted frequencies
 
+To get correct estimates of population values, we need to apply the weight.
 
-## Weighted and unweighted frequencies
+We will use `as_survey_design()`, an R function from the `survey` and `srvyr` packages, to create a weighted version of our data.
 
-In order to provide reliable estimates of population values, survey data needs to be *weighted* when analysed. Weights are variables whose values increase or decrease the relative importance of observations, depending on how likely respondents were to take part to the survey. Some weights are only designed to correct the relative importance of observations, whereas others in addition also enable calculating population totals - the latter are called grossing weights.
-
-Below, we compare weighted and unweighted frequencies and percentages.
-
-We will be using `as_survey_design()`, a R function from the `survey` and `srvyr` packages that in effect creates a weighted version of our data.
-
-Let us first examine the variable measuring - JOBTYP - whether respondents work in a temporary job or not:
+Let's first examine the variable `JOBTYP`, which indicates whether respondents work in a temporary job or not.
 
 ```{r freqs}
 cbind("Freq"=table(dataex1$JOBTYP), 
@@ -146,7 +119,7 @@ cbind("Freq"=table(dataex1$JOBTYP),
       )
 ```
 
-... and create a version without missing values.
+Since we have missing values (e.g. 'Does not apply'), we can mark them as system missing (NA in R) so they do not affect the analysis.
 
 ```{r jobtmp}
  
@@ -167,17 +140,17 @@ cbind("Freq"=table(dataex1$JobTmp),
       )
 ```
 
-We create a survey design - informed version of the data that we will be using for susbsequent analysis:
+Now, create a version of the data with the weight applied, which we will use in the rest of the analysis.
 
 ```{r svydes}
 dataex1.s<-dataex1|> 
-         filter(!is.na(PWT24) ) |> 
+         filter(!is.na(PWT24) ) |> #remove obs with missing weight value 
          as_survey_design(weights=PWT24)
 ```
 
-Please note that we needed to remove observations with missing weights values, in effect observations that should not be taken into account to calculate population values. If we don't we will get an error message.
+Note: In the code above, we removed observations with missing weight values. These cases should not be taken into account when calculating population estimates – and if we don't remove them, R will return an error message.
 
-We can now compute the weighted distribution of `JobTmp`:
+Now, compute the weighted frequencies of `JobTmp`.
 
 ```{r svyfreqs}
 t<-svytable(~JobTmp, dataex1.s)
@@ -190,18 +163,20 @@ cbind("Freq"=t,
 
 ```
 
-### Review questions
+### Questions
 
 ::: panel-tabset
 ## Questions
 
 1.  Do the frequencies change noticeably when the weight is applied?
 
-2.  Create a variable to indicate those working part time and examine weighted and unweighted frequencies.
+2.  Using the code we used to create `JobTmp` above as guide, create a variable to indicate those working part time and examine their weighted and unweighted frequencies. You are going to need this variable later.
 
 ## Answers
 
-1.  `PWT24` is a grossing weight. Therefore, frequencies now reflect population totals.
+1.  Yes, the frequencies change quite a lot once we apply the weights — they become much higher. This is because the weights in the Labour Force Survey (LFS) are designed to sum to known population totals. That makes it easier to estimate overall population values like totals, means, and proportions.
+
+    The LFS weights also account for the survey’s sample design: individuals who had a lower chance of being selected are given higher weights to correct for that. They also help adjust for different levels of non-response across subgroups in the population, which means the results are more likely to reflect the population accurately.
 
 2.  The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables.
 
@@ -243,9 +218,9 @@ cbind("Freq"=t,
 ```
 :::
 
-## Splitting by sex and working time status
+## Splitting by working time status and sex
 
-We then obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
+We will now create a table to examine full-time and part-time employees by job tenure.
 
 ```{r tmp_ftpt}
 t1<-svytable(~PartTime+JobTmp,dataex1.s)
@@ -256,7 +231,7 @@ cbind("Freq"=t1,
       )
 ```
 
-We can add a third variable to the table to simultaneously examine the number of temporary and part-time employees by gender.
+And finally, let's add a third variable to the table to examine the number of temporary and part-time employees by gender.
 
 ```{r sex}
 t2<-svytable(~PartTime+JobTmp+SEX,dataex1.s)
@@ -273,7 +248,6 @@ res[["Females, Percent"]]<-(prop.table(t2[,,2],1)*100)|>
 res
 ```
 
-
 ### Review questions
 
 ::: panel-tabset
@@ -283,7 +257,7 @@ res
 
 2.  How many females are in part-time temporary employment?
 
-3.  How many applicable cases to we have for the above analysis?
+3.  How can we find out the number of applicable cases for men in part-time temporary employment - ie the number of cases in the sample used to calculate the population counts?
 
 ## Answers
 
@@ -291,7 +265,14 @@ res
 
 2.  There are `{r} prettyNum(t2[2,2,2] ,big.mark = ",")` females in part-time temporary employment
 
-3.  In order to get the number of valid cases, we need to look at unweighted frequencies. The number of (unweighted) valid cases for this analysis is only `{r} prettyNum(xtabs(~JobTmp+PartTime+SEX,dataex1)[8],big.mark = ",")`
+3.  In order to get the number of applicable cases, we need to look at the unweighted frequencies of `SEX` by `JobTmp` by `PartTime`: 
+
+```{r validcases}
+
+table(dataex1$JobTmp,dataex1$PartTime,dataex1$SEX)
+```
+
+The number of (unweighted) valid cases for this analysis is only `{r} prettyNum(xtabs(~JobTmp+PartTime+SEX,dataex1)[4],big.mark = ",")`
 :::
 
 Note: You can check if your results match those in the [ONS EMP07 dataset](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07).

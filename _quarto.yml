@@ -5,6 +5,7 @@ project:
    - index.qmd
    - exercise_1.qmd
    - exercise_1_Stata.qmd
+   - exercise_1_spss.qmd
    - exercise_2.qmd
    - exercise_2_Stata.qmd
    - exercise_3.qmd
@@ -33,7 +34,8 @@ website:
           text: R
         - href: exercise_1_Stata.qmd
           text: Stata
-
+        - href: exercise_1_spss.qmd
+          text: SPSS
 
       - section: "**2. Weekly earnings**"
         contents:
@@ -73,4 +75,3 @@ css: ukds.css
 execute:
   warning: false
 #  cache: true
-
