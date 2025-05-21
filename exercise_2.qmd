@@ -93,21 +93,21 @@ hist(dataex2$GRSSWK[dataex2$GRSSWK>0 & dataex2$GRSSWK<=2499],
      freq=F)                                               # Print probabilities 
 ```
 
-::: panel-tabset
-## Question
+<!-- ::: panel-tabset -->
+<!-- ## Question -->
 
-Plot the distribution of hourly earnings  up to the 99th percentile.
+<!-- Plot the distribution of hourly earnings  up to the 99th percentile. -->
 
-## Answer
-```{r hourly}
-quantile(dataex2$HOURPAY[dataex2$HOURPAY>0],.99)
+<!-- ## Answer -->
+<!-- ```{r hourly} -->
+<!-- quantile(dataex2$HOURPAY[dataex2$HOURPAY>0],.99) -->
 
 
-hist(dataex2$HOURPAY[dataex2$HOURPAY>0 & dataex2$HOURPAY<68.8],
-     xlab="Earnings (£) -- 1st-99th percentiles",                                                main="Net hourly earnings in the UK, October-December 2024", 
-     freq=F)                                                       
-```
-:::
+<!-- hist(dataex2$HOURPAY[dataex2$HOURPAY>0 & dataex2$HOURPAY<68.8], -->
+<!--      xlab="Earnings (£) -- 1st-99th percentiles",                                                main="Net hourly earnings in the UK, October-December 2024",  -->
+<!--      freq=F)                                                        -->
+<!-- ``` -->
+<!-- ::: -->
 
 
 ## Examine full-time employees
@@ -123,14 +123,21 @@ LFS  data provides the INECAC05 variable, which records all nuances of economic 
 
 We will now examine these  variables.
 
+::: panel-tabset
+
+### INECAC05
+
 ```{r sumINE}         
 table(dataex2$INECAC05)
 ```
+
+### FTPT
 
 ```{r sumFT}         
 table(dataex2$FTPT)
 ```
 
+:::
 
 If we further want to know about about the number of employees by working-time status, we will need to explictly restrict the analysis to those: 
 
@@ -143,31 +150,6 @@ ft.emp
 
 There are `{r} paste0(prettyNum(ft.emp[[3]], big.mark=","))` full-time employees in the  sample.
 
-::: panel-tabset
-## Question
-
-1. Provide a similar  description for summarised economic activity variable.
-2. How many  *self-employed* respondents working full-time are there in the sample?
-
-## Answer
-1. 
-```{r subset}
-dataex2 |> select(ILODEFR) |> 
-           table()
-```
-
-2. 
-```{r}         
-ft.emp.2<-dataex2 |> filter(INECAC05=="[2] Self-employed") |>
-                   select(FTPT) |> 
-                   table()
-
-ft.emp.2
-```
-
-
-There are `{r} prettyNum(ft.emp.2[[3]], big.mark=",")` respondents in full-time self-employment in the sample.
-:::
 
 
 ## ONS estimates for employees' gross weekly earnings
@@ -248,7 +230,45 @@ The median weekly earnings for men and women in the lowest decile in the UK are 
 
 :::
 
-## How many people work as full-time employee?
+
+## Extra activities
+
+-   See if you can examine earnings for temporary workers or another group of interest. Examine the full dataset and explore as you choose.
+
+-   Move to the next exercise, which uses one of the LFS longitudinal datasets.
+
+-   Consider the following exercise:
+
+
+<!-- ::: panel-tabset -->
+<!-- ## Question -->
+
+<!-- 1. Provide a similar  description for summarised economic activity variable. -->
+<!-- 2. How many  *self-employed* respondents working full-time are there in the sample? -->
+
+<!-- ## Answer -->
+<!-- 1. -->
+<!-- ```{r subset} -->
+<!-- dataex2 |> select(ILODEFR) |> -->
+<!--            table() -->
+<!-- ``` -->
+
+<!-- 2. -->
+<!-- ```{r} -->
+<!-- ft.emp.2<-dataex2 |> filter(INECAC05=="[2] Self-employed") |> -->
+<!--                    select(FTPT) |> -->
+<!--                    table() -->
+
+<!-- ft.emp.2 -->
+<!-- ``` -->
+
+
+<!-- There are `{} prettyNum(ft.emp.2[[3]], big.mark=",")` respondents in full-time self-employment in the sample. -->
+<!-- ::: -->
+
+
+
+#### How many people work as full-time employee?
 This question relies on  a slightly different definition that we have used so far since this time we won't exclude those earning more than £100 per hour. The figures published by the ONS can be found [in Table EMP01 here](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa).
 
 Let's follow the same steps as before: 
@@ -286,7 +306,7 @@ corr<-de.sa |> group_by(ftEmp2) |> summarise(survey_total(vartype="ci"))
 ```
 
 ::: panel-tabset
-## Question
+### Question
 
 1. The ONS table gives the estimated number of full-time employees as `{r} prettyNum(corr[[2]][2],big.mark = ",")`. Above, we get `{r} prettyNum(fte[[2]][2],big.mark = ",")`. Why is there a difference?
 
@@ -297,7 +317,7 @@ corr<-de.sa |> group_by(ftEmp2) |> summarise(survey_total(vartype="ci"))
     - full-time employees; 
     - female and male full-time employees in the UK?
 
-## Answer
+### Answer
 1. Because we have used the wrong weights ie PIWT24, the weights that can only be used for earnings estimation
 
 2. We need to create another version of the data with the correct weight: PWT24
@@ -322,10 +342,3 @@ fte.g
 ```
 In October - December 2024, there were respectively  `{r} prettyNum(fte.g[[3]][4],big.mark = ",")`  and `{r} prettyNum(fte.g[[3]][2],big.mark = ",")` female and male full-time employees.
 :::
-
-
-## What next?
-
--   See if you can examine earnings for temporary workers or another group of interest. Examine the full dataset and explore as you choose.
-
--   Move to the next exercise, which uses one of the LFS longitudinal datasets.

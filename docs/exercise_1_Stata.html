@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="get-set-up">Get set-up</h2>
 <p>We suggest that you create a folder named <code>LFS_exercises</code> as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within <code>LFS_exercises</code>, such as a subfolder named <code>Data</code>.</p>
 <p>… And open the QLFS dataset:</p>
-<div id="d7789f80" class="cell" data-execution_count="1">
+<div id="b81eb927" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">clear</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>cd  <span class="st">"LFS_exercises/"</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
@@ -322,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Inspect the dataset and find out the number of cases and variables.</p>
-<div id="453f852e" class="cell" data-execution_count="2">
+<div id="e8d135f3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">describe</span>,<span class="kw">short</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -344,7 +344,7 @@ Sorted by: </code></pre>
 </div>
 </div>
 <p>As there are many variables in the dataset, let’s just keep the variables we are going to use.</p>
-<div id="cdfb99ab" class="cell" data-execution_count="3">
+<div id="3fec36f5" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">keep</span> PERSNO PWT24 JBTP101 FTPT INECAC05 JOBTYP SEX</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="kw">desc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -379,7 +379,7 @@ Sorted by:
 <p>We can have a look at the raw data by using <code>browse</code></p>
 <p><img src="pics/stata_browse.png" class="img-fluid"></p>
 <p>Now let’s examine in more detail the variables we are going to work with.</p>
-<div id="e2a8b99c" class="cell" data-execution_count="4">
+<div id="c1fb4893" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1"></a>summ JBTP101 FTPT INECAC05 JOBTYP  SEX</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -393,7 +393,7 @@ Sorted by:
 </div>
 </div>
 <p>This is not very meaningful. Let’s use frequency tables instead:</p>
-<div id="d13bb1d2" class="cell" data-execution_count="5">
+<div id="f471a97b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1"></a>ta FTPT</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -411,7 +411,7 @@ Does not apply |     32,189       51.04       51.04
          Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="6ce0e6af" class="cell" data-execution_count="6">
+<div id="6b0faa9a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1"></a>ta JBTP101  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -428,7 +428,7 @@ Under contract for a fixed period/task |        520        0.82       99.72
                                  Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="e499386a" class="cell" data-execution_count="7">
+<div id="14285ac3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1"></a>ta INECAC05 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -473,7 +473,7 @@ Inactive, not seeking, not like, no rea |        182        0.29       81.83
                                   Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="573e4c19" class="cell" data-execution_count="8">
+<div id="9b14c58e" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1"></a>ta JOBTYP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -488,7 +488,7 @@ Not permanent in some way |      1,252        1.99      100.00
                     Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="f77da55d" class="cell" data-execution_count="9">
+<div id="c9d481ce" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1"></a>ta SEX</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -527,7 +527,7 @@ Not permanent in some way |      1,252        1.99      100.00
 <p>Below, we compare weighted and unweighted frequencies and percentages.</p>
 <p>We will be using Stata’s survey commands.</p>
 <p>Let us first examine again the variable measuring - JOBTYP - whether respondents work in a temporary job or not:</p>
-<div id="9aa0c10a" class="cell" data-execution_count="10">
+<div id="ace9102f" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">tab</span> JOBTYP</span>
 <span id="cb19-2"><a href="#cb19-2"></a><span class="kw">tab</span> JOBTYP,nol</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -558,7 +558,7 @@ Not permanent in some way |      1,252        1.99      100.00
 </div>
 </div>
 <p>… and create a version with missing values recoded as system missing.</p>
-<div id="ab511d9e" class="cell" data-execution_count="11">
+<div id="0e231af0" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">gen</span> JobTmp = 0</span>
 <span id="cb21-2"><a href="#cb21-2"></a><span class="kw">replace</span> JobTmp = 1 <span class="kw">if</span> JOBTYP==2</span>
 <span id="cb21-3"><a href="#cb21-3"></a><span class="kw">replace</span> JobTmp = . <span class="kw">if</span> JOBTYP == -8  | JOBTYP == -9  </span>
@@ -592,7 +592,7 @@ Not temporary |         0          0     25,104          0 |    25,104
 </div>
 </div>
 <p>We then declare the the data to be weightey survey data:</p>
-<div id="56ff45e5" class="cell" data-execution_count="12">
+<div id="8ad7430b" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">svyset</span> [pw=PWT24]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -605,7 +605,7 @@ Sampling weights: PWT24
 </div>
 </div>
 <p>We can now compute the weighted totals and percentages:</p>
-<div id="2db90318" class="cell" data-execution_count="13">
+<div id="d58c33f0" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">svy</span>:<span class="kw">tab</span> JobTmp, <span class="kw">percent</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a></span>
 <span id="cb25-3"><a href="#cb25-3"></a><span class="kw">svy</span>:<span class="kw">tab</span>  JOBTYP,<span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -669,7 +669,7 @@ Key:    count = Weighted count</code></pre>
 <p>The LFS weights also account for the survey’s sample design: individuals who had a lower chance of being selected are given higher weights to correct for that. They also help adjust for different levels of non-response across subgroups in the population, which means the results are more likely to reflect the population accurately.</p></li>
 <li><p>The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables.</p></li>
 </ol>
-<div id="a740c059" class="cell" data-execution_count="14">
+<div id="a6c45eea" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb27-1"><a href="#cb27-1"></a>ta FTPT, nol</span>
 <span id="cb27-2"><a href="#cb27-2"></a></span>
 <span id="cb27-3"><a href="#cb27-3"></a><span class="kw">recode</span> FTPT 1 3 =0 2 4 = 1 -8 -9 = ., <span class="kw">gen</span>(PartTime) </span>
@@ -750,7 +750,7 @@ Key:    count = Weighted count</code></pre>
 <section id="splitting-by-sex-and-working-time-status" class="level2">
 <h2 class="anchored" data-anchor-id="splitting-by-sex-and-working-time-status">Splitting by sex and working time status</h2>
 <p>We can obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:</p>
-<div id="4a2dafd4" class="cell" data-execution_count="15">
+<div id="f1049d7b" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">svy</span>:<span class="kw">tab</span>  PartTime JobTmp,<span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(running tabulate on estimation sample)
@@ -778,7 +778,7 @@ Key: Weighted count
 </div>
 </div>
 <p>We can simultaneously examine the number of temporary and part-time employees by gender by using the <code>subpop</code> option.</p>
-<div id="ca0d0113" class="cell" data-execution_count="16">
+<div id="4c1517f2" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb31-1"><a href="#cb31-1"></a>*** We need first to <span class="kw">recode</span> SEX <span class="kw">as</span> a 0/1 ie dummy <span class="kw">variable</span>.</span>
 <span id="cb31-2"><a href="#cb31-2"></a></span>
 <span id="cb31-3"><a href="#cb31-3"></a><span class="kw">tab</span> SEX, <span class="kw">gen</span>(sex) </span>
@@ -804,7 +804,7 @@ SEX==Female |      Freq.     Percent        Cum.
       Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="cfacb09f" class="cell" data-execution_count="17">
+<div id="f3335c91" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb33-1"><a href="#cb33-1"></a>*** Totals <span class="kw">by</span> sex</span>
 <span id="cb33-2"><a href="#cb33-2"></a></span>
 <span id="cb33-3"><a href="#cb33-3"></a><span class="kw">svy</span>,subpop(sex1):<span class="kw">tab</span>  PartTime JobTmp,<span class="fu">count</span> <span class="kw">format</span>(%9.0f) </span>
@@ -881,7 +881,7 @@ Key: Weighted count
 <li><p>There are 475,513 females in part-time temporary employment</p></li>
 <li><p>In order to get the number of applicable cases, we need to look at the unweighted frequencies of <code>SEX</code> by <code>JobTmp</code> by <code>PartTime</code>. The number of (unweighted) valid cases for this analysis is only 288 respondents.</p></li>
 </ol>
-<div id="8287dacf" class="cell" data-execution_count="18">
+<div id="adc852b7" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">bysort</span> SEX: ta JobTmp PartTime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
