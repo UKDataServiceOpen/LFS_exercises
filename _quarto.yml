@@ -1,6 +1,7 @@
 project:
   type: website
   output-dir: docs
+  title: "Getting Started with the Labour Force Survey"
   render:
    - index.qmd
    - exercise_1.qmd
@@ -8,6 +9,7 @@ project:
    - exercise_1_spss.qmd
    - exercise_2.qmd
    - exercise_2_Stata.qmd
+   - exercise_2_spss.qmd
    - exercise_3.qmd
    - exercise_3_Stata.qmd
    - exercise_4.qmd
@@ -16,12 +18,11 @@ project:
 jupyter: nbstata
 
 website:
-#  title: "Working with the Labour Force Survey"
    sidebar:
       logo: "pics/UKDS_Logos_Col_Grey_300dpi.png"
       logo-href: http:// ukdataservice.ac.uk
       logo-alt: "UKDS homepage"
-
+      foreground: "#742082"
       style: "floating"
       contents:
       
@@ -43,6 +44,8 @@ website:
           text: R
         - href: exercise_2_Stata.qmd
           text: Stata
+        - href: exercise_2_spss.qmd
+          text: SPSS
 
       - section: "**3. Labour Market Flows**"
         contents:

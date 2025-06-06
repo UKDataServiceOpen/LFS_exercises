@@ -70,32 +70,32 @@ quietly graph export "~/OneDrive/trainings/LFS_module/LFS_exercises/pics/grsw.pn
 
 ![](pics/grsw.png)
 
-::: panel-tabset
+<!-- ::: panel-tabset -->
 
 
-## Question
+<!-- ## Question -->
 
-Plot the distribution of hourly earnings  up to the 99th percentile.
+<!-- Plot the distribution of hourly earnings  up to the 99th percentile. -->
 
-## Answer
-```{stata hourly}
-summ HOURPAY if HOURPAY>0,detail
+<!-- ## Answer -->
+<!-- ```{stata hourly} -->
+<!-- summ HOURPAY if HOURPAY>0,detail -->
 
-quietly histogram  HOURPAY if HOURPAY>0 & HOURPAY<=69.23, ///
-                   xtitle("Earnings (£) -- 1st-99th percentiles") ///
-                   title("Hourly earnings in the UK, Oct-Dec 2024")
-```
+<!-- quietly histogram  HOURPAY if HOURPAY>0 & HOURPAY<=69.23, /// -->
+<!--                    xtitle("Earnings (£) -- 1st-99th percentiles") /// -->
+<!--                    title("Hourly earnings in the UK, Oct-Dec 2024") -->
+<!-- ``` -->
 
-```{stata printh}
-*| echo: FALSE
+<!-- ```{stata printh} -->
+<!-- *| echo: FALSE -->
 
-quietly graph export "~/OneDrive/trainings/LFS_module/LFS_exercises/pics/hpay.png", replace
+<!-- quietly graph export "~/OneDrive/trainings/LFS_module/LFS_exercises/pics/hpay.png", replace -->
 
-```
+<!-- ``` -->
 
-![](pics/hpay.png)
+<!-- ![](pics/hpay.png) -->
 
-:::
+<!-- ::: -->
 
 
 ## Examine full-time employees
@@ -129,26 +129,26 @@ tab FTPT if INECAC05==1
 
 There are 19,680 full-time employees in the  sample.
 
-::: panel-tabset
-## Question
+<!-- ::: panel-tabset -->
+<!-- ## Question -->
 
-1. Provide a similar  description for the summarised economic activity variable.
-2. How many  *self-employed* respondents working full-time are there in the sample?
+<!-- 1. Provide a similar  description for the summarised economic activity variable. -->
+<!-- 2. How many  *self-employed* respondents working full-time are there in the sample? -->
 
-## Answer
-1. 
-```{stata  subset}
-tab ILODEFR,m
-```
+<!-- ## Answer -->
+<!-- 1.  -->
+<!-- ```{stata  subset} -->
+<!-- tab ILODEFR,m -->
+<!-- ``` -->
 
-2. 
-```{stata ex2.2}         
-tab FTPT if INECAC05==2
-```
+<!-- 2.  -->
+<!-- ```{stata ex2.2}          -->
+<!-- tab FTPT if INECAC05==2 -->
+<!-- ``` -->
 
 
-There are 2,823 respondents in full-time self-employment in the sample.
-:::
+<!-- There are 2,823 respondents in full-time self-employment in the sample. -->
+<!-- ::: -->
 
 
 ## ONS estimates for employees' gross weekly earnings
@@ -222,9 +222,10 @@ The median weekly earnings for men and women in the lowest decile in the UK are 
 :::
 
 ## How many people work as full-time employee?
-This question relies on  a slightly different definition that we have used so far since this time we won't exclude those earning more than £100 per hour. The figures published by the ONS can be found [in Table EMP01 here](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa).
+This question relies on  a slightly different definition that we have used so far since this time we won't exclude those earning more than £100 per hour. The figures published by the ONS can be found in the same table as previously.
 
 Let's follow the same steps as before: 
+
 
 1. Let's flag full-time employees (no limit on hourly pay this time):
 

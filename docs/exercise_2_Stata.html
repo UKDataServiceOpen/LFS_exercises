@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>exercise_2_stata</title>
+<title>exercise_2_stata – Getting Started with the Labour Force Survey</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-989b851ebb00307843c4196436de61a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f67738801adab4ec373db556c2f6c09b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -198,6 +198,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Stata</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SPSS</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -288,21 +294,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-set-up" class="level2">
 <h2 class="anchored" data-anchor-id="get-set-up">Get set up</h2>
 <p>We suggest that you create a folder named <code>LFS_exercises</code> as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within <code>LFS_exercises</code>, such as a subfolder named <code>Data</code>.</p>
-<div id="3bcba942" class="cell" data-execution_count="1">
+<div id="5d92b85c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">quietly</span> cd  <span class="st">"LFS_exercises/"</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a>* Import  the <span class="kw">data</span> from a Stata <span class="kw">format</span> dataset </span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="kw">use</span>  <span class="st">"Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As previously, let’s just keep the variables we need for the exercise.</p>
-<div id="c5279b62" class="cell" data-execution_count="2">
+<div id="ff7bd079" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">keep</span> PERSNO PIWT24 PWT24 GRSSWK  INECAC05  ILODEFR FTPT  HOURPAY SEX</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="examine-the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="examine-the-dataset">Examine the dataset</h2>
 <p>Let’s inspect the data and the new variables:</p>
-<div id="a49aa2bc" class="cell" data-execution_count="3">
+<div id="4042d6b4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">describe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -331,7 +337,7 @@ Sorted by:
 </div>
 </div>
 <p>We can also examine descriptive statistics for weekly earnings</p>
-<div id="e99adfcd" class="cell" data-execution_count="4">
+<div id="27443e9c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1"></a>summ GRSSWK,<span class="kw">detail</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -353,7 +359,7 @@ Sorted by:
 </div>
 </div>
 <p>Non responses are coded using negative values, which will affect analysis results. Let’s do it again, this time with respondents who provided a valid answer only:</p>
-<div id="1d18749b" class="cell" data-execution_count="5">
+<div id="985dac92" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1"></a>summ GRSSWK <span class="kw">if</span> GRSSWK&gt;0,<span class="kw">detail</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -375,49 +381,28 @@ Sorted by:
 </div>
 </div>
 <p>Let’s plot the distribution of weekly earnings using a histogram. Given that income data tends to be skewed to the right (a relatively small number of respondents have very large earnings), which reduces the visibility lower earnings, we will leaving out the 1% highest earners, that is respondents earning more than £2,500 per week.</p>
-<div id="9596d7a0" class="cell" data-execution_count="6">
+<div id="dee8037a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">quietly</span> <span class="kw">histogram</span>   GRSSWK <span class="kw">if</span> GRSSWK&gt;0 &amp; GRSSWK&lt;=2500,  <span class="co">///</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>                    <span class="bn">xtitle</span>(<span class="st">"Earnings (£) -- 1st-99th percentiles"</span>) <span class="co">///</span></span>
 <span id="cb9-3"><a href="#cb9-3"></a>                    <span class="bn">title</span>(<span class="st">"Gross weekly earnings in the UK, Oct-Dec 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="pics/grsw.png" class="img-fluid"></p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Plot the distribution of hourly earnings up to the 99th percentile.</p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="7d465a66" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1"></a>summ HOURPAY <span class="kw">if</span> HOURPAY&gt;0,<span class="kw">detail</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">quietly</span> <span class="kw">histogram</span>  HOURPAY <span class="kw">if</span> HOURPAY&gt;0 &amp; HOURPAY&lt;=69.23, <span class="co">///</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>                   <span class="bn">xtitle</span>(<span class="st">"Earnings (£) -- 1st-99th percentiles"</span>) <span class="co">///</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>                   <span class="bn">title</span>(<span class="st">"Hourly earnings in the UK, Oct-Dec 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-
-                      Gross hourly pay
--------------------------------------------------------------
-      Percentiles      Smallest
- 1%         4.11            .13
- 5%         8.47            .28
-10%        10.26             .6       Obs               7,176
-25%        12.49            .63       Sum of wgt.       7,176
-
-50%        16.83                      Mean           20.70628
-                        Largest       Std. dev.      15.51314
-75%        24.55          212.5
-90%        35.42          307.7       Variance       240.6574
-95%        44.87         326.78       Skewness       7.907619
-99%        69.23         461.52       Kurtosis       149.4521
-</code></pre>
-</div>
-</div>
-<p><img src="pics/hpay.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
+<!-- ::: panel-tabset -->
+<!-- ## Question -->
+<!-- Plot the distribution of hourly earnings  up to the 99th percentile. -->
+<!-- ## Answer -->
+<!-- ```{stata hourly} -->
+<!-- summ HOURPAY if HOURPAY>0,detail -->
+<!-- quietly histogram  HOURPAY if HOURPAY>0 & HOURPAY<=69.23, /// -->
+<!--                    xtitle("Earnings (£) -- 1st-99th percentiles") /// -->
+<!--                    title("Hourly earnings in the UK, Oct-Dec 2024") -->
+<!-- ``` -->
+<!-- ```{stata printh} -->
+<!-- *| echo: FALSE -->
+<!-- quietly graph export "~/OneDrive/trainings/LFS_module/LFS_exercises/pics/hpay.png", replace -->
+<!-- ``` -->
+<!-- ![](pics/hpay.png) -->
+<!-- ::: -->
 </section>
 <section id="examine-full-time-employees" class="level2">
 <h2 class="anchored" data-anchor-id="examine-full-time-employees">Examine full-time employees</h2>
@@ -429,8 +414,8 @@ Sorted by:
 </ul>
 <p>The INECAC05 variable records all nuances of economic activity (there are 35 of them!), including employment and self-employment. There is also ILODEFR which records broader economic activity status (ie Whether employed, unemployed, or on a government training scheme etc.) and group together self-employed and employees.</p>
 <p>We will now examine these variables.</p>
-<div id="3d6dfe5e" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">tab</span> INECAC05,<span class="fu">m</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b6554d53" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">tab</span> INECAC05,<span class="fu">m</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
            Basic economic activity (ILO |
@@ -475,8 +460,8 @@ Inactive, not seeking, not like, no rea |        182        0.29       81.83
 </div>
 </div>
 <p>If we further want to know about about the number of employees by working-time status, we will need to explictly restrict the analysis to those:</p>
-<div id="25c33732" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">tab</span> FTPT </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="df55553b" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">tab</span> FTPT </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
        Whether |
@@ -493,9 +478,9 @@ Does not apply |     32,189       51.04       51.04
          Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="5eb735b4" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb16-1"><a href="#cb16-1"></a>*** Looking <span class="fu">at</span> employees only</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="kw">tab</span> FTPT <span class="kw">if</span> INECAC05==1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="83de9a9a" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1"></a>*** Looking <span class="fu">at</span> employees only</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="kw">tab</span> FTPT <span class="kw">if</span> INECAC05==1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
        Whether |
@@ -510,59 +495,21 @@ Does not apply |     32,189       51.04       51.04
 </div>
 </div>
 <p>There are 19,680 full-time employees in the sample.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<ol type="1">
-<li>Provide a similar description for the summarised economic activity variable.</li>
-<li>How many <em>self-employed</em> respondents working full-time are there in the sample?</li>
-</ol>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<ol type="1">
-<li></li>
-</ol>
-<div id="0923a1ed" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">tab</span> ILODEFR,<span class="fu">m</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-      Economic |
-      activity |
-    (reported) |
-     from MM05 |      Freq.     Percent        Cum.
----------------+-----------------------------------
- In employment |     30,899       48.99       48.99
-ILO unemployed |      1,081        1.71       50.71
-      Inactive |     19,630       31.12       81.83
-      Under 16 |     11,459       18.17      100.00
----------------+-----------------------------------
-         Total |     63,069      100.00</code></pre>
-</div>
-</div>
-<ol start="2" type="1">
-<li></li>
-</ol>
-<div id="2adda5ae" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">tab</span> FTPT <span class="kw">if</span> INECAC05==2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-       Whether |
-  working Full |
-  or Part Time |      Freq.     Percent        Cum.
----------------+-----------------------------------
-     No answer |         10        0.23        0.23
-     Full time |      2,823       64.35       64.58
-     Part time |      1,553       35.40       99.98
-   New Deal-PT |          1        0.02      100.00
----------------+-----------------------------------
-         Total |      4,387      100.00</code></pre>
-</div>
-</div>
-<p>There are 2,823 respondents in full-time self-employment in the sample.</p>
-</div>
-</div>
-</div>
+<!-- ::: panel-tabset -->
+<!-- ## Question -->
+<!-- 1. Provide a similar  description for the summarised economic activity variable. -->
+<!-- 2. How many  *self-employed* respondents working full-time are there in the sample? -->
+<!-- ## Answer -->
+<!-- 1.  -->
+<!-- ```{stata  subset} -->
+<!-- tab ILODEFR,m -->
+<!-- ``` -->
+<!-- 2.  -->
+<!-- ```{stata ex2.2}          -->
+<!-- tab FTPT if INECAC05==2 -->
+<!-- ``` -->
+<!-- There are 2,823 respondents in full-time self-employment in the sample. -->
+<!-- ::: -->
 </section>
 <section id="ons-estimates-for-employees-gross-weekly-earnings" class="level2">
 <h2 class="anchored" data-anchor-id="ons-estimates-for-employees-gross-weekly-earnings">ONS estimates for employees’ gross weekly earnings</h2>
@@ -571,15 +518,15 @@ ILO unemployed |      1,081        1.71       50.71
 <li><p>First, we create a variable to match the ONS’ definition of full-time employees</p>
 <p>It is always a good idea to double check the ONS definition <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04">in its publication.</a> Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for respondents’ main job, and also that <em>those earnings more than £100 per hour</em> are excluded.</p></li>
 </ul>
-<div id="dbaf1083" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">gen</span> ftEmp=0</span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">replace</span> ftEmp=1 <span class="kw">if</span> FTPT==1 &amp; HOURPAY&lt;=100 &amp; INECAC05==1 </span>
-<span id="cb22-3"><a href="#cb22-3"></a></span>
-<span id="cb22-4"><a href="#cb22-4"></a>lab <span class="kw">var</span> ftEmp <span class="st">"Whether a full-time employee  - ONS definition"</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a>lab def ftEmp 0 <span class="st">"Anything else"</span> 1 <span class="st">"Full-time employee"</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a>lab val  ftEmp ftEmp</span>
-<span id="cb22-7"><a href="#cb22-7"></a></span>
-<span id="cb22-8"><a href="#cb22-8"></a><span class="kw">tab</span> ftEmp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2148766a" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">gen</span> ftEmp=0</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="kw">replace</span> ftEmp=1 <span class="kw">if</span> FTPT==1 &amp; HOURPAY&lt;=100 &amp; INECAC05==1 </span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a>lab <span class="kw">var</span> ftEmp <span class="st">"Whether a full-time employee  - ONS definition"</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>lab def ftEmp 0 <span class="st">"Anything else"</span> 1 <span class="st">"Full-time employee"</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>lab val  ftEmp ftEmp</span>
+<span id="cb16-7"><a href="#cb16-7"></a></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="kw">tab</span> ftEmp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 
@@ -602,10 +549,10 @@ Full-time employee |     19,662       31.18      100.00
 <ul>
 <li>We then compute the median earnings for full-timers matching the ONS definition:</li>
 </ul>
-<div id="52bc88d0" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb24-1"><a href="#cb24-1"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 [pw=PIWT24]</span>
-<span id="cb24-2"><a href="#cb24-2"></a></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">return</span> <span class="ot">list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="82d541e1" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb18-1"><a href="#cb18-1"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 [pw=PIWT24]</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">return</span> <span class="ot">list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 
@@ -616,25 +563,25 @@ scalars:
 </div>
 <p>The median weekly earnings of full-time employees in the UK in October-December 2024 was £692. We need to keep in mind that by using the income weights <code>PIWT</code>, those with missing values on <code>GRSSWK</code> are automatically left out.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Answers</a></li></ul>
 <div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ol type="1">
 <li><p>What are the median weekly earnings for men and women in the UK?</p></li>
 <li><p>What are earnings at the lowest decile for males and females in the UK?</p></li>
 <li><p>Why are we using a different weight from Exercise 1?</p></li>
 </ol>
 </div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <ol type="1">
 <li></li>
 </ol>
-<div id="000383e9" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb26-1"><a href="#cb26-1"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==2 [pw=PIWT24]</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">return</span> <span class="ot">list</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a></span>
-<span id="cb26-4"><a href="#cb26-4"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==1  [pw=PIWT24]</span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="fu">return</span> <span class="ot">list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c2fbef7e" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb20-1"><a href="#cb20-1"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==2 [pw=PIWT24]</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">return</span> <span class="ot">list</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a></span>
+<span id="cb20-4"><a href="#cb20-4"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==1  [pw=PIWT24]</span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="fu">return</span> <span class="ot">list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 
@@ -652,12 +599,12 @@ scalars:
 <ol start="2" type="1">
 <li></li>
 </ol>
-<div id="7cda7704" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb28-1"><a href="#cb28-1"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==2 [pw=PIWT24],<span class="kw">p</span>(10)</span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">return</span> <span class="ot">list</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a></span>
-<span id="cb28-4"><a href="#cb28-4"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==1  [pw=PIWT24],<span class="kw">p</span>(10)</span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="fu">return</span> <span class="ot">list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e2c57143" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb22-1"><a href="#cb22-1"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==2 [pw=PIWT24],<span class="kw">p</span>(10)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">return</span> <span class="ot">list</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a></span>
+<span id="cb22-4"><a href="#cb22-4"></a>_pctile GRSSWK  <span class="kw">if</span> ftEmp==1 &amp; SEX==1  [pw=PIWT24],<span class="kw">p</span>(10)</span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="fu">return</span> <span class="ot">list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 
@@ -681,19 +628,19 @@ scalars:
 </section>
 <section id="how-many-people-work-as-full-time-employee" class="level2">
 <h2 class="anchored" data-anchor-id="how-many-people-work-as-full-time-employee">How many people work as full-time employee?</h2>
-<p>This question relies on a slightly different definition that we have used so far since this time we won’t exclude those earning more than £100 per hour. The figures published by the ONS can be found <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa">in Table EMP01 here</a>.</p>
+<p>This question relies on a slightly different definition that we have used so far since this time we won’t exclude those earning more than £100 per hour. The figures published by the ONS can be found in the same table as previously.</p>
 <p>Let’s follow the same steps as before:</p>
 <ol type="1">
 <li>Let’s flag full-time employees (no limit on hourly pay this time):</li>
 </ol>
-<div id="7a70e2bd" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">gen</span> ftEmp2=0</span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="kw">replace</span> ftEmp2=1 <span class="kw">if</span> FTPT==1 &amp;  INECAC05==1 </span>
-<span id="cb30-3"><a href="#cb30-3"></a></span>
-<span id="cb30-4"><a href="#cb30-4"></a>lab <span class="kw">var</span> ftEmp2 <span class="st">"Whether a full-time employee  - unrestricted"</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a>lab val  ftEmp ftEmp2</span>
-<span id="cb30-6"><a href="#cb30-6"></a></span>
-<span id="cb30-7"><a href="#cb30-7"></a><span class="kw">tab</span> ftEmp2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3ce83eb7" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">gen</span> ftEmp2=0</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="kw">replace</span> ftEmp2=1 <span class="kw">if</span> FTPT==1 &amp;  INECAC05==1 </span>
+<span id="cb24-3"><a href="#cb24-3"></a></span>
+<span id="cb24-4"><a href="#cb24-4"></a>lab <span class="kw">var</span> ftEmp2 <span class="st">"Whether a full-time employee  - unrestricted"</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>lab val  ftEmp ftEmp2</span>
+<span id="cb24-6"><a href="#cb24-6"></a></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="kw">tab</span> ftEmp2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 
@@ -715,8 +662,8 @@ unrestricte |
 </div>
 </div>
 <p>Let’s tell Stata that we are working with survey data.</p>
-<div id="7bcf3fd1" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">svyset</span> [pw=PIWT24]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c667c25d" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">svyset</span> [pw=PIWT24]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Sampling weights: PIWT24
@@ -728,8 +675,8 @@ Sampling weights: PIWT24
 </div>
 </div>
 <p>And finally, let’s produce our estimates:</p>
-<div id="2f7ed077" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">svy</span>,subpop(ftEmp2):<span class="kw">total</span> FTPT, cformat(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a436ac6b" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">svy</span>,subpop(ftEmp2):<span class="kw">total</span> FTPT, cformat(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(running total on estimation sample)
 
@@ -750,9 +697,9 @@ Number of PSUs   = 63,069         Population size = 29,332,807
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Answer</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Answer</a></li></ul>
 <div class="tab-content">
-<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <ol type="1">
 <li><p>The ONS table gives the estimated number of full-time employees as 22,430,659. Above, we get 22,442,379. Why is there a difference?</p></li>
 <li><p>What steps need to be different to get the correct estimate of the number of full-time employees?</p></li>
@@ -763,14 +710,14 @@ Number of PSUs   = 63,069         Population size = 29,332,807
 </ul></li>
 </ol>
 </div>
-<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <ol type="1">
 <li><p>Because we have used the wrong weights ie PIWT24, the weights that can only be used for earnings estimation</p></li>
 <li><p>We need to rerun the <code>svy</code> commands using the correct weighting variable: PWT24</p></li>
 </ol>
-<div id="dc9a0443" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">svyset</span> [pw=PWT24]</span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="kw">svy</span>,subpop(ftEmp2):<span class="kw">total</span> FTPT, cformat(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2dd6c7a4" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">svyset</span> [pw=PWT24]</span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="kw">svy</span>,subpop(ftEmp2):<span class="kw">total</span> FTPT, cformat(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 
@@ -802,16 +749,16 @@ Number of PSUs   = 63,069         Population size = 68,185,623
 <ol start="3" type="1">
 <li></li>
 </ol>
-<div id="c7be4a3e" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb38-1"><a href="#cb38-1"></a>* Grouping employee flag and gender</span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="kw">egen</span> ftEmpS=<span class="fu">group</span>(SEX ftEmp2),<span class="kw">label</span> </span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="kw">tab</span> ftEmpS,<span class="kw">gen</span>(FtES)  </span>
-<span id="cb38-4"><a href="#cb38-4"></a></span>
-<span id="cb38-5"><a href="#cb38-5"></a>*** Full-time employees, males</span>
-<span id="cb38-6"><a href="#cb38-6"></a><span class="kw">svy</span>,subpop(FtES2):<span class="kw">total</span> FTPT, cformat(%9.0f) </span>
-<span id="cb38-7"><a href="#cb38-7"></a></span>
-<span id="cb38-8"><a href="#cb38-8"></a>***  Full-time employees, females</span>
-<span id="cb38-9"><a href="#cb38-9"></a><span class="kw">svy</span>,subpop(FtES4):<span class="kw">total</span> FTPT, cformat(%9.0f) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="261bce63" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb32-1"><a href="#cb32-1"></a>* Grouping employee flag and gender</span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="kw">egen</span> ftEmpS=<span class="fu">group</span>(SEX ftEmp2),<span class="kw">label</span> </span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="kw">tab</span> ftEmpS,<span class="kw">gen</span>(FtES)  </span>
+<span id="cb32-4"><a href="#cb32-4"></a></span>
+<span id="cb32-5"><a href="#cb32-5"></a>*** Full-time employees, males</span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="kw">svy</span>,subpop(FtES2):<span class="kw">total</span> FTPT, cformat(%9.0f) </span>
+<span id="cb32-7"><a href="#cb32-7"></a></span>
+<span id="cb32-8"><a href="#cb32-8"></a>***  Full-time employees, females</span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="kw">svy</span>,subpop(FtES4):<span class="kw">total</span> FTPT, cformat(%9.0f) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 
