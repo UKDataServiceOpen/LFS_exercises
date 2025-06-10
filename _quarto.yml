@@ -11,6 +11,7 @@ project:
    - exercise_2_Stata.qmd
    - exercise_2_spss.qmd
    - exercise_3.qmd
+   - exercise_3_spss.qmd
    - exercise_3_Stata.qmd
    - exercise_4.qmd
    - exercise_4_Stata.qmd
@@ -53,6 +54,9 @@ website:
           text: R
         - href: exercise_3_Stata.qmd
           text: Stata
+        - href: exercise_3_spss.qmd
+          text: SPSS
+          
 
       - section: "**4. Estimates precision**"
         contents:

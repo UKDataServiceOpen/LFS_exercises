@@ -799,5 +799,104 @@
       "**2. Weekly earnings**",
       "R"
     ]
+  },
+  {
+    "objectID": "exercise_3_spss.html",
+    "href": "exercise_3_spss.html",
+    "title": "Exercise 3: Labour Market Flows",
+    "section": "",
+    "text": "The exercise presents three different methods for examining labour market flows - ie the transitions between one kind of involvement in paid work (for example, full-time employed) to another one (for example, economically inactive) using longitudinal data from the Labour Force Survey.\nThe estimates in this exercise relate to figures published by ONS on the ‘Labour market flows NSA’ sheet in Table X02. NSA stands for ‘non seasonally adjusted’, as we will be examining flows that took place between two quarters (as opposed to seasonally adjusted yearly averages).\nLearning outcomes:\n\nBecoming familiar with Two Quarter Longitudinal Labour Force Survey data\nBeing able to estimate labour market flows using different methods\nBeing able to use longitudinal weights\n\n\n\nThis exercise relies on the Two-Quarter LFS Longitudinal Dataset for July - December 2024, which is available from the UK Data Service (Study number 9348).\n\n\n\nWe suggest that you create a folder named LFS_exercises as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within LFS_exercises, such as a subfolder named Data.\nLet’s open the LLFS dataset from the File menu:\n\nAs previously, let’s just keep the variables we need for the exercise.\nsave OUTFILE=\"Z://LFS_exercises/data/dataex3.sav\"\n     /KEEP= AGES2 AGE2 LGWT24 EMPLEN1 EMPLEN2 FLOW SEX ILODEFR1 ILODEFR2 INCAC051 INCAC052 SC20MMJ1 SC20MMJ2 In792sm2 In792sm1.\n\nget FILE=\"Z://LFS_exercises/data/dataex3.sav\". \n\n\n\nLet’s inspect the data and the new variables by looking at the variables and data view:\n\n\n\nVariable view\n\n\n\n\n\nData view\n\n\n\nReview questions 1Answers\n\n\n\nWhat is the FLOW variable?\nWhy do some variables have a suffix of 1 or 2?\n\n\n\n\nFLOW measures labour market flows, that is the transitions between economic activity statuses\n\nFREQUENCIES VARIABLES=FLOW\n  /ORDER=ANALYSIS.\n\n\n\nThe LFS FLOW variable\n\n\n\nThe suffix in most variables indicates the wave ie the quarter at which it was recorded.\n\n\n\n\n\n\n\nIn order to match the definition used by the ONS for their published estimates, we will examine the FLOW variable but only consider respondents aged 16-64. We will then weight the variable with the longitudinal weight LGWT24. In addition to adjusting for non-response and sampling error, longitudinal weights also correct for respondents who drop out from the survey between waves.\nAs before, we begin by flagging those aged 16-64:\nCOMPUTE wrkage = 0.\nIF (AGE2 &gt;= 16 AND AGE2 &lt;= 64) wrkage = 1.\nEXECUTE.\n\nVARIABLE LABELS wrkage \"Whether aged 16-64\".\nVALUE LABELS wrkage\n  0 \"Other\"\n  1 \"16-64\".\n\nFREQUENCIES VARIABLES=wrkage.\n\n\n\nThe working-age flag variable\n\n\nWe then compute the weighted frequencies:\nWEIGHT BY LGWT24.\n\nTEMPORARY.\nSELECT IF (wrkage = 1).\n\nFREQUENCIES VARIABLES=FLOW\n  /ORDER=ANALYSIS.\n\nWEIGHT OFF.\n\n\n\nEstimated labour market flows\n\n\n\nReview question 2Answers\n\n\nHow many people were in employment in both the first quarter and final quarter?\n\n\nThe second line of the table above tells us that there were 31,274,220 people in employment both in June-August and September-December 2024\n\n\n\n\n\n\nHere we examine the situation of respondents at the first and second quarters. Let us first flag those who went into a new job at the second quarter and examine their frequency distribution:\n\n\nCOMPUTE NewJob = 0.\n\nIF (ILODEFR2 = 1  & EMPLEN2 = 1 &  wrkage = 1) NewJob = 1.\n\nEXECUTE.\n\nVARIABLE LABELS NewJob  \"Whether in a new job at Q2\".\n\nVALUE LABELS NewJob\n  0 \"Anything else\"\n  1 \"In a new job at Q2\".\n\nFREQUENCIES VARIABLES=NewJob.\n\n\n\nIn a new job at Q2, sample distribution\n\n\nLet us now produce the estimate of the number of people in the population who went into a new job at the second quarter:\n* Apply weight.\nWEIGHT BY LGWT24.\n\n\nFREQUENCIES VARIABLES=NewJob\n  /ORDER=ANALYSIS.\n\nWEIGHT OFF.\n\n\n\n\n\nEstimated totals in new jobs\n\n\n\nReview question 3Answer\n\n\nWhat has been estimated with the flag and table above?\nHint: examine the two variables used in the filter to understand the selection\n\n\nThe table measures the number of people who either changed jobs or moved into employment between the first and second quarter.\n\n\n\n\n\n\nThis time we will be looking at transitions between employment broadly defined and self-employment from wave 1 to wave 2.\nIn order to do this, we will create a simplified economic activity variable recording employees (including those on training schemes as well as unpaid family workers) the unemployed, and the economically inactive at waves 1 and 2.\n* Wave 1 \nRECODE INCAC051 (1,3,4=1) (2=2) (5=3) (6 THRU 34=SYSMIS) INTO eco1.\nVARIABLE LABELS eco1 \"Simplified economic activity - Wave 1\".\nVALUE LABELS eco1\n  1 \"Employee\"\n  2 \"Self-employed\"\n  3 \"Unemployed\".\n\n* Wave 2.\nRECODE INCAC052 (1,3,4=1) (2=2) (5=3) (6 THRU 34=SYSMIS) INTO eco2.\nVARIABLE LABELS eco2 \"Simplified economic activity - Wave 2\".\nVALUE LABELS eco2\n  1 \"Employee\"\n  2 \"Self-employed\"\n  3 \"Unemployed\".\nEXECUTE.\n\nFREQUENCIES VARIABLES=eco1 eco2.\n\nWe can now examine the transitions between economic activity states at Q1 and Q2: by creating a cross-tabulation of economic activity at wave 1 and wave 2. We will rely again on wrkage to limit the analysis on the 16-64 as well as on the longitudinal weights.\nWEIGHT BY LGWT24.\n\nTEMPORARY.\nSELECT IF (wrkage = 1).\n\nCROSSTABS\n  /TABLES=eco1 BY eco2\n  /CELLS=COUNT PROP\n  /COUNT ROUND CELL.\n\nWEIGHT OFF.\n\n\nReview questions 4Answers\n\n\nWhat were the flows (ie number of people transitioning) between:\n\nEmployment and self-employment\n\nSelf-employment to employment?\n\n\n\n\nThere were approximatively 194,372 people moving from employment to self-employment between July-August and September-December 2024.\nAbout 128,030 people who were self-employed in July-August 2024 had become employee by September-December 2024.\n\n\n\n\n\n\n\nThis was the final structured exercise. Some ideas for what to do next are:\n\nUse the methods above to examine flows between industry or occupation (SC10MMJ1 SC10MMJ2 in792sm2 in792sm1).\nOpen the full dataset to examine what variables in the Two-Quarter Longitudinal Dataset.",
+    "crumbs": [
+      "**3. Labour Market Flows**",
+      "SPSS"
+    ]
+  },
+  {
+    "objectID": "exercise_3_spss.html#data",
+    "href": "exercise_3_spss.html#data",
+    "title": "Exercise 3: Labour Market Flows",
+    "section": "",
+    "text": "This exercise relies on the Two-Quarter LFS Longitudinal Dataset for July - December 2024, which is available from the UK Data Service (Study number 9348).",
+    "crumbs": [
+      "**3. Labour Market Flows**",
+      "SPSS"
+    ]
+  },
+  {
+    "objectID": "exercise_3_spss.html#get-set-up",
+    "href": "exercise_3_spss.html#get-set-up",
+    "title": "Exercise 3: Labour Market Flows",
+    "section": "",
+    "text": "We suggest that you create a folder named LFS_exercises as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within LFS_exercises, such as a subfolder named Data.\nLet’s open the LLFS dataset from the File menu:\n\nAs previously, let’s just keep the variables we need for the exercise.\nsave OUTFILE=\"Z://LFS_exercises/data/dataex3.sav\"\n     /KEEP= AGES2 AGE2 LGWT24 EMPLEN1 EMPLEN2 FLOW SEX ILODEFR1 ILODEFR2 INCAC051 INCAC052 SC20MMJ1 SC20MMJ2 In792sm2 In792sm1.\n\nget FILE=\"Z://LFS_exercises/data/dataex3.sav\".",
+    "crumbs": [
+      "**3. Labour Market Flows**",
+      "SPSS"
+    ]
+  },
+  {
+    "objectID": "exercise_3_spss.html#lets-examine-the-working-dataset",
+    "href": "exercise_3_spss.html#lets-examine-the-working-dataset",
+    "title": "Exercise 3: Labour Market Flows",
+    "section": "",
+    "text": "desc\nsumm *\n\nReview questions 1Answers\n\n\n\nWhat is the FLOW variable?\nWhy do some variables have a suffix of 1 or 2?\n\n\n\n\nFLOW measures labour market flows, that is the transitions between economic activity statuses\n\nta FLOW\n\nThe suffix in most variables indicates the wave ie the quarter at which it was recorded.",
+    "crumbs": [
+      "**3. Labour Market Flows**",
+      "SPSS"
+    ]
+  },
+  {
+    "objectID": "exercise_3_spss.html#method-1-using-the-flow-variable",
+    "href": "exercise_3_spss.html#method-1-using-the-flow-variable",
+    "title": "Exercise 3: Labour Market Flows",
+    "section": "",
+    "text": "In order to match the definition used by the ONS for their published estimates, we will examine the FLOW variable but only consider respondents aged 16-64. We will then weight the variable with the longitudinal weight LGWT24. In addition to adjusting for non-response and sampling error, longitudinal weights also correct for respondents who drop out from the survey between waves.\nAs before, we begin by flagging those aged 16-64:\nCOMPUTE wrkage = 0.\nIF (AGE2 &gt;= 16 AND AGE2 &lt;= 64) wrkage = 1.\nEXECUTE.\n\nVARIABLE LABELS wrkage \"Whether aged 16-64\".\nVALUE LABELS wrkage\n  0 \"Other\"\n  1 \"16-64\".\n\nFREQUENCIES VARIABLES=wrkage.\n\n\n\nThe working-age flag variable\n\n\nWe then compute the weighted frequencies:\nWEIGHT BY LGWT24.\n\nTEMPORARY.\nSELECT IF (wrkage = 1).\n\nFREQUENCIES VARIABLES=FLOW\n  /ORDER=ANALYSIS.\n\nWEIGHT OFF.\n\n\n\nEstimated labour market flows\n\n\n\nReview question 2Answers\n\n\nHow many people were in employment in both the first quarter and final quarter?\n\n\nThe second line of the table above tells us that there were 31,274,220 people in employment both in June-August and September-December 2024",
+    "crumbs": [
+      "**3. Labour Market Flows**",
+      "SPSS"
+    ]
+  },
+  {
+    "objectID": "exercise_3_spss.html#method-2-employment-situation-at-w1-and-w2",
+    "href": "exercise_3_spss.html#method-2-employment-situation-at-w1-and-w2",
+    "title": "Exercise 3: Labour Market Flows",
+    "section": "",
+    "text": "Here we examine the situation of respondents at the first and second quarters. Let us first flag those who went into a new job at the second quarter and examine their frequency distribution:\n\n\nCOMPUTE NewJob = 0.\n\nIF (ILODEFR2 = 1  & EMPLEN2 = 1 &  wrkage = 1) NewJob = 1.\n\nEXECUTE.\n\nVARIABLE LABELS NewJob  \"Whether in a new job at Q2\".\n\nVALUE LABELS NewJob\n  0 \"Anything else\"\n  1 \"In a new job at Q2\".\n\nFREQUENCIES VARIABLES=NewJob.\n\n\n\nIn a new job at Q2, sample distribution\n\n\nLet us now produce the estimate of the number of people in the population who went into a new job at the second quarter:\n* Apply weight.\nWEIGHT BY LGWT24.\n\n\nFREQUENCIES VARIABLES=NewJob\n  /ORDER=ANALYSIS.\n\nWEIGHT OFF.\n\n\n\n\n\nEstimated totals in new jobs\n\n\n\nReview question 3Answer\n\n\nWhat has been estimated with the flag and table above?\nHint: examine the two variables used in the filter to understand the selection\n\n\nThe table measures the number of people who either changed jobs or moved into employment between the first and second quarter.",
+    "crumbs": [
+      "**3. Labour Market Flows**",
+      "SPSS"
+    ]
+  },
+  {
+    "objectID": "exercise_3_spss.html#method-3-cross-tabulation",
+    "href": "exercise_3_spss.html#method-3-cross-tabulation",
+    "title": "Exercise 3: Labour Market Flows",
+    "section": "",
+    "text": "This time we will be looking at transitions between employment broadly defined and self-employment from wave 1 to wave 2.\nIn order to do this, we will create a simplified economic activity variable recording employees (including those on training schemes as well as unpaid family workers) the unemployed, and the economically inactive at waves 1 and 2.\n* Wave 1 \nRECODE INCAC051 (1,3,4=1) (2=2) (5=3) (6 THRU 34=SYSMIS) INTO eco1.\nVARIABLE LABELS eco1 \"Simplified economic activity - Wave 1\".\nVALUE LABELS eco1\n  1 \"Employee\"\n  2 \"Self-employed\"\n  3 \"Unemployed\".\n\n* Wave 2.\nRECODE INCAC052 (1,3,4=1) (2=2) (5=3) (6 THRU 34=SYSMIS) INTO eco2.\nVARIABLE LABELS eco2 \"Simplified economic activity - Wave 2\".\nVALUE LABELS eco2\n  1 \"Employee\"\n  2 \"Self-employed\"\n  3 \"Unemployed\".\nEXECUTE.\n\nFREQUENCIES VARIABLES=eco1 eco2.\n\nWe can now examine the transitions between economic activity states at Q1 and Q2: by creating a cross-tabulation of economic activity at wave 1 and wave 2. We will rely again on wrkage to limit the analysis on the 16-64 as well as on the longitudinal weights.\nWEIGHT BY LGWT24.\n\nTEMPORARY.\nSELECT IF (wrkage = 1).\n\nCROSSTABS\n  /TABLES=eco1 BY eco2\n  /CELLS=COUNT PROP\n  /COUNT ROUND CELL.\n\nWEIGHT OFF.\n\n\nReview questions 4Answers\n\n\nWhat were the flows (ie number of people transitioning) between:\n\nEmployment and self-employment\n\nSelf-employment to employment?\n\n\n\n\nThere were approximatively 194,372 people moving from employment to self-employment between July-August and September-December 2024.\nAbout 128,030 people who were self-employed in July-August 2024 had become employee by September-December 2024.",
+    "crumbs": [
+      "**3. Labour Market Flows**",
+      "SPSS"
+    ]
+  },
+  {
+    "objectID": "exercise_3_spss.html#what-next",
+    "href": "exercise_3_spss.html#what-next",
+    "title": "Exercise 3: Labour Market Flows",
+    "section": "",
+    "text": "This was the final structured exercise. Some ideas for what to do next are:\n\nUse the methods above to examine flows between industry or occupation (SC10MMJ1 SC10MMJ2 in792sm2 in792sm1).\nOpen the full dataset to examine what variables in the Two-Quarter Longitudinal Dataset.",
+    "crumbs": [
+      "**3. Labour Market Flows**",
+      "SPSS"
+    ]
+  },
+  {
+    "objectID": "exercise_3_spss.html#examine-the-working-dataset",
+    "href": "exercise_3_spss.html#examine-the-working-dataset",
+    "title": "Exercise 3: Labour Market Flows",
+    "section": "",
+    "text": "Let’s inspect the data and the new variables by looking at the variables and data view:\n\n\n\nVariable view\n\n\n\n\n\nData view\n\n\n\nReview questions 1Answers\n\n\n\nWhat is the FLOW variable?\nWhy do some variables have a suffix of 1 or 2?\n\n\n\n\nFLOW measures labour market flows, that is the transitions between economic activity statuses\n\nFREQUENCIES VARIABLES=FLOW\n  /ORDER=ANALYSIS.\n\n\n\nThe LFS FLOW variable\n\n\n\nThe suffix in most variables indicates the wave ie the quarter at which it was recorded.",
+    "crumbs": [
+      "**3. Labour Market Flows**",
+      "SPSS"
+    ]
   }
 ]
