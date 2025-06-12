@@ -223,7 +223,7 @@ CROSSTABS
 
 WEIGHT OFF.
 ```
-![](pics/spss3_10.png){fig-alt="Contingency table tables of ECO1 by ECO2"}
+<!-- ![](pics/spss3_10.png){fig-alt="Contingency table tables of ECO1 by ECO2"} -->
 
 
 ::: panel-tabset

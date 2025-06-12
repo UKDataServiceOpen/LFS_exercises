@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2.qmd" class="sidebar-item-text sidebar-link">
+  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R</span></a>
   </div>
 </li>
@@ -196,6 +196,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stata</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -221,6 +227,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Stata</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SPSS</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -242,6 +254,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stata</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -279,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Learning objectives:</p>
 <ul>
 <li>To be able to compute and interpret confidence intervals of earnings in the LFS;</li>
-<li>To be able to assess the impact of weighting on weighting ;</li>
+<li>To be able to assess the impact of weighting on the size of confidence intervals;</li>
 <li>To be able to interpret CIs for regional differences;</li>
 <li>To be able to use published LFS design effects and apply them to your own estimates;</li>
 </ul>
@@ -418,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="part-time-female-employees-across-regions" class="level2">
 <h2 class="anchored" data-anchor-id="part-time-female-employees-across-regions">2. Part-time female employees across regions</h2>
-<p>In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of part-time employed female employees in London and the North West of England. First, let’s examine the variable for regions:</p>
+<p>In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of part-time female employees in London and the North West of England. First, let’s examine the variable for regions:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">table</span>(dataex4<span class="sc">$</span>GOVTOF2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -706,8 +724,11 @@ FTPT                  FALSE  TRUE
 </ol>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<p>1.They have widened, which means that in this case, not taking the survey design led us to overestimate the precision of estimates.<br>
-2. We would not be able to do this with the safeguarded version of the data as there are no design factors for earnings published by the ONS. We would need to use the secured version of the data, and compute the adjusted estimates ourselves using the appropriate survey functions.</p>
+<ol type="1">
+<li>They have widened: from [4.5-5.2] to [3.9-5.8] for women and from [10.5-11.5] to [9.8-12.1] for men, which means that in this case, not taking the survey design led us to overestimate the precision of estimates.<br>
+</li>
+<li>We would not be able to do this with the safeguarded version of the data as there are no design factors for earnings published by the ONS. We would need to use the secured version of the data, and compute the adjusted estimates ourselves using the appropriate survey functions.</li>
+</ol>
 </div>
 </div>
 </div>

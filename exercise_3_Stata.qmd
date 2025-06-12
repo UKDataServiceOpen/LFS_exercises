@@ -118,9 +118,9 @@ Here we examine the  situation of respondents at the first and second quarters.
 
 ```{stata select}
 gen NewJob=0
-replace NewJob=1 if ILODEFR2==1 &  EMPLEN2 & wrkage==1,
+replace NewJob=1 if ILODEFR2==1 &  EMPLEN2==1 & wrkage==1,
 
-lab var NewJob "Whether aged 16-64"
+lab var NewJob "Whether in a new job at Q2"
 lab def NewJob 0 "Anything else" 1 "New job at Q2"
 
 lab val NewJob NewJob
@@ -128,7 +128,7 @@ lab val NewJob NewJob
 ta NewJob
 
                                     
-svy, subpop(NewJob):tab FLOW, count format(%9.0f)  stubwidth(32) 
+svy:tab NewJob, count format(%9.0f)  
 
 ```
 

@@ -15,6 +15,7 @@ project:
    - exercise_3_Stata.qmd
    - exercise_4.qmd
    - exercise_4_Stata.qmd
+   - exercise_4_spss.qmd
 
 jupyter: nbstata
 
@@ -64,6 +65,8 @@ website:
           text: R
         - href: exercise_4_Stata.qmd
           text: Stata
+        - href: exercise_4_spss.qmd
+          text: SPSS
 
 
 format:

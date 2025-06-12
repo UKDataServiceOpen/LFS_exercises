@@ -6,7 +6,7 @@ This series of exercises focuses on the precision of estimates produced from Lab
 Learning objectives:
 
 - To be able to compute and interpret confidence intervals of earnings in the LFS;
-- To be able to assess the impact of weighting on weighting ;
+- To be able to assess the impact of weighting on the size of confidence intervals;
 - To be able to interpret CIs for regional differences;
 - To be able to use published LFS design effects  and apply them to your own estimates;
 
@@ -133,7 +133,7 @@ mw.s
 
 
 ## 2. Part-time  female employees across regions
-In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of part-time employed female employees  in London and the North West of England.
+In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of part-time  female employees  in London and the North West of England.
 First, let's examine the variable for regions:
 
 ```{r govtof}
@@ -332,7 +332,7 @@ sem$coef[2]+1.96*sqrt(sem$`_se`[2]*1.2216)
 2. What if we wanted  to adjust our earlier estimates of gross weekly earnings for the design effects? 
 
 ### Answers
-1.They have widened, which means that in this case, not taking the survey design led us to overestimate the precision of estimates.  
+1. They have widened: from [4.5-5.2] to [3.9-5.8]  for women and  from [10.5-11.5] to [9.8-12.1] for men, which means that in this case, not taking the survey design led us to overestimate the precision of estimates.  
 2. We would not be able to do this with the safeguarded version of the data as there are no  design factors for earnings published by the ONS. We would need to use the secured version of the data, and compute the adjusted estimates ourselves using the appropriate survey functions.
 
 :::
