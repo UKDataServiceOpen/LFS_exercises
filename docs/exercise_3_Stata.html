@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>exercise_3_stata – Getting Started with the Labour Force Survey</title>
+<title>Using Stata – Getting Started with the LFS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,23 +58,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./exercise_3_spss.html" rel="next">
+<link href="./exercise_3.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7a4068b46cc005e1514339e2acc6e017.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f67738801adab4ec373db556c2f6c09b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ad6b74b749eafe8a69bf48827ee39095.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -103,21 +106,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #742082;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #742082;
+background: white;
+      }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="ukds.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_3.html"><strong>3. Labour Market Flows</strong></a></li><li class="breadcrumb-item"><a href="./exercise_3_Stata.html">Stata</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_3.html"><strong>3. Labour Market Flows</strong></a></li><li class="breadcrumb-item"><a href="./exercise_3_Stata.html"><span class="chapter-title">Using Stata</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -127,13 +149,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_3.html"><strong>3. Labour Market Flows</strong></a></li><li class="breadcrumb-item"><a href="./exercise_3_Stata.html"><span class="chapter-title">Using Stata</span></a></li></ol></nav>
+      <h1 class="title"><span class="chapter-title">Using Stata</span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="http:// ukdataservice.ac.uk" class="sidebar-logo-link">
-      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./"></a> 
+        <div class="sidebar-tools-main">
+    <a href="./LFS_Exercices.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -144,8 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Introduction</strong></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Introduction</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -159,20 +203,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -188,20 +229,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -217,20 +255,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -246,28 +281,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
   <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
@@ -279,33 +315,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#what-next" id="toc-what-next" class="nav-link" data-scroll-target="#what-next">What next?</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_3.html"><strong>3. Labour Market Flows</strong></a></li><li class="breadcrumb-item"><a href="./exercise_3_Stata.html">Stata</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">Exercise 3: Labour Market Flows</h1>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
-
-
+<section id="labour-market-flows" class="level2 unnumbered unlisted">
+<h2 class="unnumbered unlisted anchored" data-anchor-id="labour-market-flows">Labour Market Flows</h2>
 <p>The exercise presents three different methods for examining labour market flows - ie the transitions between one kind of involvement in paid work (for example, full-time employed) to another one (for example, economically inactive) using longitudinal data from the Labour Force Survey.</p>
 <p>The estimates in this exercise relate to figures published by ONS on the ‘Labour market flows NSA’ sheet in <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/labourforcesurveyflowsestimatesx02">Table X02.</a> NSA stands for ‘non seasonally adjusted’, as we will be examining flows that took place between two quarters (as opposed to seasonally adjusted yearly averages).</p>
 <p>Learning outcomes:</p>
@@ -314,6 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Being able to estimate labour market flows using different methods</li>
 <li>Being able to use longitudinal weights</li>
 </ul>
+</section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>This exercise relies on the Two-Quarter LFS Longitudinal Dataset for July - December 2024, which is available from the UK Data Service <a href="http://doi.org/10.5255/UKDA-SN-9348-1">(Study number 9348).</a></p>
@@ -321,34 +341,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="get-set-up" class="level2">
 <h2 class="anchored" data-anchor-id="get-set-up">Get set up</h2>
 <p>We will assume that the working directory for this exercise - where syntax files and other materials will be located - will be a folder named <code>LFS_exercises</code>. Once you have downloaded the data, save it somewhere accessible inside <code>LFS_exercises</code>, for example in another folder named <code>Data</code>… Then open the QLFS dataset:</p>
-<div id="43a4cd05" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">quietly</span> cd  <span class="st">"LFS_exercises/"</span></span>
+<div id="4fd6f5b1" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">quietly</span> cd  <span class="st">"LFS_exercises/"</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a>* Import  the <span class="kw">data</span> from a Stata <span class="kw">format</span> dataset </span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">use</span>  <span class="st">"Data/UKDA-9348-stata/stata/stata13/lgwt24_2q_js24_od24_eul.dta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">use</span>  <span class="st">"Data/UKDA-9348-stata/stata/stata13/lgwt24_2q_js24_od24_eul.dta"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<style>div.jp-Notebook .datagrid-container {min-height: 448px; }</style>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+. quietly cd  "LFS_exercises/"
+
+. 
+. * Import  the data from a Stata format dataset 
+. use  "Data/UKDA-9348-stata/stata/stata13/lgwt24_2q_js24_od24_eul.dta"
+
+. </code></pre>
+</div>
 </div>
 <p>As previously, let’s just keep the variables we need for the exercise.</p>
-<div id="fcf1c9f9" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">keep</span> AGES2 AGE2 LGWT24 EMPLEN1 EMPLEN2 FLOW SEX ILODEFR1 ILODEFR2 <span class="co">///</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>     INCAC051 INCAC052 SC20MMJ1 SC20MMJ2  In792sm2 In792sm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3a5db5d0" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">keep</span> AGES2 AGE2 LGWT24 EMPLEN1 EMPLEN2 FLOW SEX ILODEFR1 ILODEFR2 <span class="co">///</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>     INCAC051 INCAC052 SC20MMJ1 SC20MMJ2  In792sm2 In792sm1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+. keep AGES2 AGE2 LGWT24 EMPLEN1 EMPLEN2 FLOW SEX ILODEFR1 ILODEFR2 ///
+&gt;      INCAC051 INCAC052 SC20MMJ1 SC20MMJ2  In792sm2 In792sm1
+
+. </code></pre>
+</div>
 </div>
 </section>
 <section id="lets-examine-the-working-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="lets-examine-the-working-dataset">Let’s examine the working dataset</h2>
-<div id="77eba7da" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">desc</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>summ *</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="980fd6cd" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">desc</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>summ *</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. desc
 
-Contains data from Data/UKDA-9348-stata/stata/stata13/lgwt24_2q_js24_od24_eul.dt
-&gt; a
+Contains data from Data/UKDA-9348-stata/stata/stata13/lgwt24_2q_js24_od24_eul.d
+&gt; ta
  Observations:        17,629                  
     Variables:            15                  24 FEB 2025 08:39
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 LGWT24          int     %8.0g                 Longitudinal Weight 2024
 FLOW            byte    %8.0g      FLOW       Categories relating to labour
                                                 force gross flows
@@ -375,10 +416,11 @@ EMPLEN2         byte    %8.0g      EMPLEN2    Length of time with current
                                                 employer
 AGES2           byte    %8.0g      AGES2      Age bands
 AGE2            byte    %8.0g      AGE2       Age of respondent
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Sorted by: 
      Note: Dataset has changed since last saved.
 
+. summ *
 
     Variable |        Obs        Mean    Std. dev.       Min        Max
 -------------+---------------------------------------------------------
@@ -398,11 +440,13 @@ Sorted by:
     ILODEFR2 |     17,629    1.660786    .9499472          1          4
      EMPLEN2 |     17,629    .7021952    7.061292         -9          8
        AGES2 |     17,629    10.09638    3.139677          3         15
-        AGE2 |     17,629    47.57014    15.60687         15         70</code></pre>
+        AGE2 |     17,629    47.57014    15.60687         15         70
+
+. </code></pre>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><em>Review questions 1</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><em>Review questions 1</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ol type="1">
@@ -414,10 +458,11 @@ Sorted by:
 <ol type="1">
 <li>FLOW measures labour market flows, that is the transitions between economic activity statuses</li>
 </ol>
-<div id="714350c6" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1"></a>ta FLOW</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="86277e7a" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1"></a>ta FLOW</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. ta FLOW
+
     Categories relating to labour force |
                             gross flows |      Freq.     Percent        Cum.
 ----------------------------------------+-----------------------------------
@@ -448,24 +493,33 @@ Reached retirement age by final quarter |        114        0.65      100.00
 <h2 class="anchored" data-anchor-id="method-1-using-the-flow-variable">Method 1: Using the FLOW variable</h2>
 <p>In order to match the definition used by the ONS for their published estimates, we will examine the FLOW variable but only consider respondents aged 16-64. We will then weight the variable with the longitudinal weight <code>LGWT24</code>. In addition to adjusting for non-response and sampling error, longitudinal weights also correct for respondents who drop out from the survey between waves.</p>
 <p>As before, we begin by flagging those aged 16-64:</p>
-<div id="da67ea5a" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">gen</span> wrkage=0</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">replace</span> wrkage=1 <span class="kw">if</span>  AGE2&gt;=16 &amp; AGE2&lt;=64</span>
-<span id="cb7-3"><a href="#cb7-3"></a></span>
-<span id="cb7-4"><a href="#cb7-4"></a>lab <span class="kw">var</span> wrkage <span class="st">"Whether aged 16-64"</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>lab def wrkage 0 <span class="st">"Other"</span> 1 <span class="st">"16-64"</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a>lab val wrkage wrkage</span>
-<span id="cb7-8"><a href="#cb7-8"></a></span>
-<span id="cb7-9"><a href="#cb7-9"></a>ta AGE2 wrkage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="166f12fe" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">gen</span> wrkage=0</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">replace</span> wrkage=1 <span class="kw">if</span>  AGE2&gt;=16 &amp; AGE2&lt;=64</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a>lab <span class="kw">var</span> wrkage <span class="st">"Whether aged 16-64"</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>lab def wrkage 0 <span class="st">"Other"</span> 1 <span class="st">"16-64"</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a>lab val wrkage wrkage</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a>ta AGE2 wrkage</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. gen wrkage=0
 
+. replace wrkage=1 if  AGE2&gt;=16 &amp; AGE2&lt;=64
 (14,675 real changes made)
 
+. 
+. lab var wrkage "Whether aged 16-64"
 
+. lab def wrkage 0 "Other" 1 "16-64"
 
+. 
+. lab val wrkage wrkage
 
+. 
+. ta AGE2 wrkage
 
         Age of |  Whether aged 16-64
     respondent |     Other      16-64 |     Total
@@ -527,14 +581,17 @@ Reached retirement age by final quarter |        114        0.65      100.00
             69 |       489          0 |       489 
             70 |       114          0 |       114 
 ---------------+----------------------+----------
-         Total |     2,954     14,675 |    17,629 </code></pre>
+         Total |     2,954     14,675 |    17,629 
+
+. </code></pre>
 </div>
 </div>
 <p>We then declare the dataset to be weighted survey data:</p>
-<div id="aaeb3d55" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">svyset</span> [pw=LGWT24]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a6be73ac" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">svyset</span> [pw=LGWT24]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. svyset [pw=LGWT24]
+
 Sampling weights: LGWT24
              VCE: linearized
      Single unit: missing
@@ -544,11 +601,14 @@ Sampling weights: LGWT24
 </div>
 </div>
 <p>And finally, we compute the estimates. .</p>
-<div id="9e3dba3f" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1"></a>*** `stubwidth` allows <span class="kw">for</span> <span class="fu">proper</span> <span class="kw">display</span> <span class="kw">of</span> the labels</span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">svy</span>, subpop(wrkage):<span class="kw">tab</span> FLOW, <span class="fu">count</span> <span class="kw">format</span>(%9.0f)  stubwidth(32) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="f5594135" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1"></a>*** `stubwidth` allows <span class="kw">for</span> <span class="fu">proper</span> <span class="kw">display</span> <span class="kw">of</span> the labels</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">svy</span>, subpop(wrkage):<span class="kw">tab</span> FLOW, <span class="fu">count</span> <span class="kw">format</span>(%9.0f)  stubwidth(32) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(running tabulate on estimation sample)
+<pre><code>
+. *** `stubwidth` allows for proper display of the labels
+. svy, subpop(wrkage):tab FLOW, count format(%9.0f)  stubwidth(32) 
+(running tabulate on estimation sample)
 
 Number of strata =      1                         Number of obs   =     17,629
 Number of PSUs   = 17,629                         Population size = 47,431,221
@@ -578,11 +638,13 @@ Inactive at first quarter; inact |    7849338
 Key:    count = Weighted count
 
   Table contains a zero in the marginals.
-  Statistics cannot be computed.</code></pre>
+  Statistics cannot be computed.
+
+. </code></pre>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true"><em>Review question 2</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><em>Review question 2</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p>How many people were in employment in both the first quarter and final quarter?</p>
@@ -596,27 +658,36 @@ Key:    count = Weighted count
 <section id="method-2-employment-situation-at-w1-and-w2" class="level2">
 <h2 class="anchored" data-anchor-id="method-2-employment-situation-at-w1-and-w2">Method 2: Employment situation at W1 and W2</h2>
 <p>Here we examine the situation of respondents at the first and second quarters.</p>
-<div id="c407fd3a" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">gen</span> NewJob=0</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">replace</span> NewJob=1 <span class="kw">if</span> ILODEFR2==1 &amp;  EMPLEN2==1 &amp; wrkage==1,</span>
-<span id="cb13-3"><a href="#cb13-3"></a></span>
-<span id="cb13-4"><a href="#cb13-4"></a>lab <span class="kw">var</span> NewJob <span class="st">"Whether in a new job at Q2"</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a>lab def NewJob 0 <span class="st">"Anything else"</span> 1 <span class="st">"New job at Q2"</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a></span>
-<span id="cb13-7"><a href="#cb13-7"></a>lab val NewJob NewJob</span>
-<span id="cb13-8"><a href="#cb13-8"></a></span>
-<span id="cb13-9"><a href="#cb13-9"></a>ta NewJob</span>
-<span id="cb13-10"><a href="#cb13-10"></a></span>
-<span id="cb13-11"><a href="#cb13-11"></a>                                    </span>
-<span id="cb13-12"><a href="#cb13-12"></a><span class="kw">svy</span>:<span class="kw">tab</span> NewJob, <span class="fu">count</span> <span class="kw">format</span>(%9.0f)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="24f65ad0" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">gen</span> NewJob=0</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">replace</span> NewJob=1 <span class="kw">if</span> ILODEFR2==1 &amp;  EMPLEN2==1 &amp; wrkage==1,</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a>lab <span class="kw">var</span> NewJob <span class="st">"Whether in a new job at Q2"</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>lab def NewJob 0 <span class="st">"Anything else"</span> 1 <span class="st">"New job at Q2"</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a></span>
+<span id="cb15-7"><a href="#cb15-7"></a>lab val NewJob NewJob</span>
+<span id="cb15-8"><a href="#cb15-8"></a></span>
+<span id="cb15-9"><a href="#cb15-9"></a>ta NewJob</span>
+<span id="cb15-10"><a href="#cb15-10"></a></span>
+<span id="cb15-11"><a href="#cb15-11"></a>                                    </span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="kw">svy</span>:<span class="kw">tab</span> NewJob, <span class="fu">count</span> <span class="kw">format</span>(%9.0f)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. gen NewJob=0
 
+. replace NewJob=1 if ILODEFR2==1 &amp;  EMPLEN2==1 &amp; wrkage==1,
 (406 real changes made)
 
+. 
+. lab var NewJob "Whether in a new job at Q2"
 
+. lab def NewJob 0 "Anything else" 1 "New job at Q2"
 
+. 
+. lab val NewJob NewJob
 
+. 
+. ta NewJob
 
  Whether in a |
 new job at Q2 |      Freq.     Percent        Cum.
@@ -626,6 +697,9 @@ New job at Q2 |        406        2.30      100.00
 --------------+-----------------------------------
         Total |     17,629      100.00
 
+. 
+.                                     
+. svy:tab NewJob, count format(%9.0f)  
 (running tabulate on estimation sample)
 
 Number of strata =      1                         Number of obs   =     17,629
@@ -642,11 +716,13 @@ job at Q2 |      count
           | 
     Total |   47431221
 ----------------------
-Key:    count = Weighted count</code></pre>
+Key:    count = Weighted count
+
+. </code></pre>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true"><em>Review question 3</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Answer</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href=""><em>Review question 3</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Answer</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p>What has been estimated with the flag and table above?</p>
@@ -662,19 +738,29 @@ Key:    count = Weighted count</code></pre>
 <h2 class="anchored" data-anchor-id="method-3-cross-tabulation">Method 3: Cross-tabulation</h2>
 <p>This time we will be looking at transitions between employment broadly defined and self-employment from wave 1 to wave 2.<br>
 In order to do this, we will create a simplified economic activity variable recording employees (including those on training schemes as well as unpaid family workers) the unemployed, and the economically inactive at waves 1 and 2.</p>
-<div id="622cb54a" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1"></a>forval x = 1/2 { </span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="kw">recode</span>  INCAC05<span class="ot">`x'</span> 1 3 4 =1 2=2 5=3 6/34=.,<span class="kw">gen</span>(eco<span class="ot">`x'</span>)</span>
-<span id="cb15-3"><a href="#cb15-3"></a>lab <span class="kw">var</span> eco<span class="ot">`x'</span> <span class="st">"Simplified economic activity - Wave `x'"</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a>lab def eco<span class="ot">`x'</span> 1 <span class="st">"Employee"</span> 2 <span class="st">"Self-employed"</span> 3  <span class="st">"Unemployed"</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a></span>
-<span id="cb15-6"><a href="#cb15-6"></a>lab val eco<span class="ot">`x'</span> eco<span class="ot">`x'</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a></span>
-<span id="cb15-8"><a href="#cb15-8"></a>ta eco<span class="ot">`x'</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a></span>
-<span id="cb15-10"><a href="#cb15-10"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="78cefa65" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1"></a>forval x = 1/2 { </span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="kw">recode</span>  INCAC05<span class="ot">`x'</span> 1 3 4 =1 2=2 5=3 6/34=.,<span class="kw">gen</span>(eco<span class="ot">`x'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3"></a>lab <span class="kw">var</span> eco<span class="ot">`x'</span> <span class="st">"Simplified economic activity - Wave `x'"</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>lab def eco<span class="ot">`x'</span> 1 <span class="st">"Employee"</span> 2 <span class="st">"Self-employed"</span> 3  <span class="st">"Unemployed"</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a></span>
+<span id="cb17-6"><a href="#cb17-6"></a>lab val eco<span class="ot">`x'</span> eco<span class="ot">`x'</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a></span>
+<span id="cb17-8"><a href="#cb17-8"></a>ta eco<span class="ot">`x'</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a></span>
+<span id="cb17-10"><a href="#cb17-10"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. forval x = 1/2 { 
+  2. recode  INCAC05`x' 1 3 4 =1 2=2 5=3 6/34=.,gen(eco`x')
+  3. lab var eco`x' "Simplified economic activity - Wave `x'"
+  4. lab def eco`x' 1 "Employee" 2 "Self-employed" 3  "Unemployed"
+  5. 
+. lab val eco`x' eco`x'
+  6. 
+. ta eco`x'
+  7. 
+. }
 (5,999 differences between INCAC051 and eco1)
 
    Simplified |
@@ -698,15 +784,18 @@ Self-employed |      1,599       13.23       96.64
 Self-employed |      1,595       13.19       97.08
    Unemployed |        353        2.92      100.00
 --------------+-----------------------------------
-        Total |     12,091      100.00</code></pre>
+        Total |     12,091      100.00
+
+. </code></pre>
 </div>
 </div>
 <p>Let’s now get the results by using a cross-tabulation of economic activity at time 1 and time 2. We will rely again on <code>wrkage</code> to limit the analysis on the 16-64 as well as the longitudinal weights. The easiest way of doing this is to create a three-way table, which will in effect create a flow table for the 16-64 and another one for the other respondents.</p>
 <p>We will first need to recreate the weights-informed dataset as we created new variables since the last time.</p>
-<div id="49a258d1" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">svy</span>, subpop(wrkage): <span class="kw">tab</span> eco1 eco2, <span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="98f66f7b" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">svy</span>, subpop(wrkage): <span class="kw">tab</span> eco1 eco2, <span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(running tabulate on estimation sample)
+<pre><code>. svy, subpop(wrkage): tab eco1 eco2, count format(%9.0f)
+(running tabulate on estimation sample)
 
 Number of strata =      1                         Number of obs   =     14,032
 Number of PSUs   = 14,032                         Population size = 37,208,297
@@ -735,7 +824,7 @@ Key: Weighted count
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true"><em>Review questions 4</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href=""><em>Review questions 4</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <p>What were the flows (ie number of people transitioning) between:</p>
@@ -817,13 +906,14 @@ Key: Weighted count
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1170,6 +1260,18 @@ Key: Weighted count
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./exercise_3.html" class="pagination-link" aria-label="Using R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Using R</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./exercise_3_spss.html" class="pagination-link" aria-label="Using SPSS">
+        <span class="nav-page-text"><span class="chapter-title">Using SPSS</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>exercise_2 – Getting Started with the Labour Force Survey</title>
+<title>Using R – Getting Started with the LFS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,16 +65,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./exercise_2_Stata.html" rel="next">
+<link href="./exercise_1_spss.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7a4068b46cc005e1514339e2acc6e017.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f67738801adab4ec373db556c2f6c09b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ad6b74b749eafe8a69bf48827ee39095.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -103,21 +106,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #742082;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #742082;
+background: white;
+      }
+</style>
 
 
-<link rel="stylesheet" href="ukds.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_2.html"><strong>2. Weekly earnings</strong></a></li><li class="breadcrumb-item"><a href="./exercise_2.html">R</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_2.html"><strong>2. Weekly earnings</strong></a></li><li class="breadcrumb-item"><a href="./exercise_2.html"><span class="chapter-title">Using R</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -127,13 +146,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_2.html"><strong>2. Weekly earnings</strong></a></li><li class="breadcrumb-item"><a href="./exercise_2.html"><span class="chapter-title">Using R</span></a></li></ol></nav>
+      <h1 class="title"><span class="chapter-title">Using R</span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="http:// ukdataservice.ac.uk" class="sidebar-logo-link">
-      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./"></a> 
+        <div class="sidebar-tools-main">
+    <a href="./LFS_Exercices.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -144,8 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Introduction</strong></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Introduction</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -159,20 +200,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -188,20 +226,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -217,20 +252,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -246,33 +278,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#weekly-earnings-of-employees" id="toc-weekly-earnings-of-employees" class="nav-link active" data-scroll-target="#weekly-earnings-of-employees">Weekly earnings of employees</a>
-  <ul class="collapse">
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
   <li><a href="#get-set-up" id="toc-get-set-up" class="nav-link" data-scroll-target="#get-set-up">Get set up</a></li>
   <li><a href="#lets-examine-the-dataset" id="toc-lets-examine-the-dataset" class="nav-link" data-scroll-target="#lets-examine-the-dataset">Let’s examine the dataset</a></li>
   <li><a href="#examine-weekly-earnings" id="toc-examine-weekly-earnings" class="nav-link" data-scroll-target="#examine-weekly-earnings">Examine weekly earnings</a></li>
@@ -280,22 +311,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ons-estimates-for-employees-gross-weekly-earnings" id="toc-ons-estimates-for-employees-gross-weekly-earnings" class="nav-link" data-scroll-target="#ons-estimates-for-employees-gross-weekly-earnings">ONS estimates for employees’ gross weekly earnings</a></li>
   <li><a href="#how-many-people-work-as-full-time-employee" id="toc-how-many-people-work-as-full-time-employee" class="nav-link" data-scroll-target="#how-many-people-work-as-full-time-employee">How many people work as full-time employee?</a></li>
   <li><a href="#extra-activities" id="toc-extra-activities" class="nav-link" data-scroll-target="#extra-activities">Extra activities</a></li>
-  </ul></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_2.html"><strong>2. Weekly earnings</strong></a></li><li class="breadcrumb-item"><a href="./exercise_2.html">R</a></li></ol></nav></header>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-<section id="weekly-earnings-of-employees" class="level1">
-<h1>Weekly earnings of employees</h1>
+
+<section id="weekly-earnings-of-employees" class="level2 unnumbered unlisted">
+<h2 class="unnumbered unlisted anchored" data-anchor-id="weekly-earnings-of-employees">Weekly earnings of employees</h2>
 <p>In this exercise, you will recreate a labour market analysis by the ONS, reported in the table <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04">EARN04: Gross weekly earnings of full-time employees [last accessed 21/02/2025]</a>. Currently, this table is updated four times a year in February, May, August and November using data from the Quarterly Labour Force Survey.</p>
 <p>Learning outcomes:</p>
 <ul>
@@ -303,6 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>To become more familiar with key variables from the QLFS</li>
 <li>To learn using income weights appropriately</li>
 </ul>
+</section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>The data used in this exercise relates to an estimate published by the ONS for October-December 2024.</p>
@@ -313,37 +341,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We suggest that you create a folder named <code>LFS_exercises</code> as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within <code>LFS_exercises</code>, such as a subfolder named <code>Data</code>.</p>
 <p>We can now begin analysing the data using R. First let’s load the packages that are are going to need:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(haven)  <span class="do">### Functions to open Stata or SPSS datasets</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(haven)  <span class="do">### Functions to open Stata or SPSS datasets</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(dplyr)  <span class="do">### Easier data manipulation </span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(survey) <span class="do">### Survey data analysis functions</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(srvyr)  <span class="do">### Easier  manipulation of survey data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(srvyr)  <span class="do">### Easier  manipulation of survey data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s open the dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span> (<span class="st">"LFS_exercises"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span> (<span class="st">"LFS_exercises"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="do">## </span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="do">### Importing a Stata format dataset</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>lfs_od24 <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(</span>
 <span id="cb2-5"><a href="#cb2-5"></a>        <span class="st">"Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>                    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6"></a>                    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As there are many variables in the LFS, let’s create a data frame with just those required for this exercise. We also convert the original variables into factors in order to make them easier to manipulate.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dataex2 <span class="ot">&lt;-</span> lfs_od24 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dataex2 <span class="ot">&lt;-</span> lfs_od24 <span class="sc">|&gt;</span> </span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">select</span>(PERSNO, PIWT24, PWT24,GRSSWK, INECAC05, ILODEFR,FTPT, HOURPAY, SEX) <span class="sc">|&gt;</span> </span>
 <span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb3-4"><a href="#cb3-4"></a>         <span class="fu">across</span>(</span>
 <span id="cb3-5"><a href="#cb3-5"></a>         <span class="fu">c</span>(INECAC05,ILODEFR,FTPT,SEX),\(x) <span class="fu">as_factor</span>(x, <span class="st">"both"</span>)</span>
 <span id="cb3-6"><a href="#cb3-6"></a>               )</span>
 <span id="cb3-7"><a href="#cb3-7"></a>         ) <span class="sc">|&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">droplevels</span>() <span class="do">### Removing unused categories </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="fu">droplevels</span>() <span class="do">### Removing unused categories </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="lets-examine-the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="lets-examine-the-dataset">Let’s examine the dataset</h2>
 <p>We can use again <code>head()</code> or <code>View()</code> in order to inspect the data and the new variables:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">head</span>(dataex2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">head</span>(dataex2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 9
   PERSNO    PIWT24    PWT24     GRSSWK     INECAC05 ILODEFR FTPT  HOURPAY  SEX  
@@ -355,14 +383,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5 2         0           0       -9 [Does … [31] In… [3] In… [-9]… -9 [Doe… [1] …
 6 1         0         793       -9 [Does … [1] Emp… [1] In… [2] … -9 [Doe… [2] …</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">View</span>(dataex2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">View</span>(dataex2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="examine-weekly-earnings" class="level2">
 <h2 class="anchored" data-anchor-id="examine-weekly-earnings">Examine weekly earnings</h2>
 <p>We can also examine descriptive statistics for weekly earnings</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">summary</span>(dataex2<span class="sc">$</span>GRSSWK)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">summary</span>(dataex2<span class="sc">$</span>GRSSWK)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    -9.0    -9.0    -9.0    75.8    -9.0 23076.0 </code></pre>
@@ -370,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Non responses are coded using negative values, which will affect analysis results. Let’s do it again, this time with respondents who provided a valid answer only:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">summary</span>(dataex2<span class="sc">$</span>GRSSWK[dataex2<span class="sc">$</span>GRSSWK<span class="sc">&gt;</span><span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">summary</span>(dataex2<span class="sc">$</span>GRSSWK[dataex2<span class="sc">$</span>GRSSWK<span class="sc">&gt;</span><span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
     5.0   413.2   615.0   732.5   923.0 23076.0 </code></pre>
@@ -378,7 +406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s plot the distribution of weekly earnings using a histogram. Given that income data tends to be skewed to the right (a relatively small number of respondents have very large earnings), which reduces the visibility lower earnings, we will leaving out the 1% highest earners.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">quantile</span>(dataex2<span class="sc">$</span>GRSSWK[dataex2<span class="sc">$</span>GRSSWK<span class="sc">&gt;</span><span class="dv">0</span>],.<span class="dv">99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">quantile</span>(dataex2<span class="sc">$</span>GRSSWK[dataex2<span class="sc">$</span>GRSSWK<span class="sc">&gt;</span><span class="dv">0</span>],.<span class="dv">99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    99% 
 2499.28 </code></pre>
@@ -386,10 +414,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We now know that 99% of earners earn less than £2,499 per week .</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">hist</span>(dataex2<span class="sc">$</span>GRSSWK[dataex2<span class="sc">$</span>GRSSWK<span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> dataex2<span class="sc">$</span>GRSSWK<span class="sc">&lt;=</span><span class="dv">2499</span>],</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">hist</span>(dataex2<span class="sc">$</span>GRSSWK[dataex2<span class="sc">$</span>GRSSWK<span class="sc">&gt;</span><span class="dv">0</span> <span class="sc">&amp;</span> dataex2<span class="sc">$</span>GRSSWK<span class="sc">&lt;=</span><span class="dv">2499</span>],</span>
 <span id="cb13-2"><a href="#cb13-2"></a>     <span class="at">xlab=</span><span class="st">"Earnings (£) -- 1st-99th percentiles"</span>,          <span class="co"># x axis label</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a>     <span class="at">main=</span><span class="st">"Gross Weekly Earnings (£) -- 1st-99th percentiles, Oct-Dec 2024"</span>, <span class="co"># Plot title</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a>     <span class="at">freq=</span>F)                                               <span class="co"># Print probabilities </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a href="#cb13-4"></a>     <span class="at">freq=</span>F)                                               <span class="co"># Print probabilities </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -421,11 +449,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>LFS data provides the INECAC05 variable, which records all nuances of economic activity (there are 35 of them!), including employment and self-employment. There is also ILODEFR which records the broad economic activity status (ie Whether employed, unemployed, etc.) and group together self-employed and employees.</p>
 <p>We will now examine these variables.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">INECAC05</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">FTPT</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">INECAC05</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">FTPT</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">table</span>(dataex2<span class="sc">$</span>INECAC05)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">table</span>(dataex2<span class="sc">$</span>INECAC05)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
                                                               [1] Employee 
@@ -501,7 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">table</span>(dataex2<span class="sc">$</span>FTPT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">table</span>(dataex2<span class="sc">$</span>FTPT)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 [-9] Does not apply      [-8] No answer       [1] Full time       [2] Part time 
@@ -515,10 +543,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>If we further want to know about about the number of employees by working-time status, we will need to explicitly restrict the analysis to those:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>ft.emp<span class="ot">&lt;-</span>dataex2 <span class="sc">|&gt;</span> <span class="fu">filter</span>(INECAC05<span class="sc">==</span><span class="st">"[1] Employee"</span>) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>ft.emp<span class="ot">&lt;-</span>dataex2 <span class="sc">|&gt;</span> <span class="fu">filter</span>(INECAC05<span class="sc">==</span><span class="st">"[1] Employee"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb18-2"><a href="#cb18-2"></a>                   <span class="fu">select</span>(FTPT) <span class="sc">|&gt;</span> </span>
 <span id="cb18-3"><a href="#cb18-3"></a>                   <span class="fu">table</span>()</span>
-<span id="cb18-4"><a href="#cb18-4"></a>ft.emp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-4"><a href="#cb18-4"></a>ft.emp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>FTPT
 [-9] Does not apply      [-8] No answer       [1] Full time       [2] Part time 
@@ -537,7 +565,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It may be a good idea to double check the definition used by the ONS <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04">in its publication.</a> Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for respondents’ main job, and also that <em>those earnings more than £100 per hour</em> are excluded.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>dataex2<span class="ot">&lt;-</span>dataex2 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>dataex2<span class="ot">&lt;-</span>dataex2 <span class="sc">|&gt;</span> </span>
 <span id="cb20-2"><a href="#cb20-2"></a>             <span class="fu">mutate</span>(</span>
 <span id="cb20-3"><a href="#cb20-3"></a>                  <span class="at">ftEmp=</span><span class="fu">ifelse</span>(</span>
 <span id="cb20-4"><a href="#cb20-4"></a>                         (FTPT<span class="sc">==</span><span class="st">"[3] New Deal-FT"</span> <span class="sc">|</span> FTPT<span class="sc">==</span><span class="st">"[1] Full time"</span>) <span class="sc">&amp;</span> </span>
@@ -549,7 +577,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-10"><a href="#cb20-10"></a>                  <span class="at">ftEmp=</span><span class="fu">as.factor</span>(ftEmp)</span>
 <span id="cb20-11"><a href="#cb20-11"></a>                   )</span>
 <span id="cb20-12"><a href="#cb20-12"></a>                  </span>
-<span id="cb20-13"><a href="#cb20-13"></a><span class="fu">table</span>(dataex2<span class="sc">$</span>ftEmp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-13"><a href="#cb20-13"></a><span class="fu">table</span>(dataex2<span class="sc">$</span>ftEmp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Anything else Full-time employee 
@@ -560,13 +588,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>We then create a version of the data that takes the income weights into account and compute the results:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>de.s<span class="ot">&lt;-</span>   dataex2<span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>de.s<span class="ot">&lt;-</span>   dataex2<span class="sc">|&gt;</span> </span>
 <span id="cb22-2"><a href="#cb22-2"></a>         <span class="fu">as_survey_design</span>(<span class="at">weights=</span>PIWT24)</span>
 <span id="cb22-3"><a href="#cb22-3"></a></span>
 <span id="cb22-4"><a href="#cb22-4"></a>medinc<span class="ot">&lt;-</span> de.s <span class="sc">|&gt;</span> <span class="fu">group_by</span>(ftEmp)  <span class="sc">|&gt;</span> </span>
 <span id="cb22-5"><a href="#cb22-5"></a>        <span class="fu">summarise</span>(<span class="at">Median=</span><span class="fu">survey_old_median</span>(GRSSWK,<span class="at">vartype=</span><span class="st">"ci"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb22-6"><a href="#cb22-6"></a>        <span class="fu">ungroup</span>()</span>
-<span id="cb22-7"><a href="#cb22-7"></a>medinc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-7"><a href="#cb22-7"></a>medinc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   ftEmp              Median Median_low Median_upp
@@ -577,7 +605,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The median weekly earnings of full-time employees in the UK in October-December 2024 was £692. We need to keep in mind that by using the income weights, those with missing values on GRSSWK are automatically left out.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <ol type="1">
@@ -591,10 +619,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>mwesex<span class="ot">&lt;-</span> de.s <span class="sc">|&gt;</span> <span class="fu">group_by</span>(SEX,ftEmp)  <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>mwesex<span class="ot">&lt;-</span> de.s <span class="sc">|&gt;</span> <span class="fu">group_by</span>(SEX,ftEmp)  <span class="sc">|&gt;</span> </span>
 <span id="cb24-2"><a href="#cb24-2"></a>                 <span class="fu">summarise</span>(<span class="at">Median=</span><span class="fu">survey_old_median</span>(GRSSWK,<span class="at">vartype=</span><span class="st">"ci"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb24-3"><a href="#cb24-3"></a>                 <span class="fu">ungroup</span>()</span>
-<span id="cb24-4"><a href="#cb24-4"></a>mwesex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-4"><a href="#cb24-4"></a>mwesex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   SEX        ftEmp              Median Median_low Median_upp
@@ -610,10 +638,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>dec1<span class="ot">&lt;-</span>de.s <span class="sc">|&gt;</span> <span class="fu">group_by</span>(SEX, ftEmp)  <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>dec1<span class="ot">&lt;-</span>de.s <span class="sc">|&gt;</span> <span class="fu">group_by</span>(SEX, ftEmp)  <span class="sc">|&gt;</span> </span>
 <span id="cb26-2"><a href="#cb26-2"></a>              <span class="fu">summarise</span>(<span class="st">"Median"</span><span class="ot">=</span><span class="fu">survey_old_quantile</span>(GRSSWK,<span class="at">vartype=</span><span class="st">"ci"</span>,.<span class="dv">10</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb26-3"><a href="#cb26-3"></a>              <span class="fu">ungroup</span>()</span>
-<span id="cb26-4"><a href="#cb26-4"></a>dec1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-4"><a href="#cb26-4"></a>dec1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   SEX        ftEmp              Median_q10 Median_q10_low Median_q10_upp
@@ -640,7 +668,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Let’s flag full-time employees (no limit on hourly pay this time):</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>dataex2<span class="ot">&lt;-</span>dataex2 <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>dataex2<span class="ot">&lt;-</span>dataex2 <span class="sc">|&gt;</span> </span>
 <span id="cb28-2"><a href="#cb28-2"></a>             <span class="fu">mutate</span>(</span>
 <span id="cb28-3"><a href="#cb28-3"></a>                  <span class="at">ftEmp2=</span><span class="fu">ifelse</span>(</span>
 <span id="cb28-4"><a href="#cb28-4"></a>                         (FTPT<span class="sc">==</span><span class="st">"[3] New Deal-FT"</span> <span class="sc">|</span> FTPT<span class="sc">==</span><span class="st">"[1] Full time"</span>) <span class="sc">&amp;</span>                        INECAC05<span class="sc">==</span><span class="st">"[1] Employee"</span>,</span>
@@ -648,17 +676,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-6"><a href="#cb28-6"></a>                         <span class="st">"Anything else"</span></span>
 <span id="cb28-7"><a href="#cb28-7"></a>                               ),</span>
 <span id="cb28-8"><a href="#cb28-8"></a>                  <span class="at">ftEmp=</span><span class="fu">as.factor</span>(ftEmp2)</span>
-<span id="cb28-9"><a href="#cb28-9"></a>                   )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-9"><a href="#cb28-9"></a>                   )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s then update the copy of the data that includes weights and produce our estimates:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>de.s<span class="ot">&lt;-</span>   dataex2<span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>de.s<span class="ot">&lt;-</span>   dataex2<span class="sc">|&gt;</span> </span>
 <span id="cb29-2"><a href="#cb29-2"></a>         <span class="fu">as_survey_design</span>(<span class="at">weights=</span>PIWT24)</span>
 <span id="cb29-3"><a href="#cb29-3"></a></span>
 <span id="cb29-4"><a href="#cb29-4"></a>fte<span class="ot">&lt;-</span>de.s <span class="sc">|&gt;</span> <span class="fu">group_by</span>(ftEmp2) <span class="sc">|&gt;</span></span>
 <span id="cb29-5"><a href="#cb29-5"></a>        <span class="fu">summarise</span>(<span class="fu">survey_total</span>(<span class="at">vartype=</span><span class="st">"ci"</span>))</span>
 <span id="cb29-6"><a href="#cb29-6"></a></span>
-<span id="cb29-7"><a href="#cb29-7"></a>fte</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-7"><a href="#cb29-7"></a>fte</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   ftEmp2                 coef    `_low`    `_upp`
@@ -668,7 +696,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Answer</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Answer</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <ol type="1">
@@ -687,11 +715,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>We need to create another version of the data with the correct weight: PWT24</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>de.sa<span class="ot">&lt;-</span>   dataex2<span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>de.sa<span class="ot">&lt;-</span>   dataex2<span class="sc">|&gt;</span> </span>
 <span id="cb31-2"><a href="#cb31-2"></a>         <span class="fu">as_survey_design</span>(<span class="at">weights=</span>PWT24)</span>
 <span id="cb31-3"><a href="#cb31-3"></a></span>
 <span id="cb31-4"><a href="#cb31-4"></a>de.sa <span class="sc">|&gt;</span> <span class="fu">group_by</span>(ftEmp2) <span class="sc">|&gt;</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a>        <span class="fu">summarise</span>(<span class="fu">survey_total</span>(<span class="at">vartype=</span><span class="st">"ci"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-5"><a href="#cb31-5"></a>        <span class="fu">summarise</span>(<span class="fu">survey_total</span>(<span class="at">vartype=</span><span class="st">"ci"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   ftEmp2                 coef    `_low`    `_upp`
@@ -704,12 +732,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="do">### Full-time employees by gender</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="do">### Full-time employees by gender</span></span>
 <span id="cb33-2"><a href="#cb33-2"></a>fte.g<span class="ot">&lt;-</span>de.sa <span class="sc">|&gt;</span> <span class="fu">group_by</span>(SEX,ftEmp2) <span class="sc">|&gt;</span> </span>
 <span id="cb33-3"><a href="#cb33-3"></a>                <span class="fu">summarise</span>(</span>
 <span id="cb33-4"><a href="#cb33-4"></a>                  <span class="fu">survey_total</span>(<span class="at">vartype=</span><span class="st">"ci"</span>)</span>
 <span id="cb33-5"><a href="#cb33-5"></a>                        )</span>
-<span id="cb33-6"><a href="#cb33-6"></a>fte.g</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-6"><a href="#cb33-6"></a>fte.g</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
 # Groups:   SEX [2]
@@ -753,7 +781,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- ::: -->
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -808,13 +835,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1161,6 +1189,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./exercise_1_spss.html" class="pagination-link" aria-label="Using SPSS">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Using SPSS</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./exercise_2_Stata.html" class="pagination-link" aria-label="Using Stata">
+        <span class="nav-page-text"><span class="chapter-title">Using Stata</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

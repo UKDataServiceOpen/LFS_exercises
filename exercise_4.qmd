@@ -1,4 +1,6 @@
-# Exercise 4: <BR/> Estimate precision and uncertainty
+# Using R 
+
+##  Estimating precision and uncertainty {.unnumbered .unlisted}
 
 
 This series of exercises focuses on the precision of estimates produced from Labour Force Survey data—that is, how much the results might vary due to sampling. To explore this, we’ll calculate the same types of measures as before—means and proportions—but this time we’ll pay particular attention to their confidence intervals.

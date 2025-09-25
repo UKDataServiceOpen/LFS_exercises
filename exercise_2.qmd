@@ -1,4 +1,7 @@
-# Weekly earnings of employees
+# Using R 
+
+## Weekly earnings of employees {.unnumbered .unlisted}
+
 
 In this exercise, you will recreate a labour market analysis by the ONS, reported in the table [EARN04: Gross weekly earnings of full-time employees \[last accessed 21/02/2025\]](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04). Currently, this table is updated four times a year in February, May, August and November using data from the Quarterly Labour Force Survey.
 

@@ -1,87 +1,107 @@
 project:
-  type: website
+  type: book
   output-dir: docs
-  title: "Getting Started with the Labour Force Survey"
-  render:
-   - index.qmd
-   - exercise_1.qmd
-   - exercise_1_Stata.qmd
-   - exercise_1_spss.qmd
-   - exercise_2.qmd
-   - exercise_2_Stata.qmd
-   - exercise_2_spss.qmd
-   - exercise_3.qmd
-   - exercise_3_spss.qmd
-   - exercise_3_Stata.qmd
-   - exercise_4.qmd
-   - exercise_4_Stata.qmd
-   - exercise_4_spss.qmd
+
+execute:
+  warning: false
+  message: false
+  freeze: false
+
+theme: 
+  - default
+  - custom_ukds.scss
+  
+book:
+  title: "Getting Started with the LFS"
+  subtitle: "Four exercises to learn to work with  the Labour Force Survey"
+  downloads: [pdf]
+  author: UK Data Service
+  output-file: "LFS_Exercices"
+  date: "June 2025"
+  date-format: MMMMYYYY
+
+  chapters:
+   # - index.qmd
+   # - exercise_1.qmd
+   # - exercise_1_Stata.qmd
+   # - exercise_1_spss.qmd
+   # - exercise_2.qmd
+   # - exercise_2_Stata.qmd
+   # - exercise_2_spss.qmd
+   # - exercise_3.qmd
+   # - exercise_3_spss.qmd
+   # - exercise_3_Stata.qmd
+   # - exercise_4.qmd
+   # - exercise_4_Stata.qmd
+   # - exercise_4_spss.qmd
+   
+   
+      - index.qmd
+      - part: "**1. Temporary work**"
+        chapters:
+        - exercise_1.qmd
+        - exercise_1_Stata.qmd
+        - exercise_1_spss.qmd
+      - part: "**2. Weekly earnings**"
+        chapters:
+        - exercise_2.qmd
+        - exercise_2_Stata.qmd
+        - exercise_2_spss.qmd
+      - part: "**3. Labour Market Flows**"
+        chapters:
+        - exercise_3.qmd
+        - exercise_3_Stata.qmd
+        - exercise_3_spss.qmd
+      - part: "**4. Estimates precision**"
+        chapters:
+        - exercise_4.qmd
+        - exercise_4_Stata.qmd
+        - exercise_4_spss.qmd
+
+  sidebar:
+    logo: "pics/UKDS_Logos_Col_Grey_300dpi.png"
+    logo-href: http:// ukdataservice.ac.uk
+    logo-alt: "UKDS homepage"
+    foreground: "#742082"
+    style: "floating"
+    search: true
+    title: " "
 
 jupyter: nbstata
-
-website:
-   sidebar:
-      logo: "pics/UKDS_Logos_Col_Grey_300dpi.png"
-      logo-href: http:// ukdataservice.ac.uk
-      logo-alt: "UKDS homepage"
-      foreground: "#742082"
-      style: "floating"
-      contents:
-      
-      - href: index.qmd
-        text: "**Introduction**"
-
-      - section: "**1. Temporary work**"
-        contents:
-        - href: exercise_1.qmd
-          text: R
-        - href: exercise_1_Stata.qmd
-          text: Stata
-        - href: exercise_1_spss.qmd
-          text: SPSS
-
-      - section: "**2. Weekly earnings**"
-        contents:
-        - href: exercise_2.qmd
-          text: R
-        - href: exercise_2_Stata.qmd
-          text: Stata
-        - href: exercise_2_spss.qmd
-          text: SPSS
-
-      - section: "**3. Labour Market Flows**"
-        contents:
-        - href: exercise_3.qmd
-          text: R
-        - href: exercise_3_Stata.qmd
-          text: Stata
-        - href: exercise_3_spss.qmd
-          text: SPSS
-          
-
-      - section: "**4. Estimates precision**"
-        contents:
-        - href: exercise_4.qmd
-          text: R
-        - href: exercise_4_Stata.qmd
-          text: Stata
-        - href: exercise_4_spss.qmd
-          text: SPSS
-
 
 format:
   html:
     code-overflow: scroll
     code-line-numbers: true
     toc: true
-    toc-location: left
+    toc-location: right
     highlight-style: arrow-light
     smooth-scroll: true
     link-external-newwindow: true
     citations-hover: true
     footnotes-hover: true
-css: ukds.css
+    title-block-banner: "white"
+    title-block-banner-color: "#742082"
+    number-sections: false
+    
+  titlepage-pdf:
+     titlepage: plain
+     titlepage-geometry:
+      - top=70mm
+      - left=30mm
+      - right=30mm
+      - bottom=30mm
+     titlepage-theme:
+      logo-size: 3cm
+      title-fontstyle: Huge
+     titlepage-logo: "pics/UKDS_Logos_Col_Grey_300dpi.png"  
+     documentclass: scrreport
+     fig-width: 7
+     papersize: A4
+     include-in-header: preamble.tex
+     geometry:
+      - top=25mm
+      - left=25mm
+      - right=25mm
+      - bottom=30mm
 
-execute:
-  warning: false
-#  cache: true

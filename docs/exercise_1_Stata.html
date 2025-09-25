@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>exercise_1_stata – Getting Started with the Labour Force Survey</title>
+<title>Using Stata – Getting Started with the LFS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,23 +58,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./exercise_1_spss.html" rel="next">
+<link href="./exercise_1.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7a4068b46cc005e1514339e2acc6e017.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f67738801adab4ec373db556c2f6c09b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ad6b74b749eafe8a69bf48827ee39095.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -103,21 +106,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #742082;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #742082;
+background: white;
+      }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="ukds.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_1.html"><strong>1. Temporary work</strong></a></li><li class="breadcrumb-item"><a href="./exercise_1_Stata.html">Stata</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_1.html"><strong>1. Temporary work</strong></a></li><li class="breadcrumb-item"><a href="./exercise_1_Stata.html"><span class="chapter-title">Using Stata</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -127,13 +149,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_1.html"><strong>1. Temporary work</strong></a></li><li class="breadcrumb-item"><a href="./exercise_1_Stata.html"><span class="chapter-title">Using Stata</span></a></li></ol></nav>
+      <h1 class="title"><span class="chapter-title">Using Stata</span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="http:// ukdataservice.ac.uk" class="sidebar-logo-link">
-      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./"></a> 
+        <div class="sidebar-tools-main">
+    <a href="./LFS_Exercices.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -144,8 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Introduction</strong></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Introduction</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -159,20 +203,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -188,20 +229,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -217,20 +255,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -246,28 +281,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
   <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
@@ -283,33 +319,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_1.html"><strong>1. Temporary work</strong></a></li><li class="breadcrumb-item"><a href="./exercise_1_Stata.html">Stata</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">Estimates of temporary employment</h1>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
-
-
+<section id="estimating-temporary-employment" class="level2 unnumbered unlisted">
+<h2 class="unnumbered unlisted anchored" data-anchor-id="estimating-temporary-employment">Estimating temporary employment</h2>
 <p>In this exercise, we will recreate an ONS labour market estimate published online in the table <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07">EMP07 Temporary Employees</a>. Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).</p>
 <p>Learning outcomes:</p>
 <ul>
@@ -317,6 +336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>To become familiar with producing weighted population estimates</li>
 <li>To understand how some ONS estimates are produced</li>
 </ul>
+</section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>The data used in this exercise relates to an estimate published by the ONS for October-December 2024.</p>
@@ -326,24 +346,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="get-set-up">Get set-up</h2>
 <p>We suggest that you create a folder named <code>LFS_exercises</code> as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within <code>LFS_exercises</code>, such as a subfolder named <code>Data</code>.</p>
 <p>… And open the QLFS dataset:</p>
-<div id="5f29b98a" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">clear</span></span>
+<div id="c0125c8a" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">clear</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>cd  <span class="st">"LFS_exercises/"</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
 <span id="cb1-4"><a href="#cb1-4"></a>* Import  the <span class="kw">data</span> from a Stata <span class="kw">format</span> dataset </span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">use</span>  <span class="st">"Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">use</span>  <span class="st">"Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<style>div.jp-Notebook .datagrid-container {min-height: 448px; }</style>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. clear
 
-/home/mscsepw2/OneDrive/trainings/LFS_module/LFS_exercises/LFS_exercises
-</code></pre>
+. cd  "LFS_exercises/"
+/home/mscsepw2/OneDrive/projects/branding/LFS_exercises/LFS_exercises
+
+. 
+. * Import  the data from a Stata format dataset 
+. use  "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
+
+. </code></pre>
 </div>
 </div>
 <p>Inspect the dataset and find out the number of cases and variables.</p>
-<div id="badd40c3" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">describe</span>,<span class="kw">short</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7b72a7bc" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">describe</span>,<span class="kw">short</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. describe,short
+
 Contains data from Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta
  Observations:        63,069                  
     Variables:           803                  19 FEB 2025 11:41
@@ -351,7 +382,7 @@ Sorted by: </code></pre>
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Revision question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Revision question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>How many variables are there?</p>
@@ -362,33 +393,38 @@ Sorted by: </code></pre>
 </div>
 </div>
 <p>As there are many variables in the dataset, let’s just keep the variables we are going to use.</p>
-<div id="daf2b912" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">keep</span> PERSNO PWT24 JBTP101 FTPT INECAC05 JOBTYP SEX</span>
+<div id="97158dff" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">keep</span> PERSNO PWT24 JBTP101 FTPT INECAC05 JOBTYP SEX</span>
 <span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">desc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">desc</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. keep PERSNO PWT24 JBTP101 FTPT INECAC05 JOBTYP SEX
 
+. 
+. desc
 
 Contains data from Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta
  Observations:        63,069                  
     Variables:             7                  19 FEB 2025 11:41
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 FTPT            byte    %8.0g      FTPT       Whether working Full or Part Time
 INECAC05        byte    %8.0g      INECAC05   Basic economic activity (ILO
                                                 definition) (reported)
-JBTP101         byte    %8.0g      JBTP101    Way in which job was not permanent
-                                                - 1
+JBTP101         byte    %8.0g      JBTP101    Way in which job was not
+                                                permanent - 1
 JOBTYP          byte    %8.0g      JOBTYP     Permanent or temporary job
 PERSNO          byte    %8.0g      PERSNO     Person number within household
 PWT24           int     %8.0g      PWT24      Person weight 2024
 SEX             byte    %8.0g      SEX        Sex of respondent
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 Sorted by: 
-     Note: Dataset has changed since last saved.</code></pre>
+     Note: Dataset has changed since last saved.
+
+. </code></pre>
 </div>
 </div>
 </section>
@@ -397,10 +433,11 @@ Sorted by:
 <p>We can have a look at the raw data by using <code>browse</code></p>
 <p><img src="pics/stata_browse.png" class="img-fluid"></p>
 <p>Now let’s examine in more detail the variables we are going to work with.</p>
-<div id="d3975360" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1"></a>summ JBTP101 FTPT INECAC05 JOBTYP  SEX</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1cd2d46f" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1"></a>summ JBTP101 FTPT INECAC05 JOBTYP  SEX</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. summ JBTP101 FTPT INECAC05 JOBTYP  SEX
+
     Variable |        Obs        Mean    Std. dev.       Min        Max
 -------------+---------------------------------------------------------
      JBTP101 |     63,069   -8.758867    1.706416         -9          5
@@ -411,10 +448,11 @@ Sorted by:
 </div>
 </div>
 <p>This is not very meaningful. Let’s use frequency tables instead:</p>
-<div id="efa9fc4f" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1"></a>ta FTPT</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="6fb351f6" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1"></a>ta FTPT</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. ta FTPT
+
        Whether |
   working Full |
   or Part Time |      Freq.     Percent        Cum.
@@ -429,10 +467,11 @@ Does not apply |     32,189       51.04       51.04
          Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="d57f58b8" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1"></a>ta JBTP101  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2e616a96" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1"></a>ta JBTP101  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. ta JBTP101  
+
 Way in which job was not permanent - 1 |      Freq.     Percent        Cum.
 ---------------------------------------+-----------------------------------
                         Does not apply |     61,818       98.02       98.02
@@ -446,10 +485,11 @@ Under contract for a fixed period/task |        520        0.82       99.72
                                  Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="db674c48" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1"></a>ta INECAC05 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="50cd1675" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1"></a>ta INECAC05 </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. ta INECAC05 
+
            Basic economic activity (ILO |
                  definition) (reported) |      Freq.     Percent        Cum.
 ----------------------------------------+-----------------------------------
@@ -491,10 +531,11 @@ Inactive, not seeking, not like, no rea |        182        0.29       81.83
                                   Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="e4d942ec" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1"></a>ta JOBTYP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="950c624c" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1"></a>ta JOBTYP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. ta JOBTYP
+
    Permanent or temporary |
                       job |      Freq.     Percent        Cum.
 --------------------------+-----------------------------------
@@ -506,10 +547,11 @@ Not permanent in some way |      1,252        1.99      100.00
                     Total |     63,069      100.00</code></pre>
 </div>
 </div>
-<div id="24086048" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1"></a>ta SEX</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="860b40d4" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1"></a>ta SEX</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. ta SEX
+
         Sex of |
     respondent |      Freq.     Percent        Cum.
 ---------------+-----------------------------------
@@ -520,7 +562,7 @@ Not permanent in some way |      1,252        1.99      100.00
 </div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <ol type="1">
@@ -545,11 +587,12 @@ Not permanent in some way |      1,252        1.99      100.00
 <p>Below, we compare weighted and unweighted frequencies and percentages.</p>
 <p>We will be using Stata’s survey commands.</p>
 <p>Let us first examine again the variable measuring - JOBTYP - whether respondents work in a temporary job or not:</p>
-<div id="4a1954d9" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">tab</span> JOBTYP</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">tab</span> JOBTYP,nol</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c528ee02" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">tab</span> JOBTYP</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">tab</span> JOBTYP,nol</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. tab JOBTYP
 
    Permanent or temporary |
                       job |      Freq.     Percent        Cum.
@@ -561,6 +604,7 @@ Not permanent in some way |      1,252        1.99      100.00
 --------------------------+-----------------------------------
                     Total |     63,069      100.00
 
+. tab JOBTYP,nol
 
   Permanent |
          or |
@@ -572,12 +616,14 @@ Not permanent in some way |      1,252        1.99      100.00
           1 |     25,104       39.80       98.01
           2 |      1,252        1.99      100.00
 ------------+-----------------------------------
-      Total |     63,069      100.00</code></pre>
+      Total |     63,069      100.00
+
+. </code></pre>
 </div>
 </div>
 <p>… and create a version with missing values recoded as system missing.</p>
-<div id="d655b3be" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">gen</span> JobTmp = 0</span>
+<div id="6274cb54" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">gen</span> JobTmp = 0</span>
 <span id="cb21-2"><a href="#cb21-2"></a><span class="kw">replace</span> JobTmp = 1 <span class="kw">if</span> JOBTYP==2</span>
 <span id="cb21-3"><a href="#cb21-3"></a><span class="kw">replace</span> JobTmp = . <span class="kw">if</span> JOBTYP == -8  | JOBTYP == -9  </span>
 <span id="cb21-4"><a href="#cb21-4"></a></span>
@@ -586,17 +632,27 @@ Not permanent in some way |      1,252        1.99      100.00
 <span id="cb21-7"><a href="#cb21-7"></a></span>
 <span id="cb21-8"><a href="#cb21-8"></a>lab val JobTmp JobTmp</span>
 <span id="cb21-9"><a href="#cb21-9"></a></span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="kw">tab</span> JobTmp JOBTYP, <span class="fu">missing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="kw">tab</span> JobTmp JOBTYP, <span class="fu">missing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. gen JobTmp = 0
 
+. replace JobTmp = 1 if JOBTYP==2
 (1,252 real changes made)
 
+. replace JobTmp = . if JOBTYP == -8  | JOBTYP == -9  
 (36,713 real changes made, 36,713 to missing)
 
+. 
+. lab var JobTmp "Whether main  job is temporary"
 
+. lab def JobTmp 0 "Not temporary" 1 "Temporary"
 
+. 
+. lab val JobTmp JobTmp
 
+. 
+. tab JobTmp JOBTYP, missing
 
  Whether main |
        job is |         Permanent or temporary job
@@ -606,14 +662,17 @@ Not temporary |         0          0     25,104          0 |    25,104
     Temporary |         0          0          0      1,252 |     1,252 
             . |    36,698         15          0          0 |    36,713 
 --------------+--------------------------------------------+----------
-        Total |    36,698         15     25,104      1,252 |    63,069 </code></pre>
+        Total |    36,698         15     25,104      1,252 |    63,069 
+
+. </code></pre>
 </div>
 </div>
 <p>We then declare the the data to be weightey survey data:</p>
-<div id="3ad875fc" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">svyset</span> [pw=PWT24]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="8006721f" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">svyset</span> [pw=PWT24]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
+<pre><code>. svyset [pw=PWT24]
+
 Sampling weights: PWT24
              VCE: linearized
      Single unit: missing
@@ -623,12 +682,13 @@ Sampling weights: PWT24
 </div>
 </div>
 <p>We can now compute the weighted totals and percentages:</p>
-<div id="f18c24a9" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">svy</span>:<span class="kw">tab</span> JobTmp, <span class="kw">percent</span></span>
+<div id="542ed0d1" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">svy</span>:<span class="kw">tab</span> JobTmp, <span class="kw">percent</span></span>
 <span id="cb25-2"><a href="#cb25-2"></a></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="kw">svy</span>:<span class="kw">tab</span>  JOBTYP,<span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="kw">svy</span>:<span class="kw">tab</span>  JOBTYP,<span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. svy:tab JobTmp, percent
 (running tabulate on estimation sample)
 
 Number of strata =      1                         Number of obs   =     26,356
@@ -648,6 +708,8 @@ temporary | percentage
 ----------------------
 Key: percentage = Cell percentage
 
+. 
+. svy:tab  JOBTYP,count format(%9.0f)
 (running tabulate on estimation sample)
 
 Number of strata =      1                         Number of obs   =     63,069
@@ -667,13 +729,15 @@ job       |      count
           | 
     Total |   68185623
 ----------------------
-Key:    count = Weighted count</code></pre>
+Key:    count = Weighted count
+
+. </code></pre>
 </div>
 </div>
 <section id="review-questions" class="level3">
 <h3 class="anchored" data-anchor-id="review-questions">Review questions</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <ol type="1">
@@ -687,8 +751,8 @@ Key:    count = Weighted count</code></pre>
 <p>The LFS weights also account for the survey’s sample design: individuals who had a lower chance of being selected are given higher weights to correct for that. They also help adjust for different levels of non-response across subgroups in the population, which means the results are more likely to reflect the population accurately.</p></li>
 <li><p>The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables.</p></li>
 </ol>
-<div id="9fc0da2e" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb27-1"><a href="#cb27-1"></a>ta FTPT, nol</span>
+<div id="b752572b" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb27-1"><a href="#cb27-1"></a>ta FTPT, nol</span>
 <span id="cb27-2"><a href="#cb27-2"></a></span>
 <span id="cb27-3"><a href="#cb27-3"></a><span class="kw">recode</span> FTPT 1 3 =0 2 4 = 1 -8 -9 = ., <span class="kw">gen</span>(PartTime) </span>
 <span id="cb27-4"><a href="#cb27-4"></a></span>
@@ -701,9 +765,10 @@ Key:    count = Weighted count</code></pre>
 <span id="cb27-11"><a href="#cb27-11"></a><span class="kw">tab</span>  FTPT PartTime, <span class="fu">missing</span></span>
 <span id="cb27-12"><a href="#cb27-12"></a></span>
 <span id="cb27-13"><a href="#cb27-13"></a>### Computing the weighted totals</span>
-<span id="cb27-14"><a href="#cb27-14"></a><span class="kw">svy</span>:<span class="kw">tab</span>  PartTime,<span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-14"><a href="#cb27-14"></a><span class="kw">svy</span>:<span class="kw">tab</span>  PartTime,<span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. ta FTPT, nol
 
     Whether |
     working |
@@ -719,12 +784,22 @@ Key:    count = Weighted count</code></pre>
 ------------+-----------------------------------
       Total |     63,069      100.00
 
+. 
+. recode FTPT 1 3 =0 2 4 = 1 -8 -9 = ., gen(PartTime) 
 (63,069 differences between FTPT and PartTime)
 
+. 
+. 
+. lab var PartTime "Whether main  job is part-time"
 
+. lab def PartTime 0 "Not part-time" 1 "Part-time"
 
+. lab val PartTime PartTime
 
+. 
+. ### Checking the result
 Unknown #command
+. tab  FTPT PartTime, missing
 
        Whether |
   working Full |  Whether main  job is part-time
@@ -739,7 +814,10 @@ Does not apply |         0          0     32,189 |    32,189
 ---------------+---------------------------------+----------
          Total |    22,540      8,315     32,214 |    63,069 
 
+. 
+. ### Computing the weighted totals
 Unknown #command
+. svy:tab  PartTime,count format(%9.0f)
 (running tabulate on estimation sample)
 
 Number of strata =      1                         Number of obs   =     30,855
@@ -757,7 +835,9 @@ part-time |      count
           | 
     Total |   33833882
 ----------------------
-Key:    count = Weighted count</code></pre>
+Key:    count = Weighted count
+
+. </code></pre>
 </div>
 </div>
 </div>
@@ -768,10 +848,11 @@ Key:    count = Weighted count</code></pre>
 <section id="splitting-by-sex-and-working-time-status" class="level2">
 <h2 class="anchored" data-anchor-id="splitting-by-sex-and-working-time-status">Splitting by sex and working time status</h2>
 <p>We can obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:</p>
-<div id="8d4f308a" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">svy</span>:<span class="kw">tab</span>  PartTime JobTmp,<span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7b86da3e" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">svy</span>:<span class="kw">tab</span>  PartTime JobTmp,<span class="fu">count</span> <span class="kw">format</span>(%9.0f)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(running tabulate on estimation sample)
+<pre><code>. svy:tab  PartTime JobTmp,count format(%9.0f)
+(running tabulate on estimation sample)
 
 Number of strata =      1                         Number of obs   =     26,351
 Number of PSUs   = 26,351                         Population size = 29,310,416
@@ -796,14 +877,17 @@ Key: Weighted count
 </div>
 </div>
 <p>We can simultaneously examine the number of temporary and part-time employees by gender by using the <code>subpop</code> option.</p>
-<div id="6eee8d2b" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb31-1"><a href="#cb31-1"></a>*** We need first to <span class="kw">recode</span> SEX <span class="kw">as</span> a 0/1 ie dummy <span class="kw">variable</span>.</span>
+<div id="c0224e2b" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb31-1"><a href="#cb31-1"></a>*** We need first to <span class="kw">recode</span> SEX <span class="kw">as</span> a 0/1 ie dummy <span class="kw">variable</span>.</span>
 <span id="cb31-2"><a href="#cb31-2"></a></span>
 <span id="cb31-3"><a href="#cb31-3"></a><span class="kw">tab</span> SEX, <span class="kw">gen</span>(sex) </span>
 <span id="cb31-4"><a href="#cb31-4"></a></span>
-<span id="cb31-5"><a href="#cb31-5"></a>ta sex2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-5"><a href="#cb31-5"></a>ta sex2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. *** We need first to recode SEX as a 0/1 ie dummy variable.
+. 
+. tab SEX, gen(sex) 
 
         Sex of |
     respondent |      Freq.     Percent        Cum.
@@ -813,23 +897,30 @@ Key: Weighted count
 ---------------+-----------------------------------
          Total |     63,069      100.00
 
+. 
+. ta sex2
 
 SEX==Female |      Freq.     Percent        Cum.
 ------------+-----------------------------------
           0 |     30,393       48.19       48.19
           1 |     32,676       51.81      100.00
 ------------+-----------------------------------
-      Total |     63,069      100.00</code></pre>
+      Total |     63,069      100.00
+
+. </code></pre>
 </div>
 </div>
-<div id="28e25347" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb33-1"><a href="#cb33-1"></a>*** Totals <span class="kw">by</span> sex</span>
+<div id="dcf054d1" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb33-1"><a href="#cb33-1"></a>*** Totals <span class="kw">by</span> sex</span>
 <span id="cb33-2"><a href="#cb33-2"></a></span>
 <span id="cb33-3"><a href="#cb33-3"></a><span class="kw">svy</span>,subpop(sex1):<span class="kw">tab</span>  PartTime JobTmp,<span class="fu">count</span> <span class="kw">format</span>(%9.0f) </span>
 <span id="cb33-4"><a href="#cb33-4"></a></span>
-<span id="cb33-5"><a href="#cb33-5"></a><span class="kw">svy</span>,subpop(sex2):<span class="kw">tab</span>  PartTime JobTmp,<span class="fu">count</span> <span class="kw">format</span>(%9.0f) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-5"><a href="#cb33-5"></a><span class="kw">svy</span>,subpop(sex2):<span class="kw">tab</span>  PartTime JobTmp,<span class="fu">count</span> <span class="kw">format</span>(%9.0f) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+. *** Totals by sex
+. 
+. svy,subpop(sex1):tab  PartTime JobTmp,count format(%9.0f) 
 (running tabulate on estimation sample)
 
 Number of strata =      1                         Number of obs   =     45,187
@@ -855,6 +946,8 @@ Key: Weighted count
     Uncorrected   chi2(1)         = 2546.3833
     Design-based  F(1, 45186)     =  465.8067     P = 0.0000
 
+. 
+. svy,subpop(sex2):tab  PartTime JobTmp,count format(%9.0f) 
 (running tabulate on estimation sample)
 
 Number of strata =      1                         Number of obs   =     44,233
@@ -878,13 +971,15 @@ Key: Weighted count
 
   Pearson:
     Uncorrected   chi2(1)         =  740.3766
-    Design-based  F(1, 44232)     =  167.5081     P = 0.0000</code></pre>
+    Design-based  F(1, 44232)     =  167.5081     P = 0.0000
+
+. </code></pre>
 </div>
 </div>
 <section id="review-questions-1" class="level3">
 <h3 class="anchored" data-anchor-id="review-questions-1">Review questions</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <ol type="1">
@@ -899,11 +994,12 @@ Key: Weighted count
 <li><p>There are 475,513 females in part-time temporary employment</p></li>
 <li><p>In order to get the number of applicable cases, we need to look at the unweighted frequencies of <code>SEX</code> by <code>JobTmp</code> by <code>PartTime</code>. The number of (unweighted) valid cases for this analysis is only 288 respondents.</p></li>
 </ol>
-<div id="6f7d6741" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">bysort</span> SEX: ta JobTmp PartTime</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fd2770bc" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">bysort</span> SEX: ta JobTmp PartTime</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
---------------------------------------------------------------------------------
+<pre><code>. bysort SEX: ta JobTmp PartTime
+
+-------------------------------------------------------------------------------
 -&gt; SEX = Male
 
  Whether main | Whether main  job is
@@ -915,7 +1011,7 @@ Not temporary |    10,631      1,319 |    11,950
 --------------+----------------------+----------
         Total |    10,904      1,607 |    12,511 
 
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 -&gt; SEX = Female
 
  Whether main | Whether main  job is
@@ -990,13 +1086,14 @@ Not temporary |     8,534      4,616 |    13,150
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1343,6 +1440,18 @@ Not temporary |     8,534      4,616 |    13,150
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./exercise_1.html" class="pagination-link" aria-label="Using R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Using R</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./exercise_1_spss.html" class="pagination-link" aria-label="Using SPSS">
+        <span class="nav-page-text"><span class="chapter-title">Using SPSS</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

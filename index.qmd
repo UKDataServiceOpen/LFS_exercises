@@ -1,6 +1,4 @@
-# Getting Started with the Labour Force Survey
-
-## Four exercises to learn to work with  the LFS
+# **Introduction**
 
 ### 1. Temporary work
 

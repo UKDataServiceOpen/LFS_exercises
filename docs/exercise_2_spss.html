@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>exercise_2_spss – Getting Started with the Labour Force Survey</title>
+<title>Using SPSS – Getting Started with the LFS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,16 +65,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./exercise_3.html" rel="next">
+<link href="./exercise_2_Stata.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7a4068b46cc005e1514339e2acc6e017.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f67738801adab4ec373db556c2f6c09b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ad6b74b749eafe8a69bf48827ee39095.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -103,21 +106,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #742082;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #742082;
+background: white;
+      }
+</style>
 
 
-<link rel="stylesheet" href="ukds.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_2.html"><strong>2. Weekly earnings</strong></a></li><li class="breadcrumb-item"><a href="./exercise_2_spss.html">SPSS</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_2.html"><strong>2. Weekly earnings</strong></a></li><li class="breadcrumb-item"><a href="./exercise_2_spss.html"><span class="chapter-title">Using SPSS</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -127,13 +146,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_2.html"><strong>2. Weekly earnings</strong></a></li><li class="breadcrumb-item"><a href="./exercise_2_spss.html"><span class="chapter-title">Using SPSS</span></a></li></ol></nav>
+      <h1 class="title"><span class="chapter-title">Using SPSS</span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="http:// ukdataservice.ac.uk" class="sidebar-logo-link">
-      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./"></a> 
+        <div class="sidebar-tools-main">
+    <a href="./LFS_Exercices.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -144,8 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Introduction</strong></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Introduction</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -159,20 +200,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -188,20 +226,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -217,20 +252,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
@@ -246,28 +278,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
+  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
+  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SPSS</span></a>
+  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
   </div>
 </li>
       </ul>
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
   <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
@@ -279,18 +312,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#what-next" id="toc-what-next" class="nav-link" data-scroll-target="#what-next">What next?</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_2.html"><strong>2. Weekly earnings</strong></a></li><li class="breadcrumb-item"><a href="./exercise_2_spss.html">SPSS</a></li></ol></nav></header>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-<!-- # Weekly earnings of employees -->
+
+<section id="weekly-earnings-of-employees" class="level2 unnumbered unlisted">
+<h2 class="unnumbered unlisted anchored" data-anchor-id="weekly-earnings-of-employees">Weekly earnings of employees</h2>
 <p>In this exercise, you will recreate a labour market analysis by the ONS, reported in the table <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04">EARN04: Gross weekly earnings of full-time employees [last accessed 21/02/2025]</a>. Currently, this table is updated four times a year in February, May, August and November using data from the Quarterly Labour Force Survey.</p>
 <p>Learning outcomes:</p>
 <ul>
@@ -298,6 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>To become more familiar with key variables from the QLFS</li>
 <li>To learn using income weights appropriately</li>
 </ul>
+</section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <p>The data used in this exercise relates to an estimate published by the ONS for October-December 2024.</p>
@@ -309,10 +341,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s open the QLFS dataset from the <em>File</em> menu:</p>
 <p><img src="pics/spss_01.png" class="img-fluid" alt="Screenshot of the SPSS File-Open menu"></p>
 <p>As previously, let’s just keep the variables we need for the exercise.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource { mydata} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>  save OUTFILE="Z://LFS_exercises/data/dataex1.sav" </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource { mydata} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href="#cb1-1"></a>  save OUTFILE="Z://LFS_exercises/data/dataex1.sav" </span>
 <span id="cb1-2"><a href="#cb1-2"></a>    /KEEP= PERSNO PIWT24 PWT24 GRSSWK  INECAC05  ILODEFR FTPT  HOURPAY SEX.</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a>get FILE="Z://LFS_exercises/data/dataex1.sav". </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4"></a>get FILE="Z://LFS_exercises/data/dataex1.sav". </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="examine-the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="examine-the-dataset">Examine the dataset</h2>
@@ -340,21 +372,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-elephants-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Inspecting the data
+Figure&nbsp;7.1: Inspecting the data
 </figcaption>
 </figure>
 </div>
 <p>We can also examine the descriptive statistics of weekly earnings</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource { desc1} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>DESCRIPTIVES VARIABLES=GRSSWK</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    /STATISTICS=MEAN STDDEV MIN MAX.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource { desc1} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>DESCRIPTIVES VARIABLES=GRSSWK</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    /STATISTICS=MEAN STDDEV MIN MAX.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_04.png" class="img-fluid" alt="Descriptive statistics of GRSSWK, gross weekly earnings"></p>
 <p>Let’s plot the distribution of weekly earnings using a histogram. Given that income data tends to be skewed to the right (a relatively small number of respondents have very large earnings), which reduces the visibility lower earnings, we will leaving out the 1% highest earners, that is respondents earning more than £2,500 per week.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource { plot} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>TEMPORARY.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource { plot} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href="#cb3-1"></a>TEMPORARY.</span>
 <span id="cb3-2"><a href="#cb3-2"></a>SELECT IF (GRSSWK&lt;=2500).</span>
 <span id="cb3-3"><a href="#cb3-3"></a>EXECUTE.</span>
 <span id="cb3-4"><a href="#cb3-4"></a></span>
 <span id="cb3-5"><a href="#cb3-5"></a>GRAPH</span>
-<span id="cb3-6"><a href="#cb3-6"></a>  /HISTOGRAM=GRSSWK.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6"></a>  /HISTOGRAM=GRSSWK.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/plot2_1.png" class="img-fluid" alt="Histogram of Gross Weekly earnings"></p>
 </section>
 <section id="examine-full-time-employees" class="level2">
@@ -368,20 +400,20 @@ Figure&nbsp;1: Inspecting the data
 <p>The INECAC05 variable records all nuances of economic activity (there are 35 of them!), including employment and self-employment. There is also ILODEFR which records broader economic activity status (ie Whether employed, unemployed, or on a government training scheme etc.) and group together self-employed and employees.</p>
 <p>We will now examine these variables.</p>
 <p>First, economic activity…</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource { tab_inecac} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>FREQUENCIES VARIABLES= INECAC05 </span>
-<span id="cb4-2"><a href="#cb4-2"></a>  /ORDER=ANALYSIS.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource { tab_inecac} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>FREQUENCIES VARIABLES= INECAC05 </span>
+<span id="cb4-2"><a href="#cb4-2"></a>  /ORDER=ANALYSIS.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_05.png" class="img-fluid" alt="SPSS Frequency table of INECAC05 "></p>
 <p>Then working-time status.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource { tab_ftpt} number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>FREQUENCIES VARIABLES= FTPT</span>
-<span id="cb5-2"><a href="#cb5-2"></a>  /ORDER=ANALYSIS.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource { tab_ftpt} number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>FREQUENCIES VARIABLES= FTPT</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  /ORDER=ANALYSIS.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_06.png" class="img-fluid" alt="SPSS Frequency table of FTPT "></p>
 <p>If we further want to know about about the number of employees by working-time status, we will need to explicitly restrict the analysis to those:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource { tab_employ} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>TEMPORARY.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource { tab_employ} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href="#cb6-1"></a>TEMPORARY.</span>
 <span id="cb6-2"><a href="#cb6-2"></a>SELECT IF (INECAC05=1).</span>
 <span id="cb6-3"><a href="#cb6-3"></a>EXECUTE.</span>
 <span id="cb6-4"><a href="#cb6-4"></a></span>
 <span id="cb6-5"><a href="#cb6-5"></a>FREQUENCIES VARIABLES= FTPT</span>
-<span id="cb6-6"><a href="#cb6-6"></a>  /ORDER=ANALYSIS.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-6"><a href="#cb6-6"></a>  /ORDER=ANALYSIS.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_07.png" class="img-fluid" alt="SPSS Frequency table of FTPT for employees only"></p>
 <p>There are 19,680 full-time employees in the sample.</p>
 </section>
@@ -392,7 +424,7 @@ Figure&nbsp;1: Inspecting the data
 <li><p>First, we create a variable to match the ONS’ definition of full-time employees</p>
 <p>It is always a good idea to double check the ONS definition <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04">in its publication.</a> Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for respondents’ main job, and also that <em>those earnings more than £100 per hour</em> are excluded.</p></li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource { ftEmp} number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>* Creating the variable</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource { ftEmp} number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href="#cb7-1"></a>* Creating the variable</span>
 <span id="cb7-2"><a href="#cb7-2"></a>COMPUTE ftEmp = 0.</span>
 <span id="cb7-3"><a href="#cb7-3"></a>IF (FTPT = 1 AND HOURPAY &lt;= 100 AND INECAC05 = 1) ftEmp = 1.</span>
 <span id="cb7-4"><a href="#cb7-4"></a></span>
@@ -405,12 +437,12 @@ Figure&nbsp;1: Inspecting the data
 <span id="cb7-11"><a href="#cb7-11"></a></span>
 <span id="cb7-12"><a href="#cb7-12"></a>* Inspecting the result</span>
 <span id="cb7-13"><a href="#cb7-13"></a></span>
-<span id="cb7-14"><a href="#cb7-14"></a>FREQUENCIES VARIABLES=ftEmp.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-14"><a href="#cb7-14"></a>FREQUENCIES VARIABLES=ftEmp.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_08.png" class="img-fluid" alt="SPSS Frequency table of whether employed full-time (ONS definition)"></p>
 <ul>
 <li>We then compute the median earnings for full-timers matching the ONS definition:</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource { svy} number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a>* Applying weights</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource { svy} number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href="#cb8-1"></a>* Applying weights</span>
 <span id="cb8-2"><a href="#cb8-2"></a>WEIGHT BY PIWT24.</span>
 <span id="cb8-3"><a href="#cb8-3"></a></span>
 <span id="cb8-4"><a href="#cb8-4"></a>* Selecting the subpopulation of employees</span>
@@ -424,11 +456,11 @@ Figure&nbsp;1: Inspecting the data
 <span id="cb8-12"><a href="#cb8-12"></a>  /STATISTICS=MEAN MEDIAN</span>
 <span id="cb8-13"><a href="#cb8-13"></a>  /ORDER=ANALYSIS.</span>
 <span id="cb8-14"><a href="#cb8-14"></a>  </span>
-<span id="cb8-15"><a href="#cb8-15"></a>WEIGHT OFF.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-15"><a href="#cb8-15"></a>WEIGHT OFF.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_09.png" class="img-fluid" alt="SPSS Estimate  of median gross weekly earnings for the full time employed"></p>
 <p>The median weekly earnings of full-time employees in the UK in October-December 2024 was £692. We need to keep in mind that by using the income weights <code>PIWT</code>, those with missing values on <code>GRSSWK</code> are automatically left out.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ol type="1">
@@ -441,7 +473,7 @@ Figure&nbsp;1: Inspecting the data
 <ol type="1">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource { answer1} number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href="#cb9-1"></a>WEIGHT BY PIWT24.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource { answer1} number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a href="#cb9-1"></a>WEIGHT BY PIWT24.</span>
 <span id="cb9-2"><a href="#cb9-2"></a></span>
 <span id="cb9-3"><a href="#cb9-3"></a>TEMPORARY.</span>
 <span id="cb9-4"><a href="#cb9-4"></a>SELECT IF (ftEmp = 1 &amp; NOT MISSING(PIWT24 )).</span>
@@ -453,13 +485,13 @@ Figure&nbsp;1: Inspecting the data
 <span id="cb9-10"><a href="#cb9-10"></a>  /FORMAT=NOTABLE</span>
 <span id="cb9-11"><a href="#cb9-11"></a>  /STATISTICS=MEAN MEDIAN</span>
 <span id="cb9-12"><a href="#cb9-12"></a>  /ORDER=ANALYSIS.</span>
-<span id="cb9-13"><a href="#cb9-13"></a>WEIGHT OFF.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-13"><a href="#cb9-13"></a>WEIGHT OFF.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_10.png" class="img-fluid" alt="SPSS Output  for median gross weekly earnings for the full time employed men and women"></p>
 <p>Median weekly earnings of women and men in the UK are respectively £650 and £731</p>
 <ol start="2" type="1">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource { answer2} number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="#cb10-1"></a></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource { answer2} number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href="#cb10-1"></a></span>
 <span id="cb10-2"><a href="#cb10-2"></a>WEIGHT BY PIWT24.</span>
 <span id="cb10-3"><a href="#cb10-3"></a></span>
 <span id="cb10-4"><a href="#cb10-4"></a>SORT CASES BY SEX.</span>
@@ -475,7 +507,7 @@ Figure&nbsp;1: Inspecting the data
 <span id="cb10-14"><a href="#cb10-14"></a>  /ORDER=ANALYSIS.</span>
 <span id="cb10-15"><a href="#cb10-15"></a></span>
 <span id="cb10-16"><a href="#cb10-16"></a>SPLIT FILE OFF.</span>
-<span id="cb10-17"><a href="#cb10-17"></a>WEIGHT OFF.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-17"><a href="#cb10-17"></a>WEIGHT OFF.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_11.png" class="img-fluid" alt="SPSS Output  for median gross weekly earnings for the full time employed men and women"></p>
 <p>The median weekly earnings for men and women in the lowest decile in the UK are respectively £412 and £433</p>
 <ol start="3" type="1">
@@ -492,7 +524,7 @@ Figure&nbsp;1: Inspecting the data
 <ol type="1">
 <li>Let’s flag full-time employees (no limit on hourly pay this time):</li>
 </ol>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource { ftEmp2} number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a href="#cb11-1"></a>Create the new Full-time flag</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource { ftEmp2} number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a href="#cb11-1"></a>Create the new Full-time flag</span>
 <span id="cb11-2"><a href="#cb11-2"></a>COMPUTE ftEmp2 = 0.</span>
 <span id="cb11-3"><a href="#cb11-3"></a></span>
 <span id="cb11-4"><a href="#cb11-4"></a>IF (FTPT = 1 AND INECAC05 = 1) ftEmp2 = 1.</span>
@@ -503,10 +535,10 @@ Figure&nbsp;1: Inspecting the data
 <span id="cb11-9"><a href="#cb11-9"></a>  0 "Anything else"</span>
 <span id="cb11-10"><a href="#cb11-10"></a>  1 "Full-time employee (all)".</span>
 <span id="cb11-11"><a href="#cb11-11"></a></span>
-<span id="cb11-12"><a href="#cb11-12"></a>FREQUENCIES VARIABLES=ftEmp2.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-12"><a href="#cb11-12"></a>FREQUENCIES VARIABLES=ftEmp2.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_12.png" class="img-fluid" alt="SPSS Frequency table for the general Full-time flag (no hourly earnings restrictions)"></p>
 <p>And finally, let’s produce estimates of their number in the population:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource { ftest} number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href="#cb12-1"></a>WEIGHT BY PIWT24.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource { ftest} number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href="#cb12-1"></a>WEIGHT BY PIWT24.</span>
 <span id="cb12-2"><a href="#cb12-2"></a></span>
 <span id="cb12-3"><a href="#cb12-3"></a>TEMPORARY.</span>
 <span id="cb12-4"><a href="#cb12-4"></a>SELECT IF (PIWT24&gt;0 &amp; NOT MISSING(PIWT24)).</span>
@@ -514,10 +546,10 @@ Figure&nbsp;1: Inspecting the data
 <span id="cb12-6"><a href="#cb12-6"></a>FREQUENCIES VARIABLES=ftEmp2</span>
 <span id="cb12-7"><a href="#cb12-7"></a>  /ORDER=ANALYSIS.</span>
 <span id="cb12-8"><a href="#cb12-8"></a></span>
-<span id="cb12-9"><a href="#cb12-9"></a>WEIGHT OFF.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-9"><a href="#cb12-9"></a>WEIGHT OFF.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_13.png" class="img-fluid" alt="SPSS Frequency table for the general Full-time flag (no hourly earnings restrictions) weighted with PIWT24"></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Answer</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Answer</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <ol type="1">
@@ -535,7 +567,7 @@ Figure&nbsp;1: Inspecting the data
 <li><p>Because we have used the wrong weights ie PIWT24, the weights that can only be used for earnings estimation</p></li>
 <li><p>We need to rerun the commands using the correct weighting variable: PWT24</p></li>
 </ol>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource { sa} number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a href="#cb13-1"></a>* Apply weight.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource { sa} number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a href="#cb13-1"></a>* Apply weight.</span>
 <span id="cb13-2"><a href="#cb13-2"></a>WEIGHT BY PWT24.</span>
 <span id="cb13-3"><a href="#cb13-3"></a></span>
 <span id="cb13-4"><a href="#cb13-4"></a>TEMPORARY.</span>
@@ -544,12 +576,12 @@ Figure&nbsp;1: Inspecting the data
 <span id="cb13-7"><a href="#cb13-7"></a>FREQUENCIES VARIABLES=ftEmp2</span>
 <span id="cb13-8"><a href="#cb13-8"></a>    /ORDER=ANALYSIS.</span>
 <span id="cb13-9"><a href="#cb13-9"></a></span>
-<span id="cb13-10"><a href="#cb13-10"></a>WEIGHT OFF.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-10"><a href="#cb13-10"></a>WEIGHT OFF.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_14.png" class="img-fluid" alt="SPSS Frequency table for the general Full-time flag (no hourly earnings restrictions) weighted with PWT24"></p>
 <ol start="3" type="1">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource { corr2} number-lines code-with-copy"><code class="sourceCode"><span id="cb14-1"><a href="#cb14-1"></a>* Apply weight.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource { corr2} number-lines code-with-copy"><code class="sourceCode"><span id="cb14-1"><a href="#cb14-1"></a>* Apply weight.</span>
 <span id="cb14-2"><a href="#cb14-2"></a>WEIGHT BY PWT24.</span>
 <span id="cb14-3"><a href="#cb14-3"></a>* Split output by SEX (1=Male, 2=Female).</span>
 <span id="cb14-4"><a href="#cb14-4"></a>SORT CASES BY SEX.</span>
@@ -565,7 +597,7 @@ Figure&nbsp;1: Inspecting the data
 <span id="cb14-14"><a href="#cb14-14"></a>* Turn off split and weight afterward.</span>
 <span id="cb14-15"><a href="#cb14-15"></a>SPLIT FILE OFF.</span>
 <span id="cb14-16"><a href="#cb14-16"></a>WEIGHT OFF.</span>
-<span id="cb14-17"><a href="#cb14-17"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-17"><a href="#cb14-17"></a>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="pics/spss2_15.png" class="img-fluid" alt="SPSS Frequency table for the general Full-time flag (no hourly earnings restrictions) weighted with PWT24"></p>
 <p>In October - December 2024, there were respectively 9,670,422 female and 12,760,237 male full-time employees.</p>
 </div>
@@ -634,13 +666,14 @@ Figure&nbsp;1: Inspecting the data
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -987,6 +1020,18 @@ Figure&nbsp;1: Inspecting the data
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./exercise_2_Stata.html" class="pagination-link" aria-label="Using Stata">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Using Stata</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./exercise_3.html" class="pagination-link" aria-label="Using R">
+        <span class="nav-page-text"><span class="chapter-title">Using R</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

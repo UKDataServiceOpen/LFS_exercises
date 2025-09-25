@@ -1,10 +1,7 @@
----
-format:
-  html: 
-    code-fold: true
----
+# Using SPSS 
 
-# Exercise 4: <BR/> Estimate precision and uncertainty
+##  Estimating precision and uncertainty {.unnumbered .unlisted}
+
 
 This series of exercises focuses on the precision of estimates calculated from  Labour Force Survey data, in other words  the degree to which we can trust  them to reflect  the likely values in  the population. In order to do this, we will compute similar measures as before - means and proportions - but this time  we will be focusing on their confidence intervals.
 

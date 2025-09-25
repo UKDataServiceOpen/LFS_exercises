@@ -1,4 +1,7 @@
-# Exercise 3: Labour Market Flows
+# Using Stata
+
+## Labour Market Flows {.unnumbered .unlisted}
+
 
 
 The exercise presents three different methods for examining labour market flows - ie the transitions between one kind of involvement in paid work (for example, full-time employed) to another one (for example, economically inactive) using longitudinal data from the Labour Force Survey. 
