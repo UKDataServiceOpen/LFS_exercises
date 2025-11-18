@@ -1,17 +1,17 @@
 # Introduction
 
-### 1. Temporary work
+#### 1. Temporary work
 
-A first exercise designed to help people get familiar with the QLFS - size, key variables, the main weight, the effect of using grossing weights on  estimates on the number of people  in temporary employment.
+A first exercise to help people get familiar with the QLFS: size, key variables, the main weight, using grossing weights on  estimates of the number of people  in temporary employment.
 
-### 2. Weekly earnings of the employed
+#### 2. Weekly earnings of the employed
 
 A follow up exercise using the QLFS but focusing on earnings - key earnings variables, the earnings weight, when not to use the earnings weight.
 
-### 3. Exploring labour market flows 
+#### 3. Exploring labour market flows 
 
-Using the Labour Force Survey Two-Quarter Longitudinal Dataset - introduces the longitudinal datasets - the structure of the data, key variables for examining labour market flows, longitudinal weights
+Using the Labour Force Survey Two-Quarter Longitudinal Dataset - introduces the longitudinal datasets: structure of the data, key labour market flow variables, longitudinal weights.
 
-### 4. Estimate precision:  accounting for survey design
+#### 4. Estimate precision:  accounting for survey design
 
 Producing an estimate with CI using different weighting approaches, adjusting the CI using published design factors.

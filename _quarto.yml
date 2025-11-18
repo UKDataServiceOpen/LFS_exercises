@@ -7,10 +7,7 @@ execute:
   message: false
   freeze: false
 
-theme: 
-  - default
-  - custom_ukds.scss
-  
+
 book:
   title: "Getting Started with the LFS"
   subtitle: "Four exercises to learn to work with  the Labour Force Survey"
@@ -18,7 +15,7 @@ book:
   author: UK Data Service
   output-file: "LFS_Exercices"
   date: "June 2025"
-  date-format: MMMMYYYY
+  date-format: MMMM YYYY
 
   chapters:
       - index.qmd
