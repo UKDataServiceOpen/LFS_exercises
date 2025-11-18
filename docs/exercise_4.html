@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Using R – Getting Started with the LFS</title>
+<title>11&nbsp; Using R – Getting Started with the LFS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7a4068b46cc005e1514339e2acc6e017.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-84537ff4de273125305e01fd931bb944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ad6b74b749eafe8a69bf48827ee39095.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-960ccfc1daea47a16706a62d456891b1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -106,37 +106,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<style>
-
-      .quarto-title-block .quarto-title-banner h1,
-      .quarto-title-block .quarto-title-banner h2,
-      .quarto-title-block .quarto-title-banner h3,
-      .quarto-title-block .quarto-title-banner h4,
-      .quarto-title-block .quarto-title-banner h5,
-      .quarto-title-block .quarto-title-banner h6
-      {
-        color: #742082;
-      }
-
-      .quarto-title-block .quarto-title-banner {
-        color: #742082;
-background: white;
-      }
-</style>
 
 
+<link rel="stylesheet" href="ukds_long.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_4.html"><strong>4. Estimates precision</strong></a></li><li class="breadcrumb-item"><a href="./exercise_4.html"><span class="chapter-title">Using R</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_4.html"><strong>4. Estimates precision</strong></a></li><li class="breadcrumb-item"><a href="./exercise_4.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Using R</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -146,29 +130,13 @@ background: white;
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_4.html"><strong>4. Estimates precision</strong></a></li><li class="breadcrumb-item"><a href="./exercise_4.html"><span class="chapter-title">Using R</span></a></li></ol></nav>
-      <h1 class="title"><span class="chapter-title">Using R</span></h1>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="http:// ukdataservice.ac.uk" class="sidebar-logo-link">
-      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="https://ukdataservice.ac.uk" class="sidebar-logo-link">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="Link to the UK Data Service homepage" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="Link to the UK Data Service homepage" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./"></a> 
@@ -186,7 +154,8 @@ background: white;
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Introduction</strong></span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -200,17 +169,20 @@ background: white;
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
+  <a href="./exercise_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Using R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
+  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Using Stata</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
+  <a href="./exercise_1_spss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Using SPSS</span></span></a>
   </div>
 </li>
       </ul>
@@ -226,17 +198,20 @@ background: white;
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
+  <a href="./exercise_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Using R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
+  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Using Stata</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
+  <a href="./exercise_2_spss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Using SPSS</span></span></a>
   </div>
 </li>
       </ul>
@@ -252,17 +227,20 @@ background: white;
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using R</span></a>
+  <a href="./exercise_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Using R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
+  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Using Stata</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
+  <a href="./exercise_3_spss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Using SPSS</span></span></a>
   </div>
 </li>
       </ul>
@@ -278,17 +256,20 @@ background: white;
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Using R</span></a>
+  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Using R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using Stata</span></a>
+  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Using Stata</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Using SPSS</span></a>
+  <a href="./exercise_4_spss.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Using SPSS</span></span></a>
   </div>
 </li>
       </ul>
@@ -303,19 +284,34 @@ background: white;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
-  <li><a href="#get-set-up" id="toc-get-set-up" class="nav-link" data-scroll-target="#get-set-up">Get set up</a></li>
-  <li><a href="#weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" id="toc-weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" class="nav-link" data-scroll-target="#weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings">1. Weighted and unweighted confidence intervals of mean weekly earnings</a></li>
-  <li><a href="#part-time-female-employees-across-regions" id="toc-part-time-female-employees-across-regions" class="nav-link" data-scroll-target="#part-time-female-employees-across-regions">2. Part-time female employees across regions</a></li>
-  <li><a href="#adjusting-cis-with-published-design-effects" id="toc-adjusting-cis-with-published-design-effects" class="nav-link" data-scroll-target="#adjusting-cis-with-published-design-effects">3. Adjusting CIs with published design effects</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data"><span class="header-section-number">11.1</span> Data</a></li>
+  <li><a href="#get-set-up" id="toc-get-set-up" class="nav-link" data-scroll-target="#get-set-up"><span class="header-section-number">11.2</span> Get set up</a></li>
+  <li><a href="#weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" id="toc-weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" class="nav-link" data-scroll-target="#weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings"><span class="header-section-number">11.3</span> 1. Weighted and unweighted confidence intervals of mean weekly earnings</a></li>
+  <li><a href="#part-time-female-employees-across-regions" id="toc-part-time-female-employees-across-regions" class="nav-link" data-scroll-target="#part-time-female-employees-across-regions"><span class="header-section-number">11.4</span> 2. Part-time female employees across regions</a></li>
+  <li><a href="#adjusting-cis-with-published-design-effects" id="toc-adjusting-cis-with-published-design-effects" class="nav-link" data-scroll-target="#adjusting-cis-with-published-design-effects"><span class="header-section-number">11.5</span> 3. Adjusting CIs with published design effects</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercise_4.html"><strong>4. Estimates precision</strong></a></li><li class="breadcrumb-item"><a href="./exercise_4.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Using R</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Using R</span></h1>
+</div>
 
 
 
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="estimating-precision-and-uncertainty" class="level2 unnumbered unlisted">
@@ -329,13 +325,13 @@ background: white;
 <li>To be able to use published LFS design effects and apply them to your own estimates;</li>
 </ul>
 </section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data</h2>
+<section id="data" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="data"><span class="header-section-number">11.1</span> Data</h2>
 <p>In this exercise we will be using Quarterly LFS data for October-December 2024.</p>
 <p>To follow the exercise, you need to access the relevant dataset from the UK Data Service: <a href="http://doi.org/10.5255/UKDA-SN-9349-3">Quarterly Labour Force Survey, October - December, 2024</a>.</p>
 </section>
-<section id="get-set-up" class="level2">
-<h2 class="anchored" data-anchor-id="get-set-up">Get set up</h2>
+<section id="get-set-up" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="get-set-up"><span class="header-section-number">11.2</span> Get set up</h2>
 <p>We suggest that you create a folder named <code>LFS_exercises</code> as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within <code>LFS_exercises</code>, such as a subfolder named <code>Data</code>.</p>
 <p>First let’s load the packages that we are going to need:</p>
 <div class="cell">
@@ -366,8 +362,8 @@ background: white;
 <span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">droplevels</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" class="level2">
-<h2 class="anchored" data-anchor-id="weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings">1. Weighted and unweighted confidence intervals of mean weekly earnings</h2>
+<section id="weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="weighted-and-unweighted-confidence-intervals-of-mean-weekly-earnings"><span class="header-section-number">11.3</span> 1. Weighted and unweighted confidence intervals of mean weekly earnings</h2>
 <p>In this exercise, we will be comparing the mean gross weekly earnings (<code>GRSSWK</code>) and their confidence intervals using weighted and unweighted estimates. As previously, we will be using the weighting variable specifically designed for earnings: <code>PIWT24</code>.</p>
 <p>First, let’s examine gross weekly earnings and compute its unweighted mean:</p>
 <div class="cell">
@@ -462,8 +458,8 @@ background: white;
 </div>
 </div>
 </section>
-<section id="part-time-female-employees-across-regions" class="level2">
-<h2 class="anchored" data-anchor-id="part-time-female-employees-across-regions">2. Part-time female employees across regions</h2>
+<section id="part-time-female-employees-across-regions" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="part-time-female-employees-across-regions"><span class="header-section-number">11.4</span> 2. Part-time female employees across regions</h2>
 <p>In this second exercise, we will be looking at how to obtain and interpret confidence intervals of proportions by comparing the percentages of part-time female employees in London and the North West of England. First, let’s examine the variable for regions:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">table</span>(dataex4<span class="sc">$</span>GOVTOF2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -589,8 +585,8 @@ FTPT                  FALSE  TRUE
 </div>
 </div>
 </section>
-<section id="adjusting-cis-with-published-design-effects" class="level2">
-<h2 class="anchored" data-anchor-id="adjusting-cis-with-published-design-effects">3. Adjusting CIs with published design effects</h2>
+<section id="adjusting-cis-with-published-design-effects" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="adjusting-cis-with-published-design-effects"><span class="header-section-number">11.5</span> 3. Adjusting CIs with published design effects</h2>
 <p>Design effects account for the impact of survey design (e.g., clustering and stratification) on the precision of estimates. Here, we will be adjusting the CI of the proportion of women and men employed (<code>ILODEFR</code>) in manufacturing (<code>INDE07M</code>) in their main job using design effects published in Volume 1 of the LFS documentation.</p>
 <p>Let’s begin by examining the sector variable:</p>
 <div class="cell">
@@ -1170,15 +1166,15 @@ FTPT                  FALSE  TRUE
     }
   });
   </script>
-<nav class="page-navigation">
+<nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
       <a href="./exercise_3_spss.html" class="pagination-link" aria-label="Using SPSS">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Using SPSS</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Using SPSS</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./exercise_4_Stata.html" class="pagination-link" aria-label="Using Stata">
-        <span class="nav-page-text"><span class="chapter-title">Using Stata</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Using Stata</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

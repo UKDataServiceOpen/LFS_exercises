@@ -21,21 +21,6 @@ book:
   date-format: MMMMYYYY
 
   chapters:
-   # - index.qmd
-   # - exercise_1.qmd
-   # - exercise_1_Stata.qmd
-   # - exercise_1_spss.qmd
-   # - exercise_2.qmd
-   # - exercise_2_Stata.qmd
-   # - exercise_2_spss.qmd
-   # - exercise_3.qmd
-   # - exercise_3_spss.qmd
-   # - exercise_3_Stata.qmd
-   # - exercise_4.qmd
-   # - exercise_4_Stata.qmd
-   # - exercise_4_spss.qmd
-   
-   
       - index.qmd
       - part: "**1. Temporary work**"
         chapters:
@@ -58,11 +43,10 @@ book:
         - exercise_4_Stata.qmd
         - exercise_4_spss.qmd
 
-  sidebar:
+  sidebar: 
     logo: "pics/UKDS_Logos_Col_Grey_300dpi.png"
-    logo-href: http:// ukdataservice.ac.uk
-    logo-alt: "UKDS homepage"
-    foreground: "#742082"
+    logo-href: https://ukdataservice.ac.uk
+    logo-alt: "Link to the UK Data Service homepage"
     style: "floating"
     search: true
     title: " "
@@ -70,21 +54,21 @@ book:
 jupyter: nbstata
 
 format:
-  html:
-    code-overflow: scroll
-    code-line-numbers: true
-    toc: true
-    toc-location: right
-    highlight-style: arrow-light
-    smooth-scroll: true
-    link-external-newwindow: true
-    citations-hover: true
-    footnotes-hover: true
-    title-block-banner: "white"
-    title-block-banner-color: "#742082"
-    number-sections: false
+    html: 
+      code-overflow: scroll
+      code-line-numbers: true
+      page-layout: full
+      toc: true
+      toc-location: right
+      highlight-style: arrow-light
+      smooth-scroll: true
+      link-external-newwindow: true
+      citations-hover: true
+      footnotes-hover: true
+      css: ukds_long.css
+      number-sections: false
     
-  titlepage-pdf:
+titlepage-pdf:
      titlepage: plain
      titlepage-geometry:
       - top=70mm
