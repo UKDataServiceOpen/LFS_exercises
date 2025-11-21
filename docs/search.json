@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Getting Started with the LFS",
     "section": "",
-    "text": "Introduction\n\n1. Temporary work\nA first exercise to help people get familiar with the QLFS: size, key variables, the main weight, using grossing weights on estimates of the number of people in temporary employment.\n\n\n2. Weekly earnings of the employed\nA follow up exercise using the QLFS but focusing on earnings - key earnings variables, the earnings weight, when not to use the earnings weight.\n\n\n3. Exploring labour market flows\nUsing the Labour Force Survey Two-Quarter Longitudinal Dataset - introduces the longitudinal datasets: structure of the data, key labour market flow variables, longitudinal weights.\n\n\n4. Estimate precision: accounting for survey design\nProducing an estimate with CI using different weighting approaches, adjusting the CI using published design factors.",
+    "text": "Introduction",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -1085,6 +1085,16 @@
     "crumbs": [
       "**4. Estimates precision**",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Using SPSS</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#introduction",
+    "href": "index.html#introduction",
+    "title": "Getting Started with the LFS",
+    "section": "",
+    "text": "1. Temporary work\nA first exercise to help people get familiar with the QLFS: size, key variables, the main weight, using grossing weights on estimates of the number of people in temporary employment.\n\n\n2. Weekly earnings of the employed\nA follow up exercise using the QLFS but focusing on earnings - key earnings variables, the earnings weight, when not to use the earnings weight.\n\n\n3. Exploring labour market flows\nUsing the Labour Force Survey Two-Quarter Longitudinal Dataset - introduces the longitudinal datasets: structure of the data, key labour market flow variables, longitudinal weights.\n\n\n4. Estimate precision: accounting for survey design\nProducing an estimate with CI using different weighting approaches, adjusting the CI using published design factors.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
   }
 ]
