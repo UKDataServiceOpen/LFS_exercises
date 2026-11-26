@@ -3,8 +3,8 @@
 In this exercise, you will recreate a labour market analysis by the ONS, reported in the table [EARN04: Gross weekly earnings of full-time employees \[last accessed 21/02/2025\]](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04). Currently, this table is updated four times a year in February, May, August and November using data from the Quarterly Labour Force Survey.
 
 Learning outcomes:
-
--   To understand better how ONS earnings statistics are produced
+  
+  -   To understand better how ONS earnings statistics are produced
 -   To become more familiar with key variables from the QLFS
 -   To learn  using  income weights appropriately
 
@@ -20,165 +20,179 @@ We suggest that you create a folder named `LFS_exercises` as the working directo
 
 We can now begin analysing the data using R. First let's load the packages that are are going to need:
 
-```{r}
+```{r libraries}
 library(haven)  ### Functions to open Stata or SPSS datasets
 library(dplyr)  ### Easier data manipulation 
-library(survey) ### Survey data analysis functions
+library(survey) ### Survey data analysis functions 
 library(srvyr)  ### Easier  manipulation of survey data
 ```
 
 Let's open the dataset.
 
 ```{r open, eval=c(-2,-5)}
-setwd ("LFS_exercises")
+setwd ("~")
 
 ### Importing a Stata format dataset 
 lfs_od24 <- read_dta(
-        "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
-                    ) 
+  "Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
+) 
 ```
 
 As there are many variables in the LFS, let's create a data frame with just those required for this exercise. We also  convert the original variables  into factors in order to make them easier to manipulate. 
 
 ```{r mydata}
 dataex2 <- lfs_od24 |> 
-  select(PERSNO, PIWT24, PWT24,GRSSWK, INECAC05, ILODEFR,FTPT, HOURPAY, SEX) |> 
+  select(PERSNO, PIWT24, PWT24,GRSSWK, INECAC05, 
+         ILODEFR,FTPT, HOURPAY, SEX) |>
   mutate(
-         across(
+     across(
          c(INECAC05,ILODEFR,FTPT,SEX),\(x) as_factor(x, "both")
-               )
-         ) |>
-  droplevels() ### Removing unused categories 
+               ),
+     across(
+          c(GRSSWK,HOURPAY),\(x) as.numeric(x, "both")
+    )
+         ) 
 ```
 
 
 ## Let's examine the dataset
 
-We can use again `head()` or `View()` in order to inspect the data and the new variables:
-
+We can  again use `head()` or `View()` in order to inspect the data and the new variables:
+  
 ```{r inspect}
 head(dataex2)
 
-View(dataex2)
+# View(dataex2) ## Visualising the data as worksheet
 ```
 
 ## Examine weekly earnings
 
-We can also examine descriptive statistics for weekly earnings
+Let's examine the descriptive statistics for weekly earnings.
+
 
 ```{r desc1}
 summary(dataex2$GRSSWK)
-```
-Non responses are coded using negative values, which will affect analysis results. Let's do it again, this time with respondents who provided a valid answer only: 
+skimr::skim(dataex2$GRSSWK)
 
+```
+Non responses are coded using negative values, which affects analysis results. Let's do it again, this time with respondents who provided a valid answer only: 
+  
 ```{r desc2}
-summary(dataex2$GRSSWK[dataex2$GRSSWK>0])
+s<-dataex2|>select(GRSSWK)|>
+  filter(GRSSWK>0)|> 
+  skimr::skim()
+
+# Alternative: summary(dataex2$GRSSWK[dataex2$GRSSWK>0])
 ```
 
-Let's plot the distribution of weekly earnings using a histogram. Given that income data tends to be skewed to the right (a relatively small number of respondents have very large earnings), which reduces the visibility lower earnings, we will leaving out the 1% highest earners. 
+
+We get a first sense that the sample mean and median gross weekly earnings revolve around respectively `{r} paste0("£",round(s$numeric.mean))` and `{r} paste0("£",round(s$numeric.p50))` . Given that the mean is likely to be influenced by very large earnings, we will use the median for the rest of this exercise.
+
+Let's now visualise the distribution of weekly earnings in the sample  using a histogram. Earnings data tend to be skewed to the right (a  small number of respondents have very large earnings) which reduces the visibility of lower earnings. We will therefore be leaving out the 1% highest earners for this exercise. 
 
 
 ```{r quantil}
-quantile(dataex2$GRSSWK[dataex2$GRSSWK>0],.99)
+
+### Finding the 99th percentile  of earnings  in the sample
+q99s<-quantile(dataex2$GRSSWK[dataex2$GRSSWK>0],.99)
+
+q99s
+
+hist(dataex2$GRSSWK[dataex2$GRSSWK>0 & dataex2$GRSSWK<=q99s],
+     main="Sample distribution of gross weekly earnings -- QLFS OD 2024",
+     xlab="Earnings (£) -- 1st-99th percentiles")
+
 ```
 
-We now know that 99% of earners earn less than `{r} paste0("£", prettyNum(round(quantile(dataex2$GRSSWK[dataex2$GRSSWK>0],.99)), big.mark=","))` per week . 
 
+## Inferring median earnings for the UK population
+
+```{r histpop}
+### First, we need to declare the survey design
+### In this case, we only have the weights
+### For earnings-related estimation we need to use PIWT24
+### For other estimates - PWT24
+
+dataex2.s<-   dataex2|> 
+         as_survey_design(weights=PIWT24)
+
+### Inference to the UK population
+qtl.g<-svyquantile(~GRSSWK,
+                   dataex2.s,
+                   .99,
+                   ci=T)
+
+qtl.g 
+
+qtl.gn<-qtl.g$GRSSWK[[1]]
+
+qtl.gn
+```
+We now know that on average 99% of earners in the UK earn less than `{r} paste0("£", prettyNum(qtl.gn, big.mark=","))` per week. 
+ Let's compare the weighted and unweighted distribution
 
 
 ```{r plot}
-hist(dataex2$GRSSWK[dataex2$GRSSWK>0 & dataex2$GRSSWK<=2499],
-     xlab="Earnings (£) -- 1st-99th percentiles",          # x axis label
-     main="Gross Weekly Earnings (£) -- 1st-99th percentiles, Oct-Dec 2024", # Plot title
-     freq=F)                                               # Print probabilities 
+
+svyhist(~GRSSWK,
+        subset(dataex2.s,  GRSSWK>0 & GRSSWK<qtl.gn),
+        xlab="Earnings (£) -- 1st-99th percentiles", # x axis label
+        main="Gross Weekly Earnings in the UK - Oct-Dec 2024", # Plot title
+        freq=F)  # Print probabilities rather than frequencies
+
 ```
+
+
 
 ::: panel-tabset
 ## Question
 
-Plot the distribution of hourly earnings  up to the 99th percentile.
+Plot the distribution of hourly earnings  up to the 99th percentile in the UK between October and December 2024.
 
 ## Answer
 ```{r hourly}
+dataex2.s<-update(dataex2.s, HOURPAY=as.numeric(HOURPAY))
 quantile(dataex2$HOURPAY[dataex2$HOURPAY>0],.99)
 
+qtl.h<-svyquantile(~HOURPAY,dataex2.s,.99,ci=T)
+qtl.h
 
-hist(dataex2$HOURPAY[dataex2$HOURPAY>0 & dataex2$HOURPAY<68.8],
-     xlab="Earnings (£) -- 1st-99th percentiles",                                                main="Net hourly earnings in the UK, October-December 2024", 
-     freq=F)                                                       
+qtl.hn<-qtl.h$HOURPAY[[1]]
+qtl.hn
+
+hist(dataex2$HOURPAY[dataex2$HOURPAY>0 & dataex2$HOURPAY<68.8],     
+     main="Sample distribution of net hourly earnings -- QLFS OD 2024",
+     xlab="Earnings (£) -- 1st-99th percentiles")
+                                                       
+
+svyhist(~HOURPAY,subset(dataex2.s, HOURPAY>0 & HOURPAY<=qtl.hn),
+        xlab="Earnings (£) -- 1st-99th percentiles",                                               
+        main="Net hourly earnings in the UK, October-December 2024", 
+        freq=F
+)
+
 ```
 :::
-
-
-## Examine full-time employees
-
-It is important to remain mindful of definitions:
-
-- *Employees* refers to people who whose jobs implies working under an employment contract for an employer; 
-- *Employed* refers to people who are  both employees and self employed ie who have a paid job.
-
-- Full-time or part-time refer to people's self declared working-time status, irrespective of whether they are employed or self-employed
-
-LFS  data provides the INECAC05 variable, which records all nuances of economic activity (there are 35 of them!), including employment and self-employment. There is also ILODEFR which records the broad economic activity status (ie Whether employed, unemployed, etc.) and group together self-employed and employees.
-
-We will now examine these  variables.
-
-```{r sumINE}         
-table(dataex2$INECAC05)
-```
-
-```{r sumFT}         
-table(dataex2$FTPT)
-```
-
-
-If we further want to know about about the number of employees by working-time status, we will need to explictly restrict the analysis to those: 
-
-```{r}         
-ft.emp<-dataex2 |> filter(INECAC05=="[1] Employee") |>
-                   select(FTPT) |> 
-                   table()
-ft.emp
-```
-
-There are `{r} paste0(prettyNum(ft.emp[[3]], big.mark=","))` full-time employees in the  sample.
-
-::: panel-tabset
-## Question
-
-1. Provide a similar  description for summarised economic activity variable.
-2. How many  *self-employed* respondents working full-time are there in the sample?
-
-## Answer
-1. 
-```{r subset}
-dataex2 |> select(ILODEFR) |> 
-           table()
-```
-
-2. 
-```{r}         
-ft.emp.2<-dataex2 |> filter(INECAC05=="[2] Self-employed") |>
-                   select(FTPT) |> 
-                   table()
-
-ft.emp.2
-```
-
-
-There are `{r} prettyNum(ft.emp.2[[3]], big.mark=",")` respondents in full-time self-employment in the sample.
-:::
-
-
+  
+  
+  
+  
+  
 ## ONS estimates for employees' gross weekly earnings
-
-The code below recreates the ONS results showing the distribution of income for full-time employees overall and by gender. 
+  
+  The code below recreates the ONS results showing the distribution of income for full-time employees overall and by gender. 
 It does it in two stages:
+  
+  1. First, we create a variable to flag the ONS' definition of full-time employees.    It may be a good idea to double check the definition used by the ONS [in its publication.](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04). Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for  respondents' main job, and also that *those earnings more than £100 per hour* are excluded. 
 
-- First, we create a variable to flag to match the ONS' definition of full-time employees  (ie those who work full-time and earn up to £100 hourly). 
+We need to  remain mindful of definitions:
+  
+- *Employees* refers to people who whose jobs implies working under an employment contract for an employer; 
+- *Employed* refers both to people who are   employees and self employed ie who have a paid job.
+- *Full-time or part-time* refer to people's self declared working-time status, irrespective of whether they are employed or self-employed. It is usually considered in the UK that part-time hours correspond to less than 30 hours per week.
 
-   It may be a good idea to double check the definition used by the ONS [in its publication.](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/grossweeklyearningsoffulltimeemployeesearn04) Looking at the notes under the Table EARN04, we learn that ONS figures are only computed for  respondents' main job, and also that *those earnings more than £100 per hour* are excluded. 
-
+LFS  data provides the INECAC05 variable, which records all nuances of economic activity (there are 35 of them!), including employment and self-employment. 
+We will now examine compute the flagging variable and examine its  distribution  in the sample.
 
 ```{r ftEmp}
 
@@ -197,26 +211,32 @@ dataex2<-dataex2 |>
 table(dataex2$ftEmp)
 ```
 
-- We then create a version of the data that takes the income weights into account and compute the results:
+2. We then create a version of the data that takes the income weights into account and compute the results:
+
 
 ```{r svy}
-de.s<-   dataex2|> 
+dataex2.s<-   dataex2|> 
          as_survey_design(weights=PIWT24)
 
-medinc<- de.s |> group_by(ftEmp)  |> 
-        summarise(Median=survey_old_median(GRSSWK,vartype="ci")) |>
-        ungroup()
+
+medinc=dataex2.s|>group_by(ftEmp)|> 
+           summarise(test=
+                     survey_quantile(GRSSWK,
+                     quantiles=.5,               
+                     vartype="ci"))
+
 medinc
 ```
 
-The median weekly earnings of  full-time employees in the UK in October-December 2024 was £`{r} round(medinc[[2]][2])`. We need to keep in mind that by using the income weights, those with missing values on GRSSWK are automatically left out. 
+The median weekly earnings of  full-time employees in the UK in October-December 2024 ranged between  £`{r} round(medinc[[2,3]],1)` and £`{r}  round(medinc[[2,4]],1)`. We need to keep in mind that by using the income weights, those with missing values on GRSSWK are automatically left out. 
+
 
 ::: panel-tabset
 ## Questions
 
 1.  What are the median weekly earnings for men and women in the UK?
 
-2.  What are earnings at the lowest decile for males and females  in the UK?
+2.  What are median hourly earnings in  the highest  decile for males and females  in the UK? How does it compare with the lowest decile?
 
 3. Why are we using a different weight from exercise 1?
 
@@ -226,101 +246,44 @@ The median weekly earnings of  full-time employees in the UK in October-December
 1.  
 
 ```{r answer1}
-mwesex<- de.s |> group_by(SEX,ftEmp)  |> 
-                 summarise(Median=survey_old_median(GRSSWK,vartype="ci")) |>
-                 ungroup()
-mwesex
+
+
+medinc.sex<-dataex2.s|>group_by(ftEmp,SEX)|>
+           summarise(Medwk=
+                     survey_quantile(GRSSWK,
+                     quantiles=.5,               
+                     vartype="ci"))
+
+medinc.sex
 ```
-Median weekly earnings of women and men in the UK are respectively £`{r} round(mwesex[[3]][4])` and £`{r} round(mwesex[[3]][2]) `
+
+Median weekly earnings for men and women in the UK ranged respectively between £`{r} round(medinc.sex$Medwk_q50_low[3],1)` - £`{r} round(medinc.sex$Medwk_q50_upp[3],1)` and £`{r} round(medinc.sex$Medwk_q50_low[4],1)` - £`{r} round(medinc.sex$Medwk_q50_upp[4],1)`
 
 2.  
 
 ```{r answer2}
-dec1<-de.s |> group_by(SEX, ftEmp)  |> 
-              summarise("Median"=survey_old_quantile(GRSSWK,vartype="ci",.10)) |>
-              ungroup()
-dec1
+inc10.sex<-dataex2.s|>group_by(ftEmp,SEX)|>
+           summarise(NHrPay=
+                     survey_quantile(HOURPAY,
+                     quantiles=.1,               
+                     vartype="ci"))
+
+
+inc10.sex
+
+inc90.sex<-dataex2.s|>group_by(ftEmp,SEX)|>
+           summarise(NHrPay=
+                     survey_quantile(HOURPAY,
+                     quantiles=.9,               
+                     vartype="ci"))
+
+
 ```
-The median weekly earnings for men and women in the lowest decile in the UK are  respectively £`{r} round(dec1[[3]][4])` and £`{r} round(dec1[[3]][2]) `
+The  net hourly rate of pay  for men and women in the highest decile in the UK ranged  respectively between £`{r} round(inc90.sex$NHrPay_q90_low[3],1)` - £`{r} round(inc90.sex$NHrPay_q90_upp[3],1)` and £`{r} round(inc90.sex$NHrPay_q90_low[4],1)` - £`{r} round(inc90.sex$NHrPay_q90_upp[4],1)`. In the lowest decide, hourly rates of pay were  identical. 
 
 
 3. Because earnings are computed for a specific subpopulation: those in employment with valid earnings data.
 
-:::
-
-## How many people work as full-time employee?
-This question relies on  a slightly different definition that we have used so far since this time we won't exclude those earning more than £100 per hour. The figures published by the ONS can be found [in Table EMP01 here](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/fulltimeparttimeandtemporaryworkersnotseasonallyadjustedemp01nsa).
-
-Let's follow the same steps as before: 
-
-1. Let's flag full-time employees (no limit on hourly pay this time):
-
-```{r ftEmp2}
-dataex2<-dataex2 |> 
-             mutate(
-                  ftEmp2=ifelse(
-                         (FTPT=="[3] New Deal-FT" | FTPT=="[1] Full time") &                        INECAC05=="[1] Employee",
-                         "Full-time employee", 
-                         "Anything else"
-                               ),
-                  ftEmp=as.factor(ftEmp2)
-                   )
-```
-
-Let's then update the copy of the data that includes weights and  produce our estimates: 
- 
-```{r svy2}
-de.s<-   dataex2|> 
-         as_survey_design(weights=PIWT24)
-
-fte<-de.s |> group_by(ftEmp2) |>
-        summarise(survey_total(vartype="ci"))
-
-fte
-```
-
-```{r corr}
-#| echo: false
-de.sa<-   dataex2|> as_survey_design(weights=PWT24)
-corr<-de.sa |> group_by(ftEmp2) |> summarise(survey_total(vartype="ci"))
-```
-
-::: panel-tabset
-## Question
-
-1. The ONS table gives the estimated number of full-time employees as `{r} prettyNum(corr[[2]][2],big.mark = ",")`. Above, we get `{r} prettyNum(fte[[2]][2],big.mark = ",")`. Why is there a difference?
-
-2. What steps need to be different to get the correct estimate of the number of full-time employees?
-
-3. What is the correct estimated number of: 
-
-    - full-time employees; 
-    - female and male full-time employees in the UK?
-
-## Answer
-1. Because we have used the wrong weights ie PIWT24, the weights that can only be used for earnings estimation
-
-2. We need to create another version of the data with the correct weight: PWT24
-
-```{r sa}
-de.sa<-   dataex2|> 
-         as_survey_design(weights=PWT24)
-
-de.sa |> group_by(ftEmp2) |>
-        summarise(survey_total(vartype="ci"))
-
-```
-3. 
-
-```{r corr2}
-### Full-time employees by gender
-fte.g<-de.sa |> group_by(SEX,ftEmp2) |> 
-                summarise(
-                  survey_total(vartype="ci")
-                        )
-fte.g
-```
-In October - December 2024, there were respectively  `{r} prettyNum(fte.g[[3]][4],big.mark = ",")`  and `{r} prettyNum(fte.g[[3]][2],big.mark = ",")` female and male full-time employees.
 :::
 
 

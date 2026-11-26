@@ -4,8 +4,8 @@ In this exercise, we will recreate an ONS labour market estimate published onlin
 
 Learning outcomes:
 
--   To become more familiar with QLFS datasets.
--   To become familiar with producing weighted population estimates
+-   To become more familiar with quarterly LFS datasets.
+-   To become familiar with weighted population counts and their confidence interval
 -   To understand how some ONS estimates are produced
 
 ## Data
@@ -32,10 +32,12 @@ Set the working directory using `setwd ("LFS_exercises").`
 And open the QLFS dataset.
 
 ```{r open}
-setwd ("LFS_exercises")
+setwd ("~")
 
 # Import  the data from a Stata format dataset 
-lfs_od24 <- read_dta("Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta")
+lfs_od24 <- read_dta(
+              "Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
+              )
 ```
 
 Inspect the dataset and find out the number of cases and variables.
@@ -45,121 +47,159 @@ ncol(lfs_od24) # Number of columns
 nrow(lfs_od24) # Number of rows (observations)
 ```
 
-::: panel-tabset
-## Revision question
+<!-- ::: panel-tabset -->
+<!-- ## Revision question -->
 
-1.  How many variables are there?
-2.  How many cases are there?
+<!-- 1.  How many variables are there? -->
+<!-- 2.  How many cases are there? -->
 
-## Answers
+<!-- ## Answers -->
 
-1.  There are `{r} ncol(lfs_od24)` variables in the dataset.
-2.  There are `{r} prettyNum(nrow(lfs_od24), big.mark=",")` cases
-:::
+<!-- 1.  There are `{r} ncol(lfs_od24)` variables in the dataset. -->
+<!-- 2.  There are `{r} prettyNum(nrow(lfs_od24), big.mark=",")` cases -->
+<!-- ::: -->
 
-As there are many variables in the dataset, let's create a copy with just the variables we will use. We can also use this opportunity to convert categorical variables into factors, which will make them easier to understand. At the same time, we can remove any unused categories using `droplevels()`.
+As there are many variables in the dataset, let's create a copy with just those  we will use to simplify some of the computations. 
 
 ```{r dataex1}
+#| echo= c(1)
 dataex1 <- lfs_od24 |> 
-  select(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)|>
-  mutate(across(.cols=JBTP101:SEX, 
-                .fns=as_factor,"both")
-         )|>
-  droplevels()
+  select(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)
+#  mutate(
+#    across(.cols=JBTP101:SEX, 
+#           .fns=as_factor,"both") ### Convert numeric values into factor levels 
+#         )                      
 ```
 
-Let's have a look at the raw data.
+Let's have a look at the  data.
 
 ```{r head}
-head(dataex1)
-
-View(dataex1) # Nicer looking output
+glimpse(dataex1) # Sparse description
+str(dataex1)     # ... And a more detailed one
+# View(dataex1)    # For an spreadsheet view
 ```
 
 ## Examine the variables
 
-Now let's examine in more detail the variables we are going to work with.
+Let's examine some of the variables we are going to work with in more detail.
 
 ```{r summ}
-dataex1 |> select(JBTP101, FTPT, INECAC05, JOBTYP, SEX) |> 
-           summary()
+labelled::var_label(dataex1$FTPT)
+labelled::val_labels(lfs_od24$FTPT)
+table(
+  as_factor(
+    dataex1$FTPT
+    )
+)
+
+# dataex1 |> skimr::skim()
+# labelled::look_for(dataex1, details="basic")
+# lapply(dataex1[c(-2,-1)], function(x) table(x)) ### Frequency tables of all categorical variables
+# lapply(dataex1, function(x) labelled::var_label(x))
+
 ```
 
-We can also inspect the variables labels. The code below is for the variable `FTPT`.
-
-```{r attr}
-attr(lfs_od24$FTPT,"label")
-```
 
 ::: panel-tabset
 ## Questions
 
-1.  What does the variable `INECAC05` relate to? Tip: you can adapt the code above to see the label.
+1.  What does the variable `INECAC05` record? 
 
 2.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`?
 
 ## Answers
 
-1.  `INECAC05` records `{r} attr(lfs_od24$INECAC05,"label")`
+1.  `INECAC05` records `{r} labelled::var_label(dataex1$INECAC05)`
 
-2.  Most of the missing cases are due to the variables not being applicable to all respondents. For example, the variable `FTPT` applies only to individuals aged 16 and over who are in employment. Similarly, `jbtp101`only applies to respondents who indicated that their job was not permanent in some way (i.e. where *JOBTYP = 2*).
+2.  Most of the missing cases are due to the variables not being applicable to all respondents. For example, the variable `FTPT` applies only to individuals aged 16 and over who are in employment. Similarly, `JBPT01`only applies to respondents who indicated that their job was not permanent in some way (i.e. where *JOBTYP = 2*).
 :::
 
 ## Getting weighted frequencies
 
-To get correct estimates of population values, we need to apply the weight.
+To get correct estimates of population values, we need to use the weighting variable - `PWT24`.
 
 We will use `as_survey_design()`, an R function from the `survey` and `srvyr` packages, to create a weighted version of our data.
 
-Let's first examine the variable `JOBTYP`, which indicates whether respondents work in a temporary job or not.
+Let's first examine the variable `JOBTYP`, which indicates whether respondents work in a temporary job or not. 
 
 ```{r freqs}
-cbind("Freq"=table(dataex1$JOBTYP), 
-      "Pct"=  100*prop.table(table(dataex1$JOBTYP)) |> round(1) 
-      )
+t<-table(
+  Freq=as_factor(
+    dataex1$JOBTYP
+    )
+  )
+
+t
 ```
 
-Since we have missing values (e.g. 'Does not apply'), we can mark them as system missing (NA in R) so they do not affect the analysis.
+Since we have missing values (e.g. 'Does not apply'), we can mark them as system missing (NA in R) in order to get neater tables.
 
 ```{r jobtmp}
  
 dataex1 <- dataex1 |> 
-          mutate (
-                 JobTmp = ifelse(JOBTYP == "[2] Not permanent in some way",
-                                 "Temporary",
-                                  "Not temporary"),
-                 JobTmp = ifelse(JOBTYP == "[-9] Does not apply" | 
-                                  JOBTYP == "[-8] No answer",
-                                  NA,
-                                  JobTmp),
-                 JobTmp = as.factor(JobTmp)
-                  )
+          mutate (JobTmp =case_when(
+                  JOBTYP== 1 ~ "Not temporary",
+                  JOBTYP == 2 ~ "Temporary",
+                  JOBTYP == -9  | JOBTYP == -8 ~ NA),
+                  JobTmp = as.factor(JobTmp)
+          )
 
-cbind("Freq"=table(dataex1$JobTmp), 
-      "Pct"=  (100*prop.table(table(dataex1$JobTmp))) |> round(1) 
-      )
+
+tm<-table(Freq=dataex1$JobTmp)
+tm
 ```
 
-Now, create a version of the data with the weight applied, which we will use in the rest of the analysis.
+Let's create a version of the data with the weights applied, which we will use in the rest of the analysis.
 
 ```{r svydes}
 dataex1.s<-dataex1|> 
-         filter(!is.na(PWT24) ) |> #remove obs with missing weight value 
          as_survey_design(weights=PWT24)
 ```
 
-Note: In the code above, we removed observations with missing weight values. These cases should not be taken into account when calculating population estimates – and if we don't remove them, R will return an error message.
+<!-- Note: In the code above, we removed observations with missing weight values. These cases should not be taken into account when calculating population estimates – and if we don't remove them, R will return an error message. -->
 
-Now, compute the weighted frequencies of `JobTmp`.
+... And  compute the weighted frequencies of `JobTmp`.
+
+We will look at the population counts first:
 
 ```{r svyfreqs}
-t<-svytable(~JobTmp, dataex1.s)
+
+### Simple point estimates
+t1<-svytable(~JobTmp, dataex1.s)
+
+cbind(Unweighted=tm,Weighted=t1)
+
+```
+
+... Then their 95% confidence interval:
+
+```{r tci}
+tci<-dataex1.s  |>
+  filter(JobTmp=="Temporary") |>
+  summarise(
+    Temps = survey_total(vartype = "ci",na.rm=T)
+  )
+
+tci
+
+### Another way of obtaining the same results
+
+tci<-dataex1.s  |>
+  filter(JOBTYP==2) |>
+  summarise(
+    total = survey_total(vartype = "ci",na.rm=T)
+  )
+
+tci
+
+### Please note that filter() is the recommended way of splitting the data
+ dataex1.s  |>
+  summarise(
+    Temps = survey_total(JobTmp=="Temporary", vartype = "ci",na.rm=T)
+  )
 
 
-cbind("Freq"=t, 
-      "Pct"=  (100*prop.table(t)) |> round(1) 
-      )
-
+ 
 
 ```
 
@@ -174,7 +214,7 @@ cbind("Freq"=t,
 
 ## Answers
 
-1.  Yes, the frequencies change quite a lot once we apply the weights — they become much higher. This is because the weights in the Labour Force Survey (LFS) are designed to sum to known population totals. That makes it easier to estimate overall population values like totals, means, and proportions.
+1.  Yes, the frequencies change quite a lot once we apply the weights — they become much higher. This is because the weights in the Labour Force Survey (LFS) are designed to sum to known UK population totals. That makes it easier to estimate overall population numbers.
 
     The LFS weights also account for the survey’s sample design: individuals who had a lower chance of being selected are given higher weights to correct for that. They also help adjust for different levels of non-response across subgroups in the population, which means the results are more likely to reflect the population accurately.
 
@@ -183,69 +223,132 @@ cbind("Freq"=t,
 ```{r pt}
 
  dataex1 <- dataex1 |> 
-                  mutate (
-                    PartTime = ifelse(FTPT == "[4] New Deal-PT" | FTPT  == "[2] Part time",
-                                      "Part-time",
-                                      "Not part-time"),
-                   PartTime = ifelse(FTPT == "[-9] Does not apply" | FTPT == "[-8] No answer",
-                                      NA,
-                                      PartTime),
-
-                    PartTime = as.factor(PartTime)
+             mutate (
+               PartTime = case_when(
+                  FTPT == 3 | FTPT== 1 ~ "Not part-time",
+                  FTPT == 4 | FTPT  == 2 ~ "Part-time",
+                  FTPT == -9 | FTPT == -8 ~ NA),
+               PartTime = as.factor(PartTime)
                   )
 
 
 dataex1.s<-dataex1|> 
-         filter(!is.na(PWT24) ) |> 
          as_survey_design(weights=PWT24)
 
 
 ### Unweighted frequencies
-cbind("Freq"=table(dataex1$PartTime), 
-      "Pct"=  (100*prop.table(table(dataex1$PartTime))) |> 
-              round(1) 
-      )
+table(dataex1$PartTime) 
 
 ### Population estimates
 
-t<-svytable(~PartTime, dataex1.s)
-cbind("Freq"=t, 
-      "Pct"=  (100*prop.table(t)) |> round(1) 
-      )
+svytable(~PartTime, dataex1.s)
 
+
+t2<-dataex1.s |>
+  filter(PartTime=="Part-time") |>
+  summarise(
+    total = survey_total(vartype = "ci",na.rm=T)
+  )
+
+t2
 
 
 ```
 :::
+
+
 
 ## Splitting by working time status and sex
 
 We will now create a table to examine full-time and part-time employees by job tenure.
 
 ```{r tmp_ftpt}
-t1<-svytable(~PartTime+JobTmp,dataex1.s)
+t3<-svytable(~PartTime+JobTmp,dataex1.s)
 
-cbind("Freq"=t1, 
-      "Pct"=  (100*prop.table(t1,1)) |> ### Row pct 
-        round(1) 
-      )
+t3 
+
+t4<-dataex1.s |> 
+    filter(!is.na(PartTime)) |> 
+    group_by(PartTime) |> 
+    summarise(
+      total = survey_total(
+        JobTmp=="Temporary", 
+        vartype = "ci",
+        na.rm=T)
+  )
+
+t4
 ```
 
-And finally, let's add a third variable to the table to examine the number of temporary and part-time employees by gender.
+We can  add a third variable to the table to examine the number of temporary and part-time employees by gender.
 
-```{r sex}
-t2<-svytable(~PartTime+JobTmp+SEX,dataex1.s)
+```{r sex, eval=c(1,2)}
+#| echo=c(1,2) 
+t5<-svytable(~PartTime+JobTmp+droplevels(as_factor(SEX)),dataex1.s)
+t5 
 
-res<-list()       ### List of results
-res[["Males, totals"]]<-t2[,,1]
-res[["Males, Percent"]]<-(prop.table(t2[,,1],1)*100)|>
-                         round(1)
 
-res[["Females, totals"]]<-t2[,,2]
-res[["Females, Percent"]]<-(prop.table(t2[,,2],1)*100)|>
-                        round(1)
+# crosstab_ci_3way <- function(design, row, col, by, level = 0.95) {
+# 
+#   d <- design
+#   # d$variables$.r <- droplevels(d$variables[[row]])
+#   # d$variables$.c <- droplevels(d$variables[[col]])
+#   # d$variables$.b <- droplevels(d$variables[[by]])
+#   d$variables$.r <- as_factor(d$variables[[row]])
+#   d$variables$.c <- as_factor(d$variables[[col]])
+#   d$variables$.b <- as_factor(d$variables[[by]])
+# 
+#   if (!is.factor(d$variables$.r) ||
+#       !is.factor(d$variables$.c) ||
+#       !is.factor(d$variables$.b))
+#     stop("All three variables must already be factors.")
+# 
+#   lv <- levels(d$variables$.r)
+#   k  <- length(lv)
+# 
+#   if (k < 2) stop("Row variable '", row, "' has fewer than 2 levels.")
+# 
+#   b <- as.data.frame(svyby(~ .r, ~ .c + .b, d, svymean, na.rm = TRUE))
+# 
+#   # Match columns by name — robust to level names with spaces/punctuation
+#   est_idx <- match(paste0(".r", lv),  names(b))
+#   se_idx  <- match(paste0("se..r", lv), names(b))
+# 
+#   if (anyNA(est_idx) || anyNA(se_idx))
+#     stop("Could not locate svyby estimate/SE columns. Columns are: ",
+#          paste(names(b), collapse = ", "))
+# 
+#   z <- qt(1 - (1 - level) / 2, degf(d))
+# 
+#   split(b, b$.b) |>
+#     lapply(function(sub) {
+#       p  <- as.matrix(sub[, est_idx])
+#       se <- as.matrix(sub[, se_idx])
+#       lo <- pmax(0,   (p - z * se) * 100)
+#       hi <- pmin(100, (p + z * se) * 100)
+# 
+#       m <- matrix(sprintf("%.1f-%.1f", lo, hi),
+#                   nrow = nrow(p),
+#                   dimnames = list(as.character(sub$.c), lv))
+# 
+#       data.frame(outcome = lv, t(m), check.names = FALSE)
+#     })
+# }
+# 
+# crosstab_ci_3way(dataex1.s,"JobTmp","PartTime","SEX")
 
-res
+```
+
+With confidence intervals:
+
+```{r sexci, eval=c(1,2)}
+#| echo=c(1,2) 
+t6<-dataex1.s |> 
+    filter(!is.na(PartTime))|> 
+    group_by(SEX,PartTime) |> 
+    summarise(survey_total(JobTmp=="Temporary", vartype="ci", na.rm=T))
+t6 
+
 ```
 
 ### Review questions
@@ -261,11 +364,11 @@ res
 
 ## Answers
 
-1.  There are `{r} prettyNum(svytable(~JobTmp,dataex1.s)[2],big.mark = ",")` temporary employees, of which `{r} prettyNum(svytable(~JobTmp+PartTime,dataex1.s)[4],big.mark = ",")` part-time.
+There were between `{r} prettyNum(tci$total_low,big.mark = ",")` and `{r} prettyNum(tci$total_upp,big.mark = ",")` temporary employees, of which between `{r} prettyNum(round(t4$total_low[2]),big.mark = ",")` and `{r} prettyNum(round(t4$total_upp[2]),big.mark = ",")` part-time. 
 
-2.  There are `{r} prettyNum(t2[2,2,2] ,big.mark = ",")` females in part-time temporary employment
+2.  There were between `{r} prettyNum(round(t6[4,4]),big.mark = ",")`  and `{r} prettyNum(round(t6[4,5]),big.mark = ",")` females in part-time temporary employment 
 
-3.  In order to get the number of applicable cases, we need to look at the unweighted frequencies of `SEX` by `JobTmp` by `PartTime`: 
+3.  In order to get the number of applicable cases, we need to look at the unweighted frequencies of `SEX` by `JobTmp` by `PartTime`:  
 
 ```{r validcases}
 

@@ -32,11 +32,11 @@ library(srvyr)  ### Easier  manipulation of survey data
 Let's open the dataset.
 
 ```{r open}
-setwd ("LFS_exercises")
+setwd ("~")
 
 ### Importing a Stata format dataset 
 lfs_od24 <- read_dta(
-        "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
+        "Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
                     )
 ```
 

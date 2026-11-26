@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>exercise_1</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-989b851ebb00307843c4196436de61a5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a661da39ae5a0b37a90ac03bc0d9bd5c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -132,7 +135,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="http:// ukdataservice.ac.uk" class="sidebar-logo-link">
-      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./pics/UKDS_Logos_Col_Grey_300dpi.png" alt="UKDS homepage" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -165,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_1_Stata.html" class="sidebar-item-text sidebar-link">
+  <a href="./exercise_1_Stata.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stata</span></a>
   </div>
 </li>
@@ -194,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_2_Stata.html" class="sidebar-item-text sidebar-link">
+  <a href="./exercise_2_Stata.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stata</span></a>
   </div>
 </li>
@@ -217,30 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercise_3_Stata.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Stata</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>4. Estimates precision</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./exercise_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./exercise_4_Stata.html" class="sidebar-item-text sidebar-link">
+  <a href="./exercise_3_Stata.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Stata</span></a>
   </div>
 </li>
@@ -284,8 +265,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this exercise, we will recreate an ONS labour market estimate published online in the table <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07">EMP07 Temporary Employees</a>. Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).</p>
 <p>Learning outcomes:</p>
 <ul>
-<li>To become more familiar with QLFS datasets.</li>
-<li>To become familiar with producing weighted population estimates</li>
+<li>To become more familiar with quarterly LFS datasets.</li>
+<li>To become familiar with weighted population counts and their confidence interval</li>
 <li>To understand how some ONS estimates are produced</li>
 </ul>
 <section id="data" class="level2">
@@ -298,126 +279,146 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We suggest that you create a folder named <code>LFS_exercises</code> as the working directory for this exercise – where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within <code>LFS_exercises</code>, such as a subfolder named <code>Data</code>.</p>
 <p>First let’s load the packages that we are going to need.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(haven)  <span class="do">### Functions to open Stata or SPSS datasets</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(haven)  <span class="do">### Functions to open Stata or SPSS datasets</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(dplyr)  <span class="do">### Easier data manipulation </span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(survey) <span class="do">### Survey data analysis functions</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(srvyr)  <span class="do">### Easier  manipulation of survey data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(srvyr)  <span class="do">### Easier  manipulation of survey data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Set the working directory using <code>setwd ("LFS_exercises").</code></p>
 <p>And open the QLFS dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span> (<span class="st">"LFS_exercises"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span> (<span class="st">"~"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Import  the data from a Stata format dataset </span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>lfs_od24 <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4"></a>lfs_od24 <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(</span>
+<span id="cb2-5"><a href="#cb2-5"></a>              <span class="st">"Data/lfs/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>              )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Inspect the dataset and find out the number of cases and variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ncol</span>(lfs_od24) <span class="co"># Number of columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ncol</span>(lfs_od24) <span class="co"># Number of columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 803</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">nrow</span>(lfs_od24) <span class="co"># Number of rows (observations)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">nrow</span>(lfs_od24) <span class="co"># Number of rows (observations)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 63069</code></pre>
 </div>
 </div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Revision question</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Answers</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<ol type="1">
-<li>How many variables are there?</li>
-<li>How many cases are there?</li>
-</ol>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<ol type="1">
-<li>There are 803 variables in the dataset.</li>
-<li>There are 63,069 cases</li>
-</ol>
-</div>
-</div>
-</div>
-<p>As there are many variables in the dataset, let’s create a copy with just the variables we will use. We can also use this opportunity to convert categorical variables into factors, which will make them easier to understand. At the same time, we can remove any unused categories using <code>droplevels()</code>.</p>
+<!-- ::: panel-tabset -->
+<!-- ## Revision question -->
+<!-- 1.  How many variables are there? -->
+<!-- 2.  How many cases are there? -->
+<!-- ## Answers -->
+<!-- 1.  There are 803 variables in the dataset. -->
+<!-- 2.  There are 63\,069 cases -->
+<!-- ::: -->
+<p>As there are many variables in the dataset, let’s create a copy with just those we will use to simplify some of the computations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dataex1 <span class="ot">&lt;-</span> lfs_od24 <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">select</span>(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)<span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols=</span>JBTP101<span class="sc">:</span>SEX, </span>
-<span id="cb7-4"><a href="#cb7-4"></a>                <span class="at">.fns=</span>as_factor,<span class="st">"both"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5"></a>         )<span class="sc">|&gt;</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">droplevels</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dataex1 <span class="ot">&lt;-</span> lfs_od24 <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">select</span>(PERSNO, PWT24, JBTP101, FTPT, INECAC05, JOBTYP, SEX)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Let’s have a look at the raw data.</p>
+<p>Let’s have a look at the data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">head</span>(dataex1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">glimpse</span>(dataex1) <span class="co"># Sparse description</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 7
-  PERSNO    PWT24     JBTP101             FTPT             INECAC05 JOBTYP SEX  
-  &lt;dbl+lbl&gt; &lt;dbl+lbl&gt; &lt;fct&gt;               &lt;fct&gt;            &lt;fct&gt;    &lt;fct&gt;  &lt;fct&gt;
-1 1         706       [-9] Does not apply [-9] Does not a… [31] In… [-9] … [2] …
-2 2         887       [-9] Does not apply [1] Full time    [2] Sel… [-9] … [1] …
-3 1         598       [-9] Does not apply [-9] Does not a… [31] In… [-9] … [2] …
-4 1         879       [-9] Does not apply [-9] Does not a… [31] In… [-9] … [2] …
-5 2           0       [-9] Does not apply [-9] Does not a… [31] In… [-9] … [1] …
-6 1         793       [-9] Does not apply [2] Part time    [1] Emp… [1] P… [2] …</code></pre>
+<pre><code>Rows: 63,069
+Columns: 7
+$ PERSNO   &lt;dbl+lbl&gt; 1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 1, 2, 3, 4, 1, 2, 1, 2, 1, …
+$ PWT24    &lt;dbl+lbl&gt;  706,  887,  598,  879,    0,  793,  901,  640,  689, 258…
+$ JBTP101  &lt;dbl+lbl&gt; -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -…
+$ FTPT     &lt;dbl+lbl&gt; -9,  1, -9, -9, -9,  2,  2, -9, -9, -9,  2,  2, -9, -9, -…
+$ INECAC05 &lt;dbl+lbl&gt; 31,  2, 31, 31, 31,  1,  1, 31, 31, 31,  2,  2,  5, 31, 3…
+$ JOBTYP   &lt;dbl+lbl&gt; -9, -9, -9, -9, -9,  1,  1, -9, -9, -9, -9, -9, -9, -9, -…
+$ SEX      &lt;dbl+lbl&gt; 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2, 1, 1, …</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">View</span>(dataex1) <span class="co"># Nicer looking output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">str</span>(dataex1)     <span class="co"># ... And a more detailed one</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [63,069 × 7] (S3: tbl_df/tbl/data.frame)
+ $ PERSNO  : dbl+lbl [1:63069] 1, 2, 1, 1, 2, 1, 2, 1, 2, 1, 1, 2, 3, 4, 1, 2, 1, 2...
+   ..@ label       : chr "Person number within household"
+   ..@ format.stata: chr "%8.0g"
+   ..@ labels      : Named num [1:2] -9 -8
+   .. ..- attr(*, "names")= chr [1:2] "Does not apply" "No answer"
+ $ PWT24   : dbl+lbl [1:63069]  706,  887,  598,  879,    0,  793,  901,  640,  689...
+   ..@ label       : chr "Person weight 2024"
+   ..@ format.stata: chr "%8.0g"
+   ..@ labels      : Named num [1:2] -9 -8
+   .. ..- attr(*, "names")= chr [1:2] "Does not apply" "No answer"
+ $ JBTP101 : dbl+lbl [1:63069] -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, ...
+   ..@ label       : chr "Way in which job was not permanent - 1"
+   ..@ format.stata: chr "%8.0g"
+   ..@ labels      : Named num [1:7] -9 -8 1 2 3 4 5
+   .. ..- attr(*, "names")= chr [1:7] "Does not apply" "No answer" "Working for an employment agency" "Casual work" ...
+ $ FTPT    : dbl+lbl [1:63069] -9,  1, -9, -9, -9,  2,  2, -9, -9, -9,  2,  2, -9, ...
+   ..@ label       : chr "Whether working Full or Part Time"
+   ..@ format.stata: chr "%8.0g"
+   ..@ labels      : Named num [1:6] -9 -8 1 2 3 4
+   .. ..- attr(*, "names")= chr [1:6] "Does not apply" "No answer" "Full time" "Part time" ...
+ $ INECAC05: dbl+lbl [1:63069] 31,  2, 31, 31, 31,  1,  1, 31, 31, 31,  2,  2,  5, ...
+   ..@ label       : chr "Basic economic activity (ILO definition) (reported)"
+   ..@ format.stata: chr "%8.0g"
+   ..@ labels      : Named num [1:36] -9 -8 1 2 3 4 5 6 7 8 ...
+   .. ..- attr(*, "names")= chr [1:36] "Does not apply" "No answer" "Employee" "Self-employed" ...
+ $ JOBTYP  : dbl+lbl [1:63069] -9, -9, -9, -9, -9,  1,  1, -9, -9, -9, -9, -9, -9, ...
+   ..@ label       : chr "Permanent or temporary job"
+   ..@ format.stata: chr "%8.0g"
+   ..@ labels      : Named num [1:4] -9 -8 1 2
+   .. ..- attr(*, "names")= chr [1:4] "Does not apply" "No answer" "Permanent" "Not permanent in some way"
+ $ SEX     : dbl+lbl [1:63069] 2, 1, 2, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1, 2, 2, 1, 2, 1...
+   ..@ label       : chr "Sex of respondent"
+   ..@ format.stata: chr "%8.0g"
+   ..@ labels      : Named num [1:4] -9 -8 1 2
+   .. ..- attr(*, "names")= chr [1:4] "Does not apply" "No answer" "Male" "Female"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># View(dataex1)    # For an spreadsheet view</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="examine-the-variables" class="level2">
 <h2 class="anchored" data-anchor-id="examine-the-variables">Examine the variables</h2>
-<p>Now let’s examine in more detail the variables we are going to work with.</p>
+<p>Let’s examine some of the variables we are going to work with in more detail.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>dataex1 <span class="sc">|&gt;</span> <span class="fu">select</span>(JBTP101, FTPT, INECAC05, JOBTYP, SEX) <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2"></a>           <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                                       JBTP101                       FTPT      
- [-9] Does not apply                       :61818   [-9] Does not apply:32189  
- [-8] No answer                            :    2   [-8] No answer     :   25  
- [1] Working for an employment agency      :  175   [1] Full time      :22538  
- [2] Casual work                           :  302   [2] Part time      : 8314  
- [3] Seasonal work                         :   77   [3] New Deal-FT    :    2  
- [4] Under contract for a fixed period/task:  520   [4] New Deal-PT    :    1  
- [5] Other reason                          :  175                              
-                                                             INECAC05    
- [1] Employee                                                    :26365  
- [31] Inactive, not seeking, not like, retired from paid work    :12227  
- [34] Under 16                                                   :11459  
- [2] Self-employed                                               : 4387  
- [27] Inactive, not seeking, not like, long term sick or disabled: 2041  
- [24] Inactive, not seeking, not like, student                   : 1552  
- (Other)                                                         : 5038  
-                           JOBTYP              SEX       
- [-9] Does not apply          :36698   [1] Male  :30393  
- [-8] No answer               :   15   [2] Female:32676  
- [1] Permanent                :25104                     
- [2] Not permanent in some way: 1252                     
-                                                         
-                                                         
-                                                         </code></pre>
-</div>
-</div>
-<p>We can also inspect the variables labels. The code below is for the variable <code>FTPT</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">attr</span>(lfs_od24<span class="sc">$</span>FTPT,<span class="st">"label"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>labelled<span class="sc">::</span><span class="fu">var_label</span>(dataex1<span class="sc">$</span>FTPT)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Whether working Full or Part Time"</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>labelled<span class="sc">::</span><span class="fu">val_labels</span>(lfs_od24<span class="sc">$</span>FTPT)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Does not apply      No answer      Full time      Part time    New Deal-FT 
+            -9             -8              1              2              3 
+   New Deal-PT 
+             4 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">table</span>(</span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">as_factor</span>(</span>
+<span id="cb17-3"><a href="#cb17-3"></a>    dataex1<span class="sc">$</span>FTPT</span>
+<span id="cb17-4"><a href="#cb17-4"></a>    )</span>
+<span id="cb17-5"><a href="#cb17-5"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Does not apply      No answer      Full time      Part time    New Deal-FT 
+         32189             25          22538           8314              2 
+   New Deal-PT 
+             1 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># dataex1 |&gt; skimr::skim()</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="co"># labelled::look_for(dataex1, details="basic")</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co"># lapply(dataex1[c(-2,-1)], function(x) table(x)) </span><span class="al">###</span><span class="co"> Frequency tables of all categorical variables</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="co"># lapply(dataex1, function(x) labelled::var_label(x))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <ol type="1">
-<li><p>What does the variable <code>INECAC05</code> relate to? Tip: you can adapt the code above to see the label.</p></li>
+<li><p>What does the variable <code>INECAC05</code> record?</p></li>
 <li><p>Why are there many missing cases on the variables: <code>JBTP101</code>, <code>FTPT</code> and <code>JOBTYP</code>?</p></li>
 </ol>
 </div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <ol type="1">
 <li><p><code>INECAC05</code> records Basic economic activity (ILO definition) (reported)</p></li>
-<li><p>Most of the missing cases are due to the variables not being applicable to all respondents. For example, the variable <code>FTPT</code> applies only to individuals aged 16 and over who are in employment. Similarly, <code>jbtp101</code>only applies to respondents who indicated that their job was not permanent in some way (i.e.&nbsp;where <em>JOBTYP = 2</em>).</p></li>
+<li><p>Most of the missing cases are due to the variables not being applicable to all respondents. For example, the variable <code>FTPT</code> applies only to individuals aged 16 and over who are in employment. Similarly, <code>JBPT01</code>only applies to respondents who indicated that their job was not permanent in some way (i.e.&nbsp;where <em>JOBTYP = 2</em>).</p></li>
 </ol>
 </div>
 </div>
@@ -425,121 +426,164 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="getting-weighted-frequencies" class="level2">
 <h2 class="anchored" data-anchor-id="getting-weighted-frequencies">Getting weighted frequencies</h2>
-<p>To get correct estimates of population values, we need to apply the weight.</p>
+<p>To get correct estimates of population values, we need to use the weighting variable - <code>PWT24</code>.</p>
 <p>We will use <code>as_survey_design()</code>, an R function from the <code>survey</code> and <code>srvyr</code> packages, to create a weighted version of our data.</p>
 <p>Let’s first examine the variable <code>JOBTYP</code>, which indicates whether respondents work in a temporary job or not.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">cbind</span>(<span class="st">"Freq"</span><span class="ot">=</span><span class="fu">table</span>(dataex1<span class="sc">$</span>JOBTYP), </span>
-<span id="cb15-2"><a href="#cb15-2"></a>      <span class="st">"Pct"</span><span class="ot">=</span>  <span class="dv">100</span><span class="sc">*</span><span class="fu">prop.table</span>(<span class="fu">table</span>(dataex1<span class="sc">$</span>JOBTYP)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>) </span>
-<span id="cb15-3"><a href="#cb15-3"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>t<span class="ot">&lt;-</span><span class="fu">table</span>(</span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="at">Freq=</span><span class="fu">as_factor</span>(</span>
+<span id="cb20-3"><a href="#cb20-3"></a>    dataex1<span class="sc">$</span>JOBTYP</span>
+<span id="cb20-4"><a href="#cb20-4"></a>    )</span>
+<span id="cb20-5"><a href="#cb20-5"></a>  )</span>
+<span id="cb20-6"><a href="#cb20-6"></a></span>
+<span id="cb20-7"><a href="#cb20-7"></a>t</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                               Freq Pct
-[-9] Does not apply           36698  60
-[-8] No answer                   15   0
-[1] Permanent                 25104  40
-[2] Not permanent in some way  1252   0</code></pre>
+<pre><code>Freq
+           Does not apply                 No answer                 Permanent 
+                    36698                        15                     25104 
+Not permanent in some way 
+                     1252 </code></pre>
 </div>
 </div>
-<p>Since we have missing values (e.g.&nbsp;‘Does not apply’), we can mark them as system missing (NA in R) so they do not affect the analysis.</p>
+<p>Since we have missing values (e.g.&nbsp;‘Does not apply’), we can mark them as system missing (NA in R) in order to get neater tables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>dataex1 <span class="ot">&lt;-</span> dataex1 <span class="sc">|&gt;</span> </span>
-<span id="cb17-2"><a href="#cb17-2"></a>          <span class="fu">mutate</span> (</span>
-<span id="cb17-3"><a href="#cb17-3"></a>                 <span class="at">JobTmp =</span> <span class="fu">ifelse</span>(JOBTYP <span class="sc">==</span> <span class="st">"[2] Not permanent in some way"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4"></a>                                 <span class="st">"Temporary"</span>,</span>
-<span id="cb17-5"><a href="#cb17-5"></a>                                  <span class="st">"Not temporary"</span>),</span>
-<span id="cb17-6"><a href="#cb17-6"></a>                 <span class="at">JobTmp =</span> <span class="fu">ifelse</span>(JOBTYP <span class="sc">==</span> <span class="st">"[-9] Does not apply"</span> <span class="sc">|</span> </span>
-<span id="cb17-7"><a href="#cb17-7"></a>                                  JOBTYP <span class="sc">==</span> <span class="st">"[-8] No answer"</span>,</span>
-<span id="cb17-8"><a href="#cb17-8"></a>                                  <span class="cn">NA</span>,</span>
-<span id="cb17-9"><a href="#cb17-9"></a>                                  JobTmp),</span>
-<span id="cb17-10"><a href="#cb17-10"></a>                 <span class="at">JobTmp =</span> <span class="fu">as.factor</span>(JobTmp)</span>
-<span id="cb17-11"><a href="#cb17-11"></a>                  )</span>
-<span id="cb17-12"><a href="#cb17-12"></a></span>
-<span id="cb17-13"><a href="#cb17-13"></a><span class="fu">cbind</span>(<span class="st">"Freq"</span><span class="ot">=</span><span class="fu">table</span>(dataex1<span class="sc">$</span>JobTmp), </span>
-<span id="cb17-14"><a href="#cb17-14"></a>      <span class="st">"Pct"</span><span class="ot">=</span>  (<span class="dv">100</span><span class="sc">*</span><span class="fu">prop.table</span>(<span class="fu">table</span>(dataex1<span class="sc">$</span>JobTmp))) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>) </span>
-<span id="cb17-15"><a href="#cb17-15"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>dataex1 <span class="ot">&lt;-</span> dataex1 <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>          <span class="fu">mutate</span> (<span class="at">JobTmp =</span><span class="fu">case_when</span>(</span>
+<span id="cb22-3"><a href="#cb22-3"></a>                  JOBTYP<span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Not temporary"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4"></a>                  JOBTYP <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Temporary"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5"></a>                  JOBTYP <span class="sc">==</span> <span class="sc">-</span><span class="dv">9</span>  <span class="sc">|</span> JOBTYP <span class="sc">==</span> <span class="sc">-</span><span class="dv">8</span> <span class="sc">~</span> <span class="cn">NA</span>),</span>
+<span id="cb22-6"><a href="#cb22-6"></a>                  <span class="at">JobTmp =</span> <span class="fu">as.factor</span>(JobTmp)</span>
+<span id="cb22-7"><a href="#cb22-7"></a>          )</span>
+<span id="cb22-8"><a href="#cb22-8"></a></span>
+<span id="cb22-9"><a href="#cb22-9"></a></span>
+<span id="cb22-10"><a href="#cb22-10"></a>tm<span class="ot">&lt;-</span><span class="fu">table</span>(<span class="at">Freq=</span>dataex1<span class="sc">$</span>JobTmp)</span>
+<span id="cb22-11"><a href="#cb22-11"></a>tm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>               Freq  Pct
-Not temporary 25104 95.2
-Temporary      1252  4.8</code></pre>
+<pre><code>Freq
+Not temporary     Temporary 
+        25104          1252 </code></pre>
 </div>
 </div>
-<p>Now, create a version of the data with the weight applied, which we will use in the rest of the analysis.</p>
+<p>Let’s create a version of the data with the weights applied, which we will use in the rest of the analysis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>dataex1.s<span class="ot">&lt;-</span>dataex1<span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a href="#cb19-2"></a>         <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PWT24) ) <span class="sc">|&gt;</span> <span class="co">#remove obs with missing weight value </span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>         <span class="fu">as_survey_design</span>(<span class="at">weights=</span>PWT24)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>dataex1.s<span class="ot">&lt;-</span>dataex1<span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2"></a>         <span class="fu">as_survey_design</span>(<span class="at">weights=</span>PWT24)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Note: In the code above, we removed observations with missing weight values. These cases should not be taken into account when calculating population estimates – and if we don’t remove them, R will return an error message.</p>
-<p>Now, compute the weighted frequencies of <code>JobTmp</code>.</p>
+<!-- Note: In the code above, we removed observations with missing weight values. These cases should not be taken into account when calculating population estimates – and if we don't remove them, R will return an error message. -->
+<p>… And compute the weighted frequencies of <code>JobTmp</code>.</p>
+<p>We will look at the population counts first:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>t<span class="ot">&lt;-</span><span class="fu">svytable</span>(<span class="sc">~</span>JobTmp, dataex1.s)</span>
-<span id="cb20-2"><a href="#cb20-2"></a></span>
-<span id="cb20-3"><a href="#cb20-3"></a></span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="fu">cbind</span>(<span class="st">"Freq"</span><span class="ot">=</span>t, </span>
-<span id="cb20-5"><a href="#cb20-5"></a>      <span class="st">"Pct"</span><span class="ot">=</span>  (<span class="dv">100</span><span class="sc">*</span><span class="fu">prop.table</span>(t)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>) </span>
-<span id="cb20-6"><a href="#cb20-6"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="do">### Simple point estimates</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>t1<span class="ot">&lt;-</span><span class="fu">svytable</span>(<span class="sc">~</span>JobTmp, dataex1.s)</span>
+<span id="cb25-3"><a href="#cb25-3"></a></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="fu">cbind</span>(<span class="at">Unweighted=</span>tm,<span class="at">Weighted=</span>t1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                  Freq  Pct
-Not temporary 27802100 94.8
-Temporary      1514206  5.2</code></pre>
+<pre><code>              Unweighted Weighted
+Not temporary      25104 27802100
+Temporary           1252  1514206</code></pre>
+</div>
+</div>
+<p>… Then their 95% confidence interval:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>tci<span class="ot">&lt;-</span>dataex1.s  <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">filter</span>(JobTmp<span class="sc">==</span><span class="st">"Temporary"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb27-4"><a href="#cb27-4"></a>    <span class="at">Temps =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>,<span class="at">na.rm=</span>T)</span>
+<span id="cb27-5"><a href="#cb27-5"></a>  )</span>
+<span id="cb27-6"><a href="#cb27-6"></a></span>
+<span id="cb27-7"><a href="#cb27-7"></a>tci</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+    Temps Temps_low Temps_upp
+    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 1514206  1417808.  1610604.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="do">### Another way of obtaining the same results</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a></span>
+<span id="cb29-3"><a href="#cb29-3"></a>tci<span class="ot">&lt;-</span>dataex1.s  <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">filter</span>(JOBTYP<span class="sc">==</span><span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb29-6"><a href="#cb29-6"></a>    <span class="at">total =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>,<span class="at">na.rm=</span>T)</span>
+<span id="cb29-7"><a href="#cb29-7"></a>  )</span>
+<span id="cb29-8"><a href="#cb29-8"></a></span>
+<span id="cb29-9"><a href="#cb29-9"></a>tci</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+    total total_low total_upp
+    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 1514206  1417808.  1610604.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="do">### Please note that filter() is the recommended way of splitting the data</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a> dataex1.s  <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb31-4"><a href="#cb31-4"></a>    <span class="at">Temps =</span> <span class="fu">survey_total</span>(JobTmp<span class="sc">==</span><span class="st">"Temporary"</span>, <span class="at">vartype =</span> <span class="st">"ci"</span>,<span class="at">na.rm=</span>T)</span>
+<span id="cb31-5"><a href="#cb31-5"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+    Temps Temps_low Temps_upp
+    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 1514206  1417900.  1610512.</code></pre>
 </div>
 </div>
 <section id="questions-1" class="level3">
 <h3 class="anchored" data-anchor-id="questions-1">Questions</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <ol type="1">
 <li><p>Do the frequencies change noticeably when the weight is applied?</p></li>
 <li><p>Using the code we used to create <code>JobTmp</code> above as guide, create a variable to indicate those working part time and examine their weighted and unweighted frequencies. You are going to need this variable later.</p></li>
 </ol>
 </div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <ol type="1">
-<li><p>Yes, the frequencies change quite a lot once we apply the weights — they become much higher. This is because the weights in the Labour Force Survey (LFS) are designed to sum to known population totals. That makes it easier to estimate overall population values like totals, means, and proportions.</p>
+<li><p>Yes, the frequencies change quite a lot once we apply the weights — they become much higher. This is because the weights in the Labour Force Survey (LFS) are designed to sum to known UK population totals. That makes it easier to estimate overall population numbers.</p>
 <p>The LFS weights also account for the survey’s sample design: individuals who had a lower chance of being selected are given higher weights to correct for that. They also help adjust for different levels of non-response across subgroups in the population, which means the results are more likely to reflect the population accurately.</p></li>
 <li><p>The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables.</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a> dataex1 <span class="ot">&lt;-</span> dataex1 <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2"></a>                  <span class="fu">mutate</span> (</span>
-<span id="cb22-3"><a href="#cb22-3"></a>                    <span class="at">PartTime =</span> <span class="fu">ifelse</span>(FTPT <span class="sc">==</span> <span class="st">"[4] New Deal-PT"</span> <span class="sc">|</span> FTPT  <span class="sc">==</span> <span class="st">"[2] Part time"</span>,</span>
-<span id="cb22-4"><a href="#cb22-4"></a>                                      <span class="st">"Part-time"</span>,</span>
-<span id="cb22-5"><a href="#cb22-5"></a>                                      <span class="st">"Not part-time"</span>),</span>
-<span id="cb22-6"><a href="#cb22-6"></a>                   <span class="at">PartTime =</span> <span class="fu">ifelse</span>(FTPT <span class="sc">==</span> <span class="st">"[-9] Does not apply"</span> <span class="sc">|</span> FTPT <span class="sc">==</span> <span class="st">"[-8] No answer"</span>,</span>
-<span id="cb22-7"><a href="#cb22-7"></a>                                      <span class="cn">NA</span>,</span>
-<span id="cb22-8"><a href="#cb22-8"></a>                                      PartTime),</span>
-<span id="cb22-9"><a href="#cb22-9"></a></span>
-<span id="cb22-10"><a href="#cb22-10"></a>                    <span class="at">PartTime =</span> <span class="fu">as.factor</span>(PartTime)</span>
-<span id="cb22-11"><a href="#cb22-11"></a>                  )</span>
-<span id="cb22-12"><a href="#cb22-12"></a></span>
-<span id="cb22-13"><a href="#cb22-13"></a></span>
-<span id="cb22-14"><a href="#cb22-14"></a>dataex1.s<span class="ot">&lt;-</span>dataex1<span class="sc">|&gt;</span> </span>
-<span id="cb22-15"><a href="#cb22-15"></a>         <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PWT24) ) <span class="sc">|&gt;</span> </span>
-<span id="cb22-16"><a href="#cb22-16"></a>         <span class="fu">as_survey_design</span>(<span class="at">weights=</span>PWT24)</span>
-<span id="cb22-17"><a href="#cb22-17"></a></span>
-<span id="cb22-18"><a href="#cb22-18"></a></span>
-<span id="cb22-19"><a href="#cb22-19"></a><span class="do">### Unweighted frequencies</span></span>
-<span id="cb22-20"><a href="#cb22-20"></a><span class="fu">cbind</span>(<span class="st">"Freq"</span><span class="ot">=</span><span class="fu">table</span>(dataex1<span class="sc">$</span>PartTime), </span>
-<span id="cb22-21"><a href="#cb22-21"></a>      <span class="st">"Pct"</span><span class="ot">=</span>  (<span class="dv">100</span><span class="sc">*</span><span class="fu">prop.table</span>(<span class="fu">table</span>(dataex1<span class="sc">$</span>PartTime))) <span class="sc">|&gt;</span> </span>
-<span id="cb22-22"><a href="#cb22-22"></a>              <span class="fu">round</span>(<span class="dv">1</span>) </span>
-<span id="cb22-23"><a href="#cb22-23"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a> dataex1 <span class="ot">&lt;-</span> dataex1 <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2"></a>             <span class="fu">mutate</span> (</span>
+<span id="cb33-3"><a href="#cb33-3"></a>               <span class="at">PartTime =</span> <span class="fu">case_when</span>(</span>
+<span id="cb33-4"><a href="#cb33-4"></a>                  FTPT <span class="sc">==</span> <span class="dv">3</span> <span class="sc">|</span> FTPT<span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Not part-time"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5"></a>                  FTPT <span class="sc">==</span> <span class="dv">4</span> <span class="sc">|</span> FTPT  <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Part-time"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6"></a>                  FTPT <span class="sc">==</span> <span class="sc">-</span><span class="dv">9</span> <span class="sc">|</span> FTPT <span class="sc">==</span> <span class="sc">-</span><span class="dv">8</span> <span class="sc">~</span> <span class="cn">NA</span>),</span>
+<span id="cb33-7"><a href="#cb33-7"></a>               <span class="at">PartTime =</span> <span class="fu">as.factor</span>(PartTime)</span>
+<span id="cb33-8"><a href="#cb33-8"></a>                  )</span>
+<span id="cb33-9"><a href="#cb33-9"></a></span>
+<span id="cb33-10"><a href="#cb33-10"></a></span>
+<span id="cb33-11"><a href="#cb33-11"></a>dataex1.s<span class="ot">&lt;-</span>dataex1<span class="sc">|&gt;</span> </span>
+<span id="cb33-12"><a href="#cb33-12"></a>         <span class="fu">as_survey_design</span>(<span class="at">weights=</span>PWT24)</span>
+<span id="cb33-13"><a href="#cb33-13"></a></span>
+<span id="cb33-14"><a href="#cb33-14"></a></span>
+<span id="cb33-15"><a href="#cb33-15"></a><span class="do">### Unweighted frequencies</span></span>
+<span id="cb33-16"><a href="#cb33-16"></a><span class="fu">table</span>(dataex1<span class="sc">$</span>PartTime) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>               Freq  Pct
-Not part-time 22540 73.1
-Part-time      8315 26.9</code></pre>
+<pre><code>
+Not part-time     Part-time 
+        22540          8315 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="do">### Population estimates</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a></span>
-<span id="cb24-3"><a href="#cb24-3"></a>t<span class="ot">&lt;-</span><span class="fu">svytable</span>(<span class="sc">~</span>PartTime, dataex1.s)</span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="fu">cbind</span>(<span class="st">"Freq"</span><span class="ot">=</span>t, </span>
-<span id="cb24-5"><a href="#cb24-5"></a>      <span class="st">"Pct"</span><span class="ot">=</span>  (<span class="dv">100</span><span class="sc">*</span><span class="fu">prop.table</span>(t)) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>) </span>
-<span id="cb24-6"><a href="#cb24-6"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="do">### Population estimates</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="fu">svytable</span>(<span class="sc">~</span>PartTime, dataex1.s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                  Freq  Pct
-Not part-time 25430151 75.2
-Part-time      8403731 24.8</code></pre>
+<pre><code>PartTime
+Not part-time     Part-time 
+     25430151       8403731 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>t2<span class="ot">&lt;-</span>dataex1.s <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">filter</span>(PartTime<span class="sc">==</span><span class="st">"Part-time"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb37-4"><a href="#cb37-4"></a>    <span class="at">total =</span> <span class="fu">survey_total</span>(<span class="at">vartype =</span> <span class="st">"ci"</span>,<span class="at">na.rm=</span>T)</span>
+<span id="cb37-5"><a href="#cb37-5"></a>  )</span>
+<span id="cb37-6"><a href="#cb37-6"></a></span>
+<span id="cb37-7"><a href="#cb37-7"></a>t2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+    total total_low total_upp
+    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 8403731  8208541.  8598921.</code></pre>
 </div>
 </div>
 </div>
@@ -551,87 +595,101 @@ Part-time      8403731 24.8</code></pre>
 <h2 class="anchored" data-anchor-id="splitting-by-working-time-status-and-sex">Splitting by working time status and sex</h2>
 <p>We will now create a table to examine full-time and part-time employees by job tenure.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>t1<span class="ot">&lt;-</span><span class="fu">svytable</span>(<span class="sc">~</span>PartTime<span class="sc">+</span>JobTmp,dataex1.s)</span>
-<span id="cb26-2"><a href="#cb26-2"></a></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="fu">cbind</span>(<span class="st">"Freq"</span><span class="ot">=</span>t1, </span>
-<span id="cb26-4"><a href="#cb26-4"></a>      <span class="st">"Pct"</span><span class="ot">=</span>  (<span class="dv">100</span><span class="sc">*</span><span class="fu">prop.table</span>(t1,<span class="dv">1</span>)) <span class="sc">|&gt;</span> <span class="do">### Row pct </span></span>
-<span id="cb26-5"><a href="#cb26-5"></a>        <span class="fu">round</span>(<span class="dv">1</span>) </span>
-<span id="cb26-6"><a href="#cb26-6"></a>      )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>t3<span class="ot">&lt;-</span><span class="fu">svytable</span>(<span class="sc">~</span>PartTime<span class="sc">+</span>JobTmp,dataex1.s)</span>
+<span id="cb39-2"><a href="#cb39-2"></a></span>
+<span id="cb39-3"><a href="#cb39-3"></a>t3 </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              Not temporary Temporary Not temporary Temporary
-Not part-time      21736784    700619          96.9       3.1
-Part-time           6060549    812464          88.2      11.8</code></pre>
+<pre><code>               JobTmp
+PartTime        Not temporary Temporary
+  Not part-time      21736784    700619
+  Part-time           6060549    812464</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>t4<span class="ot">&lt;-</span>dataex1.s <span class="sc">|&gt;</span> </span>
+<span id="cb41-2"><a href="#cb41-2"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PartTime)) <span class="sc">|&gt;</span> </span>
+<span id="cb41-3"><a href="#cb41-3"></a>    <span class="fu">group_by</span>(PartTime) <span class="sc">|&gt;</span> </span>
+<span id="cb41-4"><a href="#cb41-4"></a>    <span class="fu">summarise</span>(</span>
+<span id="cb41-5"><a href="#cb41-5"></a>      <span class="at">total =</span> <span class="fu">survey_total</span>(</span>
+<span id="cb41-6"><a href="#cb41-6"></a>        JobTmp<span class="sc">==</span><span class="st">"Temporary"</span>, </span>
+<span id="cb41-7"><a href="#cb41-7"></a>        <span class="at">vartype =</span> <span class="st">"ci"</span>,</span>
+<span id="cb41-8"><a href="#cb41-8"></a>        <span class="at">na.rm=</span>T)</span>
+<span id="cb41-9"><a href="#cb41-9"></a>  )</span>
+<span id="cb41-10"><a href="#cb41-10"></a></span>
+<span id="cb41-11"><a href="#cb41-11"></a>t4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  PartTime       total total_low total_upp
+  &lt;fct&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 Not part-time 700619   631164.   770074.
+2 Part-time     812464   745263.   879665.</code></pre>
 </div>
 </div>
-<p>And finally, let’s add a third variable to the table to examine the number of temporary and part-time employees by gender.</p>
+<p>We can add a third variable to the table to examine the number of temporary and part-time employees by gender.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>t2<span class="ot">&lt;-</span><span class="fu">svytable</span>(<span class="sc">~</span>PartTime<span class="sc">+</span>JobTmp<span class="sc">+</span>SEX,dataex1.s)</span>
-<span id="cb28-2"><a href="#cb28-2"></a></span>
-<span id="cb28-3"><a href="#cb28-3"></a>res<span class="ot">&lt;-</span><span class="fu">list</span>()       <span class="do">### List of results</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a>res[[<span class="st">"Males, totals"</span>]]<span class="ot">&lt;-</span>t2[,,<span class="dv">1</span>]</span>
-<span id="cb28-5"><a href="#cb28-5"></a>res[[<span class="st">"Males, Percent"</span>]]<span class="ot">&lt;-</span>(<span class="fu">prop.table</span>(t2[,,<span class="dv">1</span>],<span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span>)<span class="sc">|&gt;</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a>                         <span class="fu">round</span>(<span class="dv">1</span>)</span>
-<span id="cb28-7"><a href="#cb28-7"></a></span>
-<span id="cb28-8"><a href="#cb28-8"></a>res[[<span class="st">"Females, totals"</span>]]<span class="ot">&lt;-</span>t2[,,<span class="dv">2</span>]</span>
-<span id="cb28-9"><a href="#cb28-9"></a>res[[<span class="st">"Females, Percent"</span>]]<span class="ot">&lt;-</span>(<span class="fu">prop.table</span>(t2[,,<span class="dv">2</span>],<span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span>)<span class="sc">|&gt;</span></span>
-<span id="cb28-10"><a href="#cb28-10"></a>                        <span class="fu">round</span>(<span class="dv">1</span>)</span>
-<span id="cb28-11"><a href="#cb28-11"></a></span>
-<span id="cb28-12"><a href="#cb28-12"></a>res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>t5<span class="ot">&lt;-</span><span class="fu">svytable</span>(<span class="sc">~</span>PartTime<span class="sc">+</span>JobTmp<span class="sc">+</span><span class="fu">droplevels</span>(<span class="fu">as_factor</span>(SEX)),dataex1.s)</span>
+<span id="cb43-2"><a href="#cb43-2"></a>t5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>$`Males, totals`
+<pre><code>, , droplevels(as_factor(SEX)) = Male
+
                JobTmp
 PartTime        Not temporary Temporary
   Not part-time      12376870    386524
   Part-time           1466001    336951
 
-$`Males, Percent`
-               JobTmp
-PartTime        Not temporary Temporary
-  Not part-time          97.0       3.0
-  Part-time              81.3      18.7
+, , droplevels(as_factor(SEX)) = Female
 
-$`Females, totals`
                JobTmp
 PartTime        Not temporary Temporary
   Not part-time       9359914    314095
-  Part-time           4594548    475513
-
-$`Females, Percent`
-               JobTmp
-PartTime        Not temporary Temporary
-  Not part-time          96.8       3.2
-  Part-time              90.6       9.4</code></pre>
+  Part-time           4594548    475513</code></pre>
+</div>
+</div>
+<p>With confidence intervals:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>t6<span class="ot">&lt;-</span>dataex1.s <span class="sc">|&gt;</span> </span>
+<span id="cb45-2"><a href="#cb45-2"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PartTime))<span class="sc">|&gt;</span> </span>
+<span id="cb45-3"><a href="#cb45-3"></a>    <span class="fu">group_by</span>(SEX,PartTime) <span class="sc">|&gt;</span> </span>
+<span id="cb45-4"><a href="#cb45-4"></a>    <span class="fu">summarise</span>(<span class="fu">survey_total</span>(JobTmp<span class="sc">==</span><span class="st">"Temporary"</span>, <span class="at">vartype=</span><span class="st">"ci"</span>, <span class="at">na.rm=</span>T))</span>
+<span id="cb45-5"><a href="#cb45-5"></a>t6</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+# Groups:   SEX [2]
+  SEX        PartTime        coef  `_low`  `_upp`
+  &lt;dbl+lbl&gt;  &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 1 [Male]   Not part-time 386524 332350. 440698.
+2 1 [Male]   Part-time     336951 291025. 382877.
+3 2 [Female] Not part-time 314095 270461. 357729.
+4 2 [Female] Part-time     475513 426256. 524770.</code></pre>
 </div>
 </div>
 <section id="review-questions" class="level3">
 <h3 class="anchored" data-anchor-id="review-questions">Review questions</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Answers</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Questions</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Answers</a></li></ul>
 <div class="tab-content">
-<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <ol type="1">
 <li><p>How many people are temporary employees (all and part-time) in this quarter?</p></li>
 <li><p>How many females are in part-time temporary employment?</p></li>
 <li><p>How can we find out the number of applicable cases for men in part-time temporary employment - ie the number of cases in the sample used to calculate the population counts?</p></li>
 </ol>
 </div>
-<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<ol type="1">
-<li><p>There are 1,514,206 temporary employees, of which 812,464 part-time.</p></li>
-<li><p>There are 475,513 females in part-time temporary employment</p></li>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>There were between 1,417,808 and 1,610,604 temporary employees, of which between 745,263 and 879,665 part-time.</p>
+<ol start="2" type="1">
+<li><p>There were between 426,256 and 524,770 females in part-time temporary employment</p></li>
 <li><p>In order to get the number of applicable cases, we need to look at the unweighted frequencies of <code>SEX</code> by <code>JobTmp</code> by <code>PartTime</code>:</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">table</span>(dataex1<span class="sc">$</span>JobTmp,dataex1<span class="sc">$</span>PartTime,dataex1<span class="sc">$</span>SEX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">table</span>(dataex1<span class="sc">$</span>JobTmp,dataex1<span class="sc">$</span>PartTime,dataex1<span class="sc">$</span>SEX)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>, ,  = [1] Male
+<pre><code>, ,  = 1
 
                
                 Not part-time Part-time
   Not temporary         10631      1319
   Temporary               273       288
 
-, ,  = [2] Female
+, ,  = 2
 
                
                 Not part-time Part-time
@@ -702,13 +760,14 @@ PartTime        Not temporary Temporary
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

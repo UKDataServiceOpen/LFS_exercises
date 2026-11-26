@@ -1,0 +1,255 @@
+# Estimates of temporary employment
+
+In this exercise, we will recreate an ONS labour market estimate published online in the table [EMP07 Temporary Employees](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07). Currently, this table is updated four times a year in February, May, August and November using the Quarterly Labour Force Survey (QLFS).
+
+Learning outcomes:
+
+-   To become more familiar with QLFS datasets.
+-   To become familiar with producing weighted population estimates
+-   To understand how some ONS estimates are produced
+
+## Data
+
+The data used in this exercise relates to an estimate published by the ONS for October-December 2024.
+
+To follow the exercise, you need to access the relevant dataset from the UK Data Service: [SN 9349: Quarterly Labour Force Survey, October - December, 2024](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=9349).
+
+
+## Get set-up
+
+We suggest that you create a folder named `LFS_exercises` as the working directory for this exercise -- where syntax files and other materials will be stored. After downloading the data, save it in an easily accessible location within `LFS_exercises`, such as a subfolder named `Data`.
+
+...  And open the QLFS dataset:
+
+```{stata open}
+clear
+cd  "LFS_exercises/"
+
+* Import  the data from a Stata format dataset 
+use  "Data/UKDA-9349-stata/stata/stata13/lfsp_od24_eul_pwt24.dta"
+
+```
+
+Inspect  the dataset and find out the number of cases and variables.
+
+```{stata dim}
+describe,short
+```
+
+
+::: panel-tabset
+## Revision question
+
+How many variables are there?
+
+## Answers
+
+There are 803 variables in the dataset.
+
+:::
+
+As there are many variables in the dataset, let's just keep the variables we are going to use. 
+
+
+
+
+```{stata mydata}
+keep PERSNO PWT24 JBTP101 FTPT INECAC05 JOBTYP SEX
+
+desc
+```
+
+## Examine the variables
+
+We can have a look at the raw data by using `browse`
+
+![](pics/stata_browse.png)
+
+Now let's examine in more detail the variables we are going to work with.
+
+```{stata summ}
+summ JBTP101 FTPT INECAC05 JOBTYP  SEX
+
+```
+
+
+This is not very meaningful. Let's use frequency  tables instead:
+
+```{stata tabs1}
+ta FTPT
+```
+
+```{stata tabs2}
+ta JBTP101  
+```
+
+```{stata tabs3}
+ta INECAC05 
+```
+
+```{stata tabs4}
+ta JOBTYP
+```
+
+```{stata tabs5}
+ta SEX
+```
+
+
+::: panel-tabset
+## Questions
+
+1.  How many cases are there?
+
+2.  What does the variable `INECAC05` relate to?
+
+3.  Why are there many missing cases on the variables: `JBTP101`, `FTPT` and `JOBTYP`?
+
+## Answers
+
+1.  There are 63,069 cases
+
+2.  `INECAC05` records  self-reported basic economic activity (ILO definition)
+
+3.  Respondents not in employment are coded as missing values for these variables. Missing values were recorded as -9 "Does not apply" and -8 "No answer" in the original data.
+:::
+
+
+
+## Weighted and unweighted frequencies
+
+In order to provide reliable estimates of population values, survey data needs to be *weighted* when analysed. Weights are variables whose values increase or decrease the relative importance of observations, depending on how likely respondents were to take part to the survey. Some weights are only designed to correct the relative importance of observations, whereas others in addition also enable calculating population totals - the latter are called grossing weights.
+
+Below, we compare weighted and unweighted frequencies and percentages.
+
+We will be using Stata's survey commands.
+
+Let us first examine again the variable measuring - JOBTYP - whether respondents work in a temporary job or not:
+
+```{stata freqs}
+tab JOBTYP
+tab JOBTYP,nol
+
+```
+
+... and create a version with missing values recoded as system missing.
+
+```{stata jobtmp}
+ 
+gen JobTmp = 0
+replace JobTmp = 1 if JOBTYP==2
+replace JobTmp = . if JOBTYP == -8  | JOBTYP == -9  
+
+lab var JobTmp "Whether main  job is temporary"
+lab def JobTmp 0 "Not temporary" 1 "Temporary"
+
+lab val JobTmp JobTmp
+
+tab JobTmp JOBTYP, missing
+
+```
+
+We then declare the the data to be weightey survey  data:
+
+```{stata svydes}
+svyset [pw=PWT24]
+```
+
+We can now compute the weighted totals and percentages:
+
+```{stata svyfreqs}
+svy:tab JobTmp, percent
+
+svy:tab  JOBTYP,count format(%9.0f)
+```
+
+### Review questions
+
+::: panel-tabset
+## Questions
+
+1.  Do the frequencies change noticeably when the weight is applied?
+
+2.  Using the code we used to create `JobTmp` above as guide, create a variable to indicate those working part time and examine their weighted and unweighted frequencies. You are going to need this variable later.
+
+## Answers
+
+1.  Yes, the frequencies change quite a lot once we apply the weights — they become much higher. This is because the weights in the Labour Force Survey (LFS) are designed to sum to known population totals. That makes it easier to estimate overall population values like totals, means, and proportions.
+
+    The LFS weights also account for the survey’s sample design: individuals who had a lower chance of being selected are given higher weights to correct for that. They also help adjust for different levels of non-response across subgroups in the population, which means the results are more likely to reflect the population accurately.
+
+2.  The syntax below computes a variable recording whether respondents work part-time or not and produce weighted frequency tables.
+
+
+```{stata pt}
+ta FTPT, nol
+
+recode FTPT 1 3 =0 2 4 = 1 -8 -9 = ., gen(PartTime) 
+
+
+lab var PartTime "Whether main  job is part-time"
+lab def PartTime 0 "Not part-time" 1 "Part-time"
+lab val PartTime PartTime
+
+### Checking the result
+tab  FTPT PartTime, missing
+
+### Computing the weighted totals
+svy:tab  PartTime,count format(%9.0f)
+```
+
+
+:::
+
+## Splitting by sex and working time status
+
+We can obtain the percentages of full-time and part-time employees by job tenure, by creating a contingency table:
+
+```{stata tmp_ftpt}
+
+svy:tab  PartTime JobTmp,count format(%9.0f)
+```
+
+We can simultaneously examine the number of temporary and part-time employees by gender by using the `subpop` option. 
+```{stata sex}
+*** We need first to recode SEX as a 0/1 ie dummy variable.
+
+tab SEX, gen(sex) 
+
+ta sex2
+
+```
+
+```{stata}
+*** Totals by sex
+
+svy,subpop(sex1):tab  PartTime JobTmp,count format(%9.0f) 
+
+svy,subpop(sex2):tab  PartTime JobTmp,count format(%9.0f) 
+```
+
+### Review questions
+
+::: panel-tabset
+## Questions
+
+1.  How many people are temporary employees (all and part-time) in this quarter?
+
+2.  How many females are in part-time temporary employment?
+
+3.  How can we find out the number of applicable cases for men in part-time temporary employment - ie the number of cases in the sample used to calculate the population counts?
+
+## Answers
+
+1.  There are  1,513,083  temporary employees, of which 812,464 part-time.
+
+2.  There are 475,513 females in part-time temporary employment
+
+3.  In order to get the number of applicable cases, we need to look at the unweighted frequencies of `SEX` by `JobTmp` by `PartTime`. The number of (unweighted) valid cases for this analysis is only 288 respondents.
+
+```{stata unweight} 
+bysort SEX: ta JobTmp PartTime
+```
+:::
+
+Note: You can check if your results match those in the [ONS EMP07 dataset](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/datasets/temporaryemployeesemp07).

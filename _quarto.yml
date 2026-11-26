@@ -4,15 +4,13 @@ project:
   render:
    - index.qmd
    - exercise_1.qmd
-   - exercise_1_Stata.qmd
+  # - exercise_1_Stata.qmd
    - exercise_1_spss.qmd
    - exercise_2.qmd
-   - exercise_2_Stata.qmd
+   #- exercise_2_Stata.qmd
    - exercise_3.qmd
-   - exercise_3_Stata.qmd
-   - exercise_4.qmd
-   - exercise_4_Stata.qmd
-
+   #- exercise_3_Stata.qmd
+ 
 jupyter: nbstata
 
 website:
@@ -32,31 +30,25 @@ website:
         contents:
         - href: exercise_1.qmd
           text: R
-        - href: exercise_1_Stata.qmd
-          text: Stata
-        - href: exercise_1_spss.qmd
-          text: SPSS
+     #   - href: exercise_1_Stata.qmd
+     #     text: Stata
+     #   - href: exercise_1_spss.qmd
+     #     text: SPSS
 
       - section: "**2. Weekly earnings**"
         contents:
         - href: exercise_2.qmd
           text: R
-        - href: exercise_2_Stata.qmd
-          text: Stata
+    #    - href: exercise_2_Stata.qmd
+   #       text: Stata
 
       - section: "**3. Labour Market Flows**"
         contents:
         - href: exercise_3.qmd
           text: R
-        - href: exercise_3_Stata.qmd
-          text: Stata
+  #      - href: exercise_3_Stata.qmd
+  #        text: Stata
 
-      - section: "**4. Estimates precision**"
-        contents:
-        - href: exercise_4.qmd
-          text: R
-        - href: exercise_4_Stata.qmd
-          text: Stata
 
 
 format:
@@ -64,7 +56,7 @@ format:
     code-overflow: scroll
     code-line-numbers: true
     toc: true
-    toc-location: left
+    toc-location: right
     highlight-style: arrow-light
     smooth-scroll: true
     link-external-newwindow: true
